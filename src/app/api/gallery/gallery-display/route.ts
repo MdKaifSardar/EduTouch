@@ -1,0 +1,20 @@
+import { NextResponse } from "next/server";
+import GalleryModel from "@/models/galleryModel";
+
+export const GET = async () => {
+  try {
+    const galleryItems = await GalleryModel.find();
+    const formattedGalleryItems = galleryItems.map((item) => ({
+      ...item.toObject(), // Convert Mongoose document to plain JavaScript object
+      image: `data:image/png;base64,${item.image.toString("base64")}`, // Correctly encode the image
+    }));
+
+    return NextResponse.json({ galleryItems: formattedGalleryItems });
+  } catch (error) {
+    console.error("Error fetching gallery items:", error);
+    return NextResponse.json(
+      { error: error, galleryItems: [] },
+      { status: 500 }
+    );
+  }
+};

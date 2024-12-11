@@ -1,0 +1,6 @@
+import VisionMissionImage from "../assets/images/VisMis/VisMisImg.jpg";
+
+const VisionMissionText =
+  "Lorem ipsum dolor sit amet consectetur. Arcu orci facilisis iaculis lectus lorem suspendisse egestas. Nec ac neque eget nullam egestas arcu facilisi. Purus pharetra ultrices sit facilisis. Lacus odio quis urna mauris nullam ut a. Ut laoreet quisque magna sociis gravida nulla. Duis volutpat est aliquet quam pellentesque magna semper. Diam leo dictumst sed tristique urna imperdiet non etiam. Molestie nulla pellentesque turpis vitae ridiculus libero lacus tincidunt. Turpis luctus vulputate vitae tristique volutpat risus et. Lorem etiam proin lectus pharetra. Nisl facilisis nibh libero ultricies in lorem sed id tellus. Consectetur sem porta eget felis tristique rhoncus. Egestas vitae bibendum varius netus pellentesque integer. Eu elit aliquet nunc sed turpis sed. Vitae neque eget vel quis gravida tellus lorem at molestie. In adipiscing amet convallis egestas in lectus tellus quam. At accumsan malesuada et urna ullamcorper pellentesque orci vel. Diam condimentum mauris ut vel non enim auctor sem eget. Habitasse ornare amet etiam convallis magna.";
+
+export { VisionMissionImage, VisionMissionText };

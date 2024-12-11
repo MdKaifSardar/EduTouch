@@ -1,0 +1,59 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image, { StaticImageData } from "next/image";
+
+type ImageCarouselProps = {
+  images: StaticImageData[];
+};
+
+export default function ImageCarousel({ images }: ImageCarouselProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? "100%" : "-100%",
+    }),
+    center: {
+      x: 0,
+    },
+    exit: (direction: number) => ({
+      x: direction > 0 ? "-100%" : "100%",
+    }),
+  };
+
+  return (
+    <div className="pt-[10rem] bg-black relative flex flex-col justify-center items-center md:items-start Image-carousel z-[-1] h-screen overflow-hidden w-full">
+      <AnimatePresence initial={false} custom={1}>
+        <motion.div
+          key={currentIndex}
+          custom={1}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            x: { type: "tween", duration: 0.5 },
+          }}
+          style={{ position: "absolute", width: "100%", height: "100%" }}
+        >
+          <Image
+            src={images[currentIndex]}
+            alt={`Slide ${currentIndex + 1}`}
+            layout="fill"
+            objectFit="cover"
+            priority
+          />
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
