@@ -22,7 +22,7 @@ const VideoLessons = () => {
 
       {!loading && (
         <div className="grid grid-cols-2 grid-rows-auto gap-3 w-full">
-          {videos.map((video, index) => (
+          {videos && videos.map((video, index) => (
             <div
               key={index}
               className="gap-[1rem] flex flex-col justify-center items-center"

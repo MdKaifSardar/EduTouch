@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import GalleryModel from "@/models/galleryModel";
+import { connectToDB } from "@/lib/database";
 
 export const POST = async (req: Request) => {
   try {
+    await connectToDB();
     const formData = await req.formData();
 
     const title = formData.get("title") as string | null;

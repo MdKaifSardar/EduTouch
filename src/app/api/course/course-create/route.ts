@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import CourseModel from "@/models/courseModel";
+import { connectToDB } from "@/lib/database";
 
 export const POST = async (req: Request) => {
   try {
+    await connectToDB();
     const formData = await req.formData();
 
     const courseName = formData.get("courseName") as string | null;

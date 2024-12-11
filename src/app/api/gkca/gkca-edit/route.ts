@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import GKCurrAffModel from "@/models/gkCurrAffModel"; // Import your GK and Current Affairs model
+import { connectToDB } from "@/lib/database";
 
 export const PATCH = async (req: Request) => {
   try {
+    await connectToDB();
     const formData = await req.formData();
     const id = formData.get("id") as string | null; // Extract the `id` from FormData
 

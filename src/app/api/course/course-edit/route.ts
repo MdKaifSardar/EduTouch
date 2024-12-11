@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import CourseModel from "@/models/courseModel";
+import { connectToDB } from "@/lib/database";
 
 export const PATCH = async (req: Request) => {
   try {
+    await connectToDB();
     const formData = await req.formData();
     const id = formData.get("id") as string | null; // Extract the `id` from the FormData
 

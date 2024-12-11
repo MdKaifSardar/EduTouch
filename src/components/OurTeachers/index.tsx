@@ -23,6 +23,7 @@ const OurTeachers = () => {
           <div>No teachers found.</div> // In case there are no teachers
         )}
         {!loading &&
+          teachers &&
           teachers.map((teacher, index) => (
             <div
               key={index}

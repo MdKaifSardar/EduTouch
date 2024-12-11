@@ -27,7 +27,7 @@ const OurCourses = () => {
 
       {!loading && (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-[2rem] grid-rows-auto w-full h-fit">
-          {courses.map((course, index) => (
+          {courses && courses.map((course, index) => (
             <div
               key={index}
               className="pl-[1rem] md:pl-[2rem] relative bg-[#ffe8ba] gap-0 sm:gap-[1rem] lg:gap-[2rem] rounded-lg w-full flex flex-row justify-between items-center"

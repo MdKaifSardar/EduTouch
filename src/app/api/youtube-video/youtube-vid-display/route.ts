@@ -1,8 +1,10 @@
+import { connectToDB } from "@/lib/database";
 import YouTubeVideoModel from "@/models/youtubeVideoModel";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
   try {
+    await connectToDB();
     const videos = await YouTubeVideoModel.find();
     return NextResponse.json({ videos });
   } catch (error) {

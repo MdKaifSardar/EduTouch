@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import CourseModel from "@/models/courseModel";
+import { connectToDB } from "@/lib/database";
 
 export const GET = async () => {
   try {
+    await connectToDB();
     const courses = await CourseModel.find();
     const formattedCourses = courses.map((course) => ({
       ...course.toObject(), // Convert Mongoose document to plain JS object

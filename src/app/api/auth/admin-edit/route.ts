@@ -2,11 +2,13 @@ import { NextResponse } from "next/server";
 import UserModel from "@/models/userModel";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
+import { connectToDB } from "@/lib/database";
 
 dotenv.config();
 
 export const PATCH = async (req: Request) => {
   try {
+    await connectToDB();
     const formData = await req.formData();
     const id = formData.get("id") as string | null;
 

@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import TestimonialModel from "@/models/testimonialModel";
+import { connectToDB } from "@/lib/database";
 
 export const GET = async () => {
   try {
+    await connectToDB();
     const testimonials = await TestimonialModel.find();
     const formattedTestimonials = testimonials.map((item) => ({
       ...item.toObject(), // Convert Mongoose document to plain JavaScript object

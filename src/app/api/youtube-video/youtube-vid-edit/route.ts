@@ -1,8 +1,10 @@
+import { connectToDB } from "@/lib/database";
 import YouTubeVideoModel from "@/models/youtubeVideoModel";
 import { NextResponse } from "next/server";
 
 export const PATCH = async (req: Request) => {
   try {
+    await connectToDB();
     const formData = await req.formData();
     const id = formData.get("id") as string | null; // Extract the `id` from FormData
 

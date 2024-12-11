@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import GKCurrAffModel from "@/models/gkCurrAffModel";
+import { connectToDB } from "@/lib/database";
 
 export const GET = async (req: Request) => {
   try {
+    await connectToDB();
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
 

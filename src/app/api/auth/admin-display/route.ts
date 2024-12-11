@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import UserModel from "@/models/userModel";
+import { connectToDB } from "@/lib/database";
 
 export const GET = async () => {
   try {
+    await connectToDB();
     // Fetch all users (admins)
     const users = await UserModel.find();
     

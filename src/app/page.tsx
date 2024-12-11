@@ -1,7 +1,7 @@
 import DownloadSec from "@/components/DownloadSec";
 import EnrollButtons from "@/components/EnrollButtons";
 import KeyOfferingsSec from "@/components/KeyOfferingsSec";
-import MoreTestiButton from "@/components/MoreTestiButton";
+// import MoreTestiButton from "@/components/MoreTestiButton";
 import ServicesSec from "@/components/ServicesSec";
 import ImageCarousel from "@/components/SlideShow";
 import StatsSec from "@/components/StatsSec";
@@ -19,7 +19,7 @@ export default function Home() {
         <ServicesSec />
         <KeyOfferingsSec />
         <SuccessStories limit={4} />
-        <MoreTestiButton/>
+        {/* <MoreTestiButton/> */}
         <VideoLessons />
         <EnrollButtons />
       </div>

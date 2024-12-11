@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import GKCurrAffModel from "@/models/gkCurrAffModel";
+import { connectToDB } from "@/lib/database";
 
 export const GET = async () => {
   try {
+    await connectToDB();
     const gkcaList = await GKCurrAffModel.find();
     return NextResponse.json({ gkcaList });
   } catch (error) {

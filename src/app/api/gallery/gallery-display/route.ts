@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import GalleryModel from "@/models/galleryModel";
+import { connectToDB } from "@/lib/database";
 
 export const GET = async () => {
   try {
+    await connectToDB();
     const galleryItems = await GalleryModel.find();
     const formattedGalleryItems = galleryItems.map((item) => ({
       ...item.toObject(), // Convert Mongoose document to plain JavaScript object

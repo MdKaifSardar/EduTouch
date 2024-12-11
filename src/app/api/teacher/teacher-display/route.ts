@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import TeacherModel from "@/models/teacherModel";
+import { connectToDB } from "@/lib/database";
 
 export const GET = async () => {
   try {
+    await connectToDB();
     const teachers = await TeacherModel.find();
     const formattedTeacherItems = teachers.map((item) => ({
       ...item.toObject(), // Convert Mongoose document to plain JavaScript object
