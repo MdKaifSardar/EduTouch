@@ -6,10 +6,10 @@ import { LoginPosterImage } from "@/utility/LoginPoster";
 
 const page = () => {
   return (
-    <div className="h-fit py-[7rem] md:h-screen px-[2rem] md:px-[5rem] gap-[1rem] lg:gap-[5rem] bg-gradient-to-b from-blue-800 via-blue-500 to-blue-100 flex flex-col justify-center w-full">
+    <div className="h-screen py-[4rem] px-[2rem] md:px-[5rem] gap-[1rem] lg:gap-[5rem] bg-gradient-to-b from-blue-800 via-blue-500 to-blue-100 flex flex-col justify-center w-full">
       <Link
         href="/"
-        className="absolute top-[2rem] left-[2rem] text-white text-4xl font-bold z-[10]"
+        className="absolute top-[1rem] md:top-[1rem] left-[1rem] md:left-[2rem] text-white text-4xl font-bold z-[10]"
       >
         &times;
       </Link>
@@ -23,7 +23,7 @@ const page = () => {
           src={LoginPosterImage}
           width={300}
           height={200}
-          className="md:w-[40%] w-full h-auto object-cover"
+          className="md:block hidden md:w-[40%] w-auto h-auto object-cover"
           alt="login poster"
         />
       </div>
