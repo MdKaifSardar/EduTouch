@@ -3,10 +3,12 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import { LoginPosterImage } from "@/utility/LoginPoster";
+import { ToastContainer } from "react-toastify";
 
 const page = () => {
   return (
     <div className="h-screen py-[4rem] px-[2rem] md:px-[5rem] gap-[1rem] lg:gap-[5rem] bg-gradient-to-b from-blue-800 via-blue-500 to-blue-100 flex flex-col justify-center w-full">
+      <ToastContainer />
       <Link
         href="/"
         className="absolute top-[1rem] md:top-[1rem] left-[1rem] md:left-[2rem] text-white text-4xl font-bold z-[10]"

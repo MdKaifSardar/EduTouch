@@ -32,6 +32,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
   return (
     <div className="pt-[10.6rem] lg:pt-[11rem] bg-black relative flex flex-col justify-center items-center md:items-start Image-carousel z-[-1] h-screen overflow-hidden w-full">
+      {/* Carousel Slides */}
       <AnimatePresence initial={false} custom={1}>
         <motion.div
           key={currentIndex}
@@ -54,6 +55,18 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
           />
         </motion.div>
       </AnimatePresence>
+
+      {/* Dots Navigation */}
+      <div className="absolute bottom-8 w-full flex justify-center items-center space-x-2">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            className={`w-3 h-3 rounded-full ${
+              index === currentIndex ? "bg-white" : "bg-gray-500"
+            } transition-colors duration-300`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

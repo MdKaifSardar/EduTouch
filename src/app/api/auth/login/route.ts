@@ -8,24 +8,27 @@ dotenv.config();
 
 export const POST = async (req: Request) => {
   try {
-    // Parse FormData
     const formData = await req.formData();
     const email = formData.get("email") as string | null;
     const username = formData.get("username") as string | null;
     const password = formData.get("password") as string | null;
 
-    // Validate input
     if (!(email || username)) {
-      return new Response("Either email or username must be provided.", {
-        status: 400,
-      });
+      return new Response(
+        JSON.stringify({
+          message: "Either email or username must be provided.",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
     }
 
     if (!password) {
-      return new Response("Password is required.", { status: 400 });
+      return new Response(
+        JSON.stringify({ message: "Password is required." }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
     }
 
-    // Connect to DB
     await connectToDB();
 
     const user = await UserModel.findOne({
@@ -33,7 +36,10 @@ export const POST = async (req: Request) => {
     });
 
     if (!user) {
-      return new Response("User not found.", { status: 404 });
+      return new Response(JSON.stringify({ message: "User not found." }), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     const pepper = process.env.PEPPER as string;
@@ -41,21 +47,23 @@ export const POST = async (req: Request) => {
       throw new Error("PEPPER environment variable is missing.");
     }
 
-    // Compare password using pepper
     const isPasswordValid = await bcrypt.compare(
       password + pepper,
       user.password
     );
 
     if (!isPasswordValid) {
-      return new Response("Invalid credentials.", { status: 401 });
+      return new Response(JSON.stringify({ message: "Invalid credentials." }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
-    // Generate JWT Token
     const token = await signToken({ id: user._id });
 
     return new Response(
       JSON.stringify({
+        message: "Login successful.",
         token,
         user: { email: user.email, username: user.username },
       }),
@@ -63,8 +71,9 @@ export const POST = async (req: Request) => {
     );
   } catch (error) {
     console.error("Login Error:", error);
-    return new Response("Login failed, please try again later.", {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ message: "Login failed, please try again later." }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 };
