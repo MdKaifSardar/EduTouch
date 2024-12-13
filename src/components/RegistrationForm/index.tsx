@@ -167,7 +167,6 @@ const RegistrationForm = () => {
           Register
         </button>
       </form>
-      <ToastContainer />
     </div>
   );
 };

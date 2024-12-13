@@ -118,7 +118,6 @@ const ContactForm = () => {
           Submit
         </button>
       </form>
-      <ToastContainer />
     </div>
   );
 };
