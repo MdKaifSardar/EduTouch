@@ -4,14 +4,38 @@ import { useState } from "react";
 
 interface YouTubePlayerProps {
   videoUrl: string;
+  onPlay: () => void;
+  onStop: () => void;
 }
 
-const VideoPlayer: React.FC<YouTubePlayerProps> = ({ videoUrl }) => {
+const VideoPlayer: React.FC<YouTubePlayerProps> = ({
+  videoUrl,
+  onPlay,
+  onStop,
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const getYouTubeEmbedUrl = (url: string) => {
     const videoId = new URL(url).searchParams.get("v");
-    return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    return `https://www.youtube.com/embed/${videoId}?enablejsapi=1`;
+  };
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+    onPlay(); // Notify parent to pause carousel
+  };
+
+  const handleStop = () => {
+    setIsPlaying(false);
+    onStop(); // Notify parent to resume carousel
+  };
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      handleStop();
+    } else {
+      handlePlay();
+    }
   };
 
   return (
@@ -23,11 +47,12 @@ const VideoPlayer: React.FC<YouTubePlayerProps> = ({ videoUrl }) => {
           allow="autoplay; encrypted-media"
           allowFullScreen
           className="absolute inset-0 w-full h-full"
+          onClick={togglePlay}
         />
       ) : (
         <div
           className="absolute inset-0 cursor-pointer flex items-center justify-center bg-black/50"
-          onClick={() => setIsPlaying(true)}
+          onClick={togglePlay}
         >
           <Image
             src={`https://img.youtube.com/vi/${new URL(

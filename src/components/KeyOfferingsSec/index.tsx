@@ -1,119 +1,121 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import React from "react";
-import AboutHeading from "../AboutHeading";
-import Link from "next/link";
+import React, { useEffect, useRef } from "react";
+import Slider from "react-slick";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // Arrow icons
 import { useFetchKeyOfferings } from "@/hooks/DisplayAllKeyOfferings";
-import { FaArrowRight } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link";
 
-const KeyOfferingsSec = () => {
+// Slick Carousel styles
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import AboutHeading from "../AboutHeading";
+
+// TypeScript interface for key offering
+interface KeyOffering {
+  _id: string;
+  title: string;
+  image: string;
+}
+
+const Carousel: React.FC = () => {
   const { keyOfferings, fetchKeyOfferings, loading } = useFetchKeyOfferings();
+
+  const sliderRef = useRef<Slider | null>(null); // Create a reference for the Slider component
 
   useEffect(() => {
     fetchKeyOfferings();
   }, [fetchKeyOfferings]);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const carouselLength = keyOfferings.length;
+  // Slick settings for responsive carousel
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true, // Enable autoplay
+    autoplaySpeed: 2000, // Set autoplay interval to 2 seconds
+    responsive: [
+      {
+        breakpoint: 1024, // Medium (md) and larger screens
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 768, // Small (sm) screens
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
+  };
 
-  useEffect(() => {
-    if (!loading) {
-      intervalRef.current = setInterval(() => {
-        setCurrentIndex((prevIndex) => {
-          // Reset to the first element when we reach the end
-          if (prevIndex === carouselLength - 3) {
-            return 0;
-          }
-          return prevIndex + 1;
-        });
-      }, 3000); // Adjust the speed of auto-scroll as needed
+  // Handlers for the next and previous buttons
+  const handleNext = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickNext(); // Manually go to next slide
     }
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [loading, carouselLength]);
+  };
 
   const handlePrev = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + carouselLength) % carouselLength
-    );
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev(); // Manually go to previous slide
+    }
   };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselLength);
-  };
-
-  // Clone the first and last elements for seamless transition
-  const displayedKeyOfferings = [
-    keyOfferings[keyOfferings.length - 1], // Clone the last element
-    ...keyOfferings,
-    // keyOfferings[0], // Clone the first element
-  ];
 
   return (
-    <div className="flex flex-col justify-center gap-[2rem] items-center w-full">
+    <div className="w-full flex flex-col justify-center items-center gap-[2rem]">
+      {/* Show loading state */}
       <AboutHeading text="Key Offerings" />
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <div className="w-full h-fit flex flex-col justify-center items-center relative">
-          <div className="flex overflow-hidden w-full gap-[1rem]">
-            <div
-              className="flex transition-transform duration-700"
-              style={{
-                transform: `translateX(-${(currentIndex + 1) * 33.33}%)`, // Adjust the index for seamless scrolling
-              }}
-            >
-              {displayedKeyOfferings.map((offering, index) => (
-                <div
-                  key={index}
-                  className="w-[33.33%] flex gap-3 flex-col justify-center items-center"
-                  style={{ minWidth: "33.33%" }}
-                >
+      {loading && <div className="text-center text-xl">Loading...</div>}
+
+      {/* Carousel */}
+      {!loading && keyOfferings.length > 0 && (
+        <div className="relative w-full h-fit">
+          <Slider {...settings} ref={sliderRef}>
+            {keyOfferings.map((offering: KeyOffering) => (
+              <div key={offering._id} className="px-2">
+                <div className="overflow-hidden flex flex-col justify-center items-center bg-white rounded-lg shadow-lg">
                   <Image
+                    width={300}
+                    height={200}
                     src={offering.image}
-                    alt="poster image"
-                    className="object-cover w-full h-auto"
-                    width={400}
-                    height={300}
+                    alt={offering.title}
+                    className="w-full h-auto object-cover"
                   />
                   <Link
-                    href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN&pli=1"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 border-[1px] border-black rounded-md text-black bg-white"
+                    className="rounded-xl hover:bg-gray-200/50 border-[1px] w-fit border-black p-[1rem] block mt-4 text-center"
+                    href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN&pli=1"
                   >
                     Learn More
                   </Link>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </Slider>
+
+          {/* Custom Prev and Next buttons */}
+          <div className="absolute top-1/2 left-0 w-full flex flex-row items-center justify-between transform -translate-y-1/2">
+            <button
+              onClick={handlePrev}
+              className="border-[1px] border-black bg-white text-black p-2 rounded-full"
+            >
+              <FaArrowLeft className="text-2xl" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="border-[1px] border-black bg-white text-black p-2 rounded-full"
+            >
+              <FaArrowRight className="text-2xl" />
+            </button>
           </div>
-          <button
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-200 rounded-full p-2"
-            onClick={handlePrev}
-          >
-            <FaArrowLeft />
-          </button>
-          <button
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-200 rounded-full p-2"
-            onClick={handleNext}
-          >
-            <FaArrowRight />
-          </button>
         </div>
       )}
-      <div className="mt-[2rem] md:text-2xl text-xl bg-transparent text-blue-400">
-        <a href="/courses">View more Courses</a>
-      </div>
     </div>
   );
 };
 
-export default KeyOfferingsSec;
+export default Carousel;

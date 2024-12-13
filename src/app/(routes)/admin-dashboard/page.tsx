@@ -10,7 +10,7 @@ const page = () => {
         alt="nav logo"
         width={300}
         height={200}
-        className="w-[30%] h-auto object-contain"
+        className="w-[60%] lg:w-[30%] h-auto object-contain"
       />
       <EditOptionsComp />
     </div>

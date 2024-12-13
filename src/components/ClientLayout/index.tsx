@@ -12,11 +12,11 @@ export default function ClientLayout({
   const pathname = usePathname();
 
   const isAdminRoute =
-    pathname === "/admin-dashboard" || pathname?.startsWith("/admin-login");
-    
+    pathname.startsWith("/admin-dashboard/admin-routes") || pathname === "/admin-login";
 
   return (
     <>
+      {/* Don't render Navbar and Footer for admin routes or admin login */}
       {!isAdminRoute && <Navbar />}
       <div className="gap-[2rem] w-full flex flex-col justify-center items-center">
         {children}

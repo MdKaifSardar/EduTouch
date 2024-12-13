@@ -17,7 +17,7 @@ const page = () => {
       <FutureAims />
       <OurTeachers />
       <Gallery />
-      <SuccessStories limit={8} />
+      <SuccessStories/>
       <EnrollButtons />
     </div>
   );

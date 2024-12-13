@@ -14,7 +14,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, [images.length]);
 
@@ -31,7 +31,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   };
 
   return (
-    <div className="pt-[10rem] bg-black relative flex flex-col justify-center items-center md:items-start Image-carousel z-[-1] h-screen overflow-hidden w-full">
+    <div className="pt-[10.6rem] lg:pt-[11rem] bg-black relative flex flex-col justify-center items-center md:items-start Image-carousel z-[-1] h-screen overflow-hidden w-full">
       <AnimatePresence initial={false} custom={1}>
         <motion.div
           key={currentIndex}

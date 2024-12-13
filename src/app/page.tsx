@@ -19,7 +19,7 @@ export default function Home() {
         <StatsSec />
         <ServicesSec />
         <KeyOfferingsSec />
-        <SuccessStories limit={4} />
+        <SuccessStories/>
         <StudentFeedback />
         {/* <MoreTestiButton/> */}
         <VideoLessons />

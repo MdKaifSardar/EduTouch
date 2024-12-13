@@ -44,7 +44,7 @@ const ExamsComponent: React.FC = () => {
                   <span className="text-xl font-semibold font-sans">
                     Syllabus Covered:
                   </span>
-                  <span className="font-thin pl-[.3rem]">
+                  <span className="font-normal pl-[.3rem]">
                     {exam.courseSyllabus}
                   </span>
                 </div>

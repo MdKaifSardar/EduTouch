@@ -24,7 +24,7 @@ const ContactInfo = () => {
                   alt="icon"
                   className="w-[2rem] h-[2rem] object-cover"
                 />
-                <span className="text-lg font-sans font-thin">{info.text}</span>
+                <span className="text-lg font-sans font-normal">{info.text}</span>
               </div>
             ))}
           </div>
