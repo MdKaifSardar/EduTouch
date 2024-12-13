@@ -1,4 +1,5 @@
 import playStoreImage from "../assets/images/GooglePlay.png";
-const DownloadText = "DOWNLOAD EDUTOUCH, LEARN ONLINE";
+import AppImage from "../assets/images/AppImage.png";
+const DownloadText = "LEARN SEAMLESSLY ONLINE WITH OUR APP, EDUTOUCH";
 
-export { DownloadText, playStoreImage };
+export { DownloadText, AppImage, playStoreImage };

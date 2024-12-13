@@ -1,12 +1,14 @@
 "use client";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    address: "",
     message: "",
   });
 
@@ -16,10 +18,52 @@ const ContactForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const { name, phone, email, message } = formData;
+    if (!name || !phone || !email || !message) {
+      toast.error("Please fill in all the fields.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateID = process.env.NEXT_PUBLIC_EMAILJS_SECOND_TEMPLATE_ID;
+    const userID = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceID || !templateID || !userID) {
+      toast.error(
+        "Email configuration missing. Please check your environment variables."
+      );
+      return;
+    }
+
+    emailjs
+      .send(serviceID, templateID, formData, userID)
+      .then(() => {
+        toast.success("Message sent successfully!");
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          message: "",
+        });
+      })
+      .catch((error) => {
+        toast.error("Failed to send message. Please try again.");
+        console.error("Error sending email:", error);
+      });
+  };
+
   return (
-    <div className="w-[50%] mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="w-full lg:w-[50%] mx-auto p-6 bg-white shadow-md rounded-md">
       <h2 className="text-xl font-bold mb-4">Contact Form</h2>
-      <form className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-semibold mb-1">Name</label>
           <input
@@ -58,17 +102,6 @@ const ContactForm = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-semibold mb-1">Address</label>
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            placeholder="Address"
-            className="w-full p-2 bg-[#d9d9d9] border rounded-md"
-          />
-        </div>
-        <div>
           <label className="block text-sm font-semibold mb-1">Message</label>
           <textarea
             name="message"
@@ -85,6 +118,7 @@ const ContactForm = () => {
           Submit
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

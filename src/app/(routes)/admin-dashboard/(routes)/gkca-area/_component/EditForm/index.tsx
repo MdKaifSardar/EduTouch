@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,6 +10,8 @@ interface IGKCurrAff {
   title: string;
   gkPDF: string; // URL for the General Knowledge PDF
   currentAffairsPDF: string;
+  gkImage: string; // URL for the General Knowledge image
+  caImage: string; // URL for the Current Affairs image
 }
 
 interface EditFormProps {
@@ -21,27 +24,84 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
   const [title, setTitle] = useState(item.title);
   const [gkPDF, setGkPDF] = useState<File | null>(null);
   const [currentAffairsPDF, setCurrentAffairsPDF] = useState<File | null>(null);
+  const [gkImage, setGkImage] = useState<File | null>(null);
+  const [caImage, setCaImage] = useState<File | null>(null);
+  const [gkImagePreview, setGkImagePreview] = useState<string | null>(
+    item.gkImage || null
+  );
+  const [caImagePreview, setCaImagePreview] = useState<string | null>(
+    item.caImage || null
+  );
 
   useEffect(() => {
     // Initialize form fields with `item` data
     setTitle(item.title);
+    setGkImagePreview(item.gkImage);
+    setCaImagePreview(item.caImage);
   }, [item]);
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    setFile: React.Dispatch<React.SetStateAction<File | null>>
+    type: "gkPDF" | "currentAffairsPDF"
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 1024 * 1024) {
-      // 1MB in bytes
-      toast.error("File size must be less than 1MB.");
+    if (file.size > 1000000) {
+      // Check if file size is less than 1MB
+      toast.error("PDF size must be less than 1MB.");
       e.target.value = "";
       return;
     }
 
-    setFile(file);
+    if (file.type !== "application/pdf") {
+      // Ensure only PDF files are uploaded
+      toast.error("Only PDF files are allowed.");
+      e.target.value = "";
+      return;
+    }
+
+    if (type === "gkPDF") {
+      setGkPDF(file);
+    } else {
+      setCurrentAffairsPDF(file);
+    }
+  };
+
+  const handleImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: "gkImage" | "caImage"
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 100000) {
+      toast.error("Image size must be less than 100KB.");
+      e.target.value = "";
+      return;
+    }
+
+    if (!["image/jpeg", "image/jpg", "image/png"].includes(file.type)) {
+      toast.error("Only JPG, JPEG, or PNG image types are allowed.");
+      e.target.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (type === "gkImage") {
+        setGkImagePreview(reader.result as string);
+      } else {
+        setCaImagePreview(reader.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
+
+    if (type === "gkImage") {
+      setGkImage(file);
+    } else {
+      setCaImage(file);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,6 +114,12 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
     }
     if (currentAffairsPDF) {
       formData.append("currentAffairsPDF", currentAffairsPDF);
+    }
+    if (gkImage) {
+      formData.append("gkImage", gkImage);
+    }
+    if (caImage) {
+      formData.append("caImage", caImage);
     }
     formData.append("id", item._id);
 
@@ -91,28 +157,78 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           className="mt-1 p-2 border rounded-md w-full"
         />
       </div>
+
+      {/* GK PDF Upload */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          GK PDF (PDF only, max 1mb)
+          GK PDF (must be less than 1MB & in PDF format)
         </label>
         <input
           type="file"
           accept="application/pdf"
-          onChange={(e) => handleFileChange(e, setGkPDF)}
+          onChange={(e) => handleFileChange(e, "gkPDF")}
           className="mt-1"
         />
       </div>
+
+      {/* Current Affairs PDF Upload */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Current Affairs PDF (PDF only, max 1mb)
+          Current Affairs PDF (must be less than 1MB & in PDF format)
         </label>
         <input
           type="file"
           accept="application/pdf"
-          onChange={(e) => handleFileChange(e, setCurrentAffairsPDF)}
+          onChange={(e) => handleFileChange(e, "currentAffairsPDF")}
           className="mt-1"
         />
       </div>
+
+      {/* GK Image Upload */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          GK Image (must be less than 100KB & in JPG, JPEG, PNG format)
+        </label>
+        <input
+          type="file"
+          accept="image/jpeg, image/jpg, image/png"
+          onChange={(e) => handleImageChange(e, "gkImage")}
+          className="mt-1"
+        />
+        {gkImagePreview && (
+          <div className="mt-2">
+            <img
+              src={gkImagePreview}
+              alt="GK Image Preview"
+              className="w-full h-auto object-contain"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* CA Image Upload */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Current Affairs Image (must be less than 100KB & in JPG, JPEG, PNG
+          format)
+        </label>
+        <input
+          type="file"
+          accept="image/jpeg, image/jpg, image/png"
+          onChange={(e) => handleImageChange(e, "caImage")}
+          className="mt-1"
+        />
+        {caImagePreview && (
+          <div className="mt-2">
+            <img
+              src={caImagePreview}
+              alt="CA Image Preview"
+              className="w-full h-auto object-contain"
+            />
+          </div>
+        )}
+      </div>
+
       <div className="text-center">
         <button
           type="submit"

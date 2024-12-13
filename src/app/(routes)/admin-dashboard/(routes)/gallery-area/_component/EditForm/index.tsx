@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 interface ICourse {
   _id: string;
   title: string;
-  image: string; 
+  imageNew: string; 
 }
 
 interface EditFormProps {
@@ -24,8 +24,8 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
 
   useEffect(() => {
     // Set image preview from the provided item if it exists
-    setImagePreview(item.image);
-  }, [item.image]);
+    setImagePreview(item.imageNew);
+  }, [item.imageNew]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -123,7 +123,7 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
             <Image
               width={300}
               height={200}
-              src={item.image}
+              src={item.imageNew}
               alt="Existing Course Banner"
               className="w-full h-auto object-contain"
             />

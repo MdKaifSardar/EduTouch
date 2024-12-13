@@ -21,17 +21,27 @@ export const PATCH = async (req: Request) => {
     const currentAffairsPDFFile = formData.get(
       "currentAffairsPDF"
     ) as File | null;
+    const gkImage = formData.get("gkImage") as File | null;
+    const caImage = formData.get("caImage") as File | null;
 
-    if (!title && !gkPDFFile && !currentAffairsPDFFile) {
+    if (
+      !title &&
+      !gkPDFFile &&
+      !currentAffairsPDFFile &&
+      !caImage &&
+      !gkImage
+    ) {
       return NextResponse.json(
         { error: "No fields to update provided." },
         { status: 400 }
       );
     }
 
-    // Initialize buffers for the PDF files
+    // Initialize buffers for the PDF files and images
     let gkPDFBuffer = undefined;
     let currentAffairsPDFBuffer = undefined;
+    let gkImageBuffer = undefined;
+    let caImageBuffer = undefined;
 
     if (gkPDFFile) {
       // Convert the GK PDF file to a buffer if uploaded
@@ -43,11 +53,23 @@ export const PATCH = async (req: Request) => {
       currentAffairsPDFBuffer = await currentAffairsPDFFile.arrayBuffer();
     }
 
+    if (gkImage) {
+      // Convert the GK Image file to a buffer if uploaded
+      gkImageBuffer = await gkImage.arrayBuffer();
+    }
+
+    if (caImage) {
+      // Convert the Current Affairs Image file to a buffer if uploaded
+      caImageBuffer = await caImage.arrayBuffer();
+    }
+
     // Dynamically build the update object to only include provided fields
     interface UpdateFields {
       title?: string;
       gkPDF?: Buffer;
       currentAffairsPDF?: Buffer;
+      gkImage?: Buffer;
+      caImage?: Buffer;
     }
 
     const updateFields: UpdateFields = {};
@@ -56,6 +78,8 @@ export const PATCH = async (req: Request) => {
     if (gkPDFBuffer) updateFields.gkPDF = Buffer.from(gkPDFBuffer);
     if (currentAffairsPDFBuffer)
       updateFields.currentAffairsPDF = Buffer.from(currentAffairsPDFBuffer);
+    if (gkImageBuffer) updateFields.gkImage = Buffer.from(gkImageBuffer);
+    if (caImageBuffer) updateFields.caImage = Buffer.from(caImageBuffer);
 
     // Fetch and partially update the GK and Current Affairs document by ID
     const updatedGKCA = await GKCurrAffModel.findByIdAndUpdate(

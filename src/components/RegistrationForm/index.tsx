@@ -1,5 +1,8 @@
 "use client";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -25,10 +28,57 @@ const RegistrationForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const { name, phone, email, address, qualification, course } = formData;
+    if (!name || !phone || !email || !address || !qualification || !course) {
+      toast.error("Please fill in all the fields.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    const serviceID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const userID = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceID || !templateID || !userID) {
+      toast.error(
+        "Email configuration missing. Please check your environment variables."
+      );
+      return;
+    }
+
+    emailjs
+      .send(serviceID, templateID, formData, userID)
+      .then(() => {
+        // Removed response variable
+        toast.success("Registration successful!");
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          address: "",
+          qualification: "",
+          course: "",
+        });
+      })
+      .catch((error) => {
+        toast.error("There was an error. Please try again.");
+        console.error("Error sending email:", error);
+      });
+  };
+
   return (
-    <div className="w-[50%] mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="w-full lg:w-[50%] mx-auto p-6 bg-white shadow-md rounded-md">
       <h2 className="text-xl font-bold mb-4">Registration Form</h2>
-      <form className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-semibold mb-1">Name</label>
           <input
@@ -104,7 +154,7 @@ const RegistrationForm = () => {
               Select Course
             </option>
             {courses.map((course) => (
-              <option key={course} value={course}>
+              <option className="w-[50%]" key={course} value={course}>
                 {course}
               </option>
             ))}
@@ -117,6 +167,7 @@ const RegistrationForm = () => {
           Register
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

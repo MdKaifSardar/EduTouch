@@ -1,8 +1,17 @@
 import EditOptionsComp from "@/components/EditOptionsComp";
+import { NavLogo } from "@/utility/Navbar";
+import Image from "next/image";
 
 const page = () => {
   return (
-    <div className="w-full h-screen flex flex-col justify-center items-center gap-[2rem]">
+    <div className="mb-[1rem] md:mb-[3rem] mt-[10rem] w-full h-fit flex flex-col justify-center items-center gap-[2rem]">
+      <Image
+        src={NavLogo}
+        alt="nav logo"
+        width={300}
+        height={200}
+        className="w-[30%] h-auto object-contain"
+      />
       <EditOptionsComp />
     </div>
   );

@@ -22,7 +22,7 @@ export const POST = async (req: Request) => {
 
     const newGalleryItem = new GalleryModel({
       title,
-      image: Buffer.from(imageBuffer),
+      imageNew: Buffer.from(imageBuffer),
     });
 
     await newGalleryItem.save();

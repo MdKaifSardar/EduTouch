@@ -10,8 +10,10 @@ export const POST = async (req: Request) => {
     const title = formData.get("title") as string | null;
     const gkPDF = formData.get("gkPDF") as File | null;
     const currentAffairsPDF = formData.get("currentAffairsPDF") as File | null;
+    const gkImage = formData.get("gkImage") as File | null;
+    const caImage = formData.get("caImage") as File | null;
 
-    if (!title || !gkPDF || !currentAffairsPDF) {
+    if (!title || !gkPDF || !currentAffairsPDF || !gkImage || !caImage) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
@@ -29,11 +31,15 @@ export const POST = async (req: Request) => {
 
     const gkPDFBuffer = await gkPDF.arrayBuffer();
     const currentAffairsPDFBuffer = await currentAffairsPDF.arrayBuffer();
+    const gkImageBuffer = await gkImage.arrayBuffer();
+    const caImageBuffer = await caImage.arrayBuffer();
 
     const newDocument = new GKCurrAffModel({
       title,
       gkPDF: Buffer.from(gkPDFBuffer),
       currentAffairsPDF: Buffer.from(currentAffairsPDFBuffer),
+      gkImage: Buffer.from(gkImageBuffer),
+      caImage: Buffer.from(caImageBuffer),
     });
 
     await newDocument.save();

@@ -4,7 +4,7 @@ import React from "react";
 
 const EditOptionsComp = () => {
   return (
-    <div className="my-[1rem] md:my-[3rem] w-[60%] h-fit gap-x-[1rem] md:gap-x-[3rem] gap-y-[1rem] grid-cols-1 grid md:grid-cols-2 gris-rows-auto">
+    <div className="w-[60%] h-fit gap-x-[1rem] md:gap-x-[3rem] gap-y-[.3rem] grid-cols-1 grid md:grid-cols-2 gris-rows-auto">
       {dashboardsFields.map((field, index) => (
         <Link
           key={index}

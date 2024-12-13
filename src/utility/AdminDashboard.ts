@@ -28,6 +28,14 @@ const dashboardsFields = [
     url: "/admin-dashboard/gallery-area",
   },
   {
+    title: "Edit Key Offers",
+    url: "/admin-dashboard/keyoffering-area",
+  },
+  {
+    title: "Edit Feedback",
+    url: "/admin-dashboard/feedback-area",
+  },
+  {
     title: "Edit Login Credentials",
     url: "/admin-dashboard/accounts-area",
   },

@@ -101,7 +101,7 @@ const DisplayGallery = ({ reload }: DispPropTypes) => {
               </div>
             </div>
             <Image
-              src={item.image}
+              src={item.imageNew}
               alt={item.title}
               width={300}
               height={200}

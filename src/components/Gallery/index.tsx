@@ -29,7 +29,7 @@ const Gallery = () => {
           >
             <Image
               alt="gallery image"
-              src={image.image}
+              src={image.imageNew}
               width={500}
               height={500}
               className="w-full h-full rounded-lg object-cover"

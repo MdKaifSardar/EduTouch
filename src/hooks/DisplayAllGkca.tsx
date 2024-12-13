@@ -6,6 +6,8 @@ interface GKCA {
   title: string;
   gkPDF: string; // URL for the General Knowledge PDF
   currentAffairsPDF: string; // URL for the Current Affairs PDF
+  caImage: string;
+  gkImage: string;
 }
 
 export const useFetchGKCA = () => {

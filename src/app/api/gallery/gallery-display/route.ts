@@ -8,7 +8,7 @@ export const GET = async () => {
     const galleryItems = await GalleryModel.find();
     const formattedGalleryItems = galleryItems.map((item) => ({
       ...item.toObject(), // Convert Mongoose document to plain JavaScript object
-      image: `data:image/png;base64,${item.image.toString("base64")}`, // Correctly encode the image
+      imageNew: `data:image/png;base64,${item.imageNew.toString("base64")}`, // Correctly encode the image
     }));
 
     return NextResponse.json({ galleryItems: formattedGalleryItems });

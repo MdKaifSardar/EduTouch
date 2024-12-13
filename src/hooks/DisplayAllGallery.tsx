@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 interface GalleryItem {
   _id: string;
   title: string;
-  image: string; // Assuming the image will be converted to a Base64 string or URL
+  imageNew: string; // Assuming the image will be converted to a Base64 string or URL
 }
 
 export const useFetchGallery = () => {

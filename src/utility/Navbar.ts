@@ -5,19 +5,19 @@ import NavLogo from "../assets/images/NavLogo.png";
 const NavLinks = [
   {
     title: "About Us",
-    url: "/",
+    url: "/about",
   },
   {
     title: "Knowledge Update",
-    url: "/",
+    url: "/exams",
   },
   {
     title: "Upcoming Exams",
-    url: "/",
+    url: "/exams",
   },
   {
     title: "Contact Us",
-    url: "/",
+    url: "/contact",
   },
 ];
 

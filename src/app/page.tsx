@@ -5,6 +5,7 @@ import KeyOfferingsSec from "@/components/KeyOfferingsSec";
 import ServicesSec from "@/components/ServicesSec";
 import ImageCarousel from "@/components/SlideShow";
 import StatsSec from "@/components/StatsSec";
+import StudentFeedback from "@/components/StudentFeedback";
 import SuccessStories from "@/components/SuccessStories";
 import VideoLessons from "@/components/VideoLessons";
 import { SlideImages } from "@/utility/SlideShow";
@@ -19,6 +20,7 @@ export default function Home() {
         <ServicesSec />
         <KeyOfferingsSec />
         <SuccessStories limit={4} />
+        <StudentFeedback />
         {/* <MoreTestiButton/> */}
         <VideoLessons />
         <EnrollButtons />

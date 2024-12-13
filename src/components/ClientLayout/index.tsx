@@ -4,10 +4,16 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export default function ClientLayout({ children }: { children: React.ReactNode }) {
+export default function ClientLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
 
-  const isAdminRoute = pathname?.startsWith("/admin-dashboard") || pathname?.startsWith("/admin-login");
+  const isAdminRoute =
+    pathname === "/admin-dashboard" || pathname?.startsWith("/admin-login");
+    
 
   return (
     <>

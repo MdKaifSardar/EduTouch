@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLinks } from "@/utility/Navbar";
 import { IoMdMenu } from "react-icons/io";
+import Link from "next/link";
 
 interface NavLinksComponentProps {
   toggleMenu?: () => void; // Mark as optional
@@ -22,14 +23,17 @@ const NavLinksComponent: React.FC<NavLinksComponentProps> = ({
         ))}
       </div>
       <div className="w-[55%] sm:w-[50%] lg:w-fit gap-[.5rem] flex flex-row lg:justify-center justify-between items-center">
-        <button className="text-center bg-[#243674] rounded-lg px-[1rem] md:px-[1.5rem] text-lg md:text-xl text-white font-sans font-semibold py-[.3rem] md:py-[.5rem]">
+        <Link
+          href="/courses"
+          className="text-center bg-[#243674] rounded-lg px-[1rem] md:px-[1.5rem] text-lg md:text-xl text-white font-sans font-semibold py-[.3rem] md:py-[.5rem]"
+        >
           Courses
-        </button>
+        </Link>
         {/* Menu button for smaller screens */}
-          <IoMdMenu
-            onClick={toggleMenu}
-            className="lg:hidden block text-[2.5rem] font-semibold text-black"
-          />
+        <IoMdMenu
+          onClick={toggleMenu}
+          className="lg:hidden block text-[2.5rem] font-semibold text-black"
+        />
       </div>
     </div>
   );

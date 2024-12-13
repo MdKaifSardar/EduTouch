@@ -35,13 +35,13 @@ export const PATCH = async (req: Request) => {
     // Dynamically build the update object
     interface UpdateFields {
       title?: string;
-      image?: Buffer;
+      imageNew?: Buffer;
     }
 
     const updateFields: UpdateFields = {};
 
     if (title) updateFields.title = title;
-    if (imageBuffer) updateFields.image = Buffer.from(imageBuffer);
+    if (imageBuffer) updateFields.imageNew = Buffer.from(imageBuffer);
 
     // Update the gallery entry in the database by ID
     const updatedGallery = await GalleryModel.findByIdAndUpdate(
