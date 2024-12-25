@@ -23,8 +23,8 @@ const ExamsComponent: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-auto w-[90%] md:w-full h-fit gap-y-[3rem] gap-x-[3rem] xl:gap-x-[10rem]">
           {exams.map((exam) => (
             <div
-              className="rounded-xl gap-[1rem] md:gap-[3rem] px-[2rem] md:px-[3rem] flex flex-col justify-center items-start w-full h-full py-[1rem] md:py-[3rem] bg-[#D9D9D9FF]"
               key={exam._id}
+              className="rounded-xl gap-[1rem] md:gap-[3rem] px-[2rem] md:px-[3rem] flex flex-col justify-center items-start w-full h-full py-[1rem] md:py-[3rem] bg-[#D9D9D9FF]"
             >
               <span className="w-full text-4xl font-semibold font-sans text-center">
                 {exam.examName}

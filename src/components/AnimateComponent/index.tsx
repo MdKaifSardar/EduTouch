@@ -36,7 +36,7 @@ const AnimateComponent: React.FC<AnimatedContainerProps> = ({
   };
 
   return (
-    <div ref={ref} className="w-full h-fit">
+    <div ref={ref} className="w-full h-full">
       <motion.div
         initial="hidden"
         animate={isInView ? "visible" : "hidden"} // Trigger animation based on viewport

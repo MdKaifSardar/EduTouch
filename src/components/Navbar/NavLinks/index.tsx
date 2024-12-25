@@ -13,19 +13,20 @@ const NavLinksComponent: React.FC<NavLinksComponentProps> = ({
   return (
     <div className="px-10 py-[.6rem] sm:py-[1.4rem] z-[10] h-fit absolute top-0 right-0 flex gap-[1rem] flex-row justify-end items-center bg-gradient-to-b from-[#ffedc9] to-[#ffffff] w-[90%] rounded-br-[3rem]">
       {/* Hidden on smaller screens */}
-      <div className="hidden lg:flex flex-row justify-center items-center gap-[.8rem]">
+      <div className="hidden lg:flex flex-row justify-center items-center gap-[.2rem]">
         {NavLinks.map((link, index) => (
-          <div key={index}>
-            <a href={link.url} className="">
-              {link.title}
-            </a>
+          <div
+            key={index}
+            className="px-[.5rem] rounded-[1rem] py-[.5rem] font-semibold text-center text-[1rem] hover:bg-[#fae1aa]"
+          >
+            <a href={link.url}>{link.title}</a>
           </div>
         ))}
       </div>
       <div className="w-[60%] sm:w-[50%] lg:w-fit gap-[.5rem] flex flex-row lg:justify-center justify-between items-center">
         <Link
           href="/courses"
-          className="text-center bg-[#243674] rounded-lg px-[1rem] sm:px-[1.5rem] text-lg md:text-xl text-white font-sans font-semibold py-[.3rem] sm:py-[.5rem]"
+          className="text-center bg-[#243674] rounded-lg px-[1rem] sm:px-[1.5rem] text-lg md:text-xl text-white font-sans font-semibold py-[.3rem] sm:py-[.5rem] hover:bg-[#597af0]"
         >
           Courses
         </Link>
