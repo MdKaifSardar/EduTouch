@@ -9,6 +9,7 @@ import AboutHeading from "../AboutHeading";
 // Slick Carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import LoadingSpinner from "../LoadingSpinner";
 
 const StudentFeedback = () => {
   const { feedbackItems, fetchFeedbackItems, loading } = useFetchFeedback();
@@ -54,10 +55,10 @@ const StudentFeedback = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center  gap-[2rem]">
+    <div className="w-full flex flex-col justify-center items-center overflow-hidden gap-[2rem]">
       <AboutHeading text="Feedback From Our Students" />
       {loading ? (
-        <div className="text-center text-xl">Loading feedback...</div>
+        <LoadingSpinner text="Loading Feedbacks" />
       ) : feedbackItems.length > 0 ? (
         <div className="relative w-full">
           <Slider {...settings} ref={sliderRef}>

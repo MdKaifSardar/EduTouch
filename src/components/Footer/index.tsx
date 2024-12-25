@@ -8,8 +8,10 @@ const Footer = () => {
     <div className="mt-[1rem] rounded-t-[2rem] flex flex-col md:flex-row text-white bg-black justify-evenly items-center w-full h-fit p-[1rem] pt-[3rem] md:pt-[3rem] md:p-[3rem]">
       <div className="mb-[1.5rem] w-full flex md:hidden flex-row justify-between items-start">
         <div className="flex flex-col justify-center items-start gap-[1rem]">
-          <span className="text-xl font-sans font-semibold">QUICK LINKS</span>
-          <div className="flex flex-col justify-center gap-[.2rem] items-start">
+          <span className="text-lg sm:text-xl font-sans font-semibold">
+            QUICK LINKS
+          </span>
+          <div className="sm:text-lg leading-[1.1rem] text-xs flex flex-col justify-center gap-[.2rem] items-start">
             {footerText.map((text, index) => (
               <div key={index} className="text-left">
                 <a href={text.link}>{text.text}</a>
@@ -17,12 +19,12 @@ const Footer = () => {
             ))}
           </div>
         </div>
-        <div className="flex gap-[1rem] flex-col justify-center items-center">
-          <div className="relative rounded-lg  bg-white flex flex-col justify-center items-center">
+        <div className="flex gap-[.5rem] sm:gap-[1rem] flex-col justify-center items-center">
+          <div className="relative rounded-lg bg-white flex flex-col justify-center items-center">
             <Image
               src={NavLogo}
               alt="logo"
-              className="w-[17rem] h-auto object-contain"
+              className="w-[13rem] sm:w-[17rem] h-auto object-contain"
             />
             <span className="absolute bottom-0 text-black">
               Coaching Institute
@@ -34,7 +36,7 @@ const Footer = () => {
               <a href={social.url} key={index} className="text-center">
                 <Image
                   src={social.icon}
-                  className="w-[3rem] h-[3rem] object-contain"
+                  className="w-[1.8rem] sm:w-[3rem] h-[3rem] object-contain"
                   alt="social link"
                 />
               </a>
@@ -77,7 +79,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex gap-[1rem] flex-col justify-center w-full md:w-fit items-center">
-        <div className="flex flex-wrap justify-center items-center gap-[.1rem]">
+        <div className="sm:text-xl text-lg flex flex-wrap justify-center items-center gap-[.1rem]">
           <Image
             src={phone}
             alt="phone"

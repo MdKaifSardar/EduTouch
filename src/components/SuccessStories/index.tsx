@@ -11,6 +11,7 @@ import { useFetchTestimonials } from "@/hooks/DisplayAllTest";
 // Import slick-carousel styles
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import LoadingSpinner from "../LoadingSpinner";
 
 const SuccessStories = () => {
   const { testimonials, fetchTestimonials, loading } = useFetchTestimonials();
@@ -54,10 +55,10 @@ const SuccessStories = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-[2rem]">
+    <div className="w-full flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
       <AboutHeading text="Success Stories" />
 
-      {loading && <div className="text-xl">Loading Testimonials...</div>}
+      {loading &&  <LoadingSpinner text="Loading Success Stories"/>}
 
       {!loading && testimonials.length > 0 && (
         <div className="relative w-full">

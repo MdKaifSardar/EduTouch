@@ -31,7 +31,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   };
 
   return (
-    <div className="pt-[10.6rem] lg:pt-[11rem] bg-black relative flex flex-col justify-center items-center md:items-start Image-carousel z-[-1] h-screen overflow-hidden w-full">
+    <div className="pt-[7.4rem] sm:pt-[10.6rem] lg:pt-[11rem] bg-black relative flex flex-col justify-center items-center md:items-start Image-carousel z-[-1] h-[60vh] md:h-screen overflow-hidden w-full">
       {/* Carousel Slides */}
       <AnimatePresence initial={false} custom={1}>
         <motion.div

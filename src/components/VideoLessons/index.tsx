@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useFetchYouTubeVideos } from "@/hooks/DisplayAllVideos";
 import AboutHeading from "../AboutHeading";
+import LoadingSpinner from "../LoadingSpinner";
 
 // TypeScript interface for video
 interface YouTubeVideo {
@@ -73,10 +74,10 @@ const VideoCarousel: React.FC = () => {
   };
 
   return (
-    <div className="w-full py-12 flex flex-col justify-center items-center gap-[2rem]">
+    <div className="w-full py-12 flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
       {/* Show loading state */}
       <AboutHeading text="Video Lessons" />
-      {loading && <div className="text-center text-xl">Loading...</div>}
+      {loading &&  <LoadingSpinner text="Loading Videos"/>}
 
       {/* Video Carousel */}
       {!loading && videos.length > 0 && (

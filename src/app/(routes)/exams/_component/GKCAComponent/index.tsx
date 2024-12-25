@@ -1,6 +1,7 @@
 "use client";
 
 import AboutHeading from "@/components/AboutHeading";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { useFetchGKCA } from "@/hooks/DisplayAllGkca";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,13 +16,13 @@ const GKCAomponent: React.FC = () => {
 
   return (
     <div className="w-full h-fit flex flex-col justify-center items-center gap-[2rem]">
-      {loading && <p>Loading General Knowledge and Current Affairs...</p>}
+      {loading && <LoadingSpinner text="Loading Content" />}
 
       {/* General Knowledge Section */}
       <div className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit">
         <AboutHeading text="General Knowledge" />
         {loading ? null : gkcaAllList.length > 0 ? (
-          <div className="w-full h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[4rem]">
+          <div className="w-[80%] sm:w-[90%] h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[4rem]">
             {gkcaAllList.map((item, index) => (
               <div
                 key={item._id}
@@ -55,7 +56,7 @@ const GKCAomponent: React.FC = () => {
       <div className="flex flex-col justify-center items-center w-full h-fit">
         <AboutHeading text="Current Affairs" />
         {loading ? null : gkcaAllList.length > 0 ? (
-          <div className="w-[90%] md:w-full h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[4rem]">
+          <div className="w-[80%] sm:w-[90%] md:w-full h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[4rem]">
             {gkcaAllList.map((item, index) => (
               <div
                 key={item._id}

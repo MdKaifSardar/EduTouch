@@ -1,6 +1,7 @@
 "use client";
 
 import AboutHeading from "@/components/AboutHeading";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import { useFetchExams } from "@/hooks/DisplayAllExams";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +18,7 @@ const ExamsComponent: React.FC = () => {
     <div className="flex flex-col justify-center items-center w-full gap-[2rem]">
       <AboutHeading text="Upcoming Exams" />
       {loading ? (
-        <p>Loading exams...</p>
+        <LoadingSpinner text="Loading Exams" />
       ) : exams.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-auto w-[90%] md:w-full h-fit gap-y-[3rem] gap-x-[3rem] xl:gap-x-[10rem]">
           {exams.map((exam) => (

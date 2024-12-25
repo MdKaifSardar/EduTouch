@@ -10,6 +10,7 @@ import Link from "next/link";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import AboutHeading from "../AboutHeading";
+import LoadingSpinner from "../LoadingSpinner";
 
 // TypeScript interface for key offering
 interface KeyOffering {
@@ -65,10 +66,10 @@ const Carousel: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-[2rem]">
+    <div className="w-full flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
       {/* Show loading state */}
       <AboutHeading text="Key Offerings" />
-      {loading && <div className="text-center text-xl">Loading...</div>}
+      {loading && <LoadingSpinner text="Loading Key Offerings"/>}
 
       {/* Carousel */}
       {!loading && keyOfferings.length > 0 && (

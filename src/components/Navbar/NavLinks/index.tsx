@@ -11,7 +11,7 @@ const NavLinksComponent: React.FC<NavLinksComponentProps> = ({
   toggleMenu,
 }) => {
   return (
-    <div className="px-10 py-[1.4rem] z-[10] h-fit absolute top-0 right-0 flex gap-[1rem] flex-row justify-end items-center bg-gradient-to-b from-[#ffedc9] to-[#ffffff] w-full rounded-br-[3rem]">
+    <div className="px-10 py-[.6rem] sm:py-[1.4rem] z-[10] h-fit absolute top-0 right-0 flex gap-[1rem] flex-row justify-end items-center bg-gradient-to-b from-[#ffedc9] to-[#ffffff] w-[90%] rounded-br-[3rem]">
       {/* Hidden on smaller screens */}
       <div className="hidden lg:flex flex-row justify-center items-center gap-[.8rem]">
         {NavLinks.map((link, index) => (
@@ -22,10 +22,10 @@ const NavLinksComponent: React.FC<NavLinksComponentProps> = ({
           </div>
         ))}
       </div>
-      <div className="w-[55%] sm:w-[50%] lg:w-fit gap-[.5rem] flex flex-row lg:justify-center justify-between items-center">
+      <div className="w-[60%] sm:w-[50%] lg:w-fit gap-[.5rem] flex flex-row lg:justify-center justify-between items-center">
         <Link
           href="/courses"
-          className="text-center bg-[#243674] rounded-lg px-[1rem] md:px-[1.5rem] text-lg md:text-xl text-white font-sans font-semibold py-[.3rem] md:py-[.5rem]"
+          className="text-center bg-[#243674] rounded-lg px-[1rem] sm:px-[1.5rem] text-lg md:text-xl text-white font-sans font-semibold py-[.3rem] sm:py-[.5rem]"
         >
           Courses
         </Link>

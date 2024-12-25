@@ -8,6 +8,7 @@ import { useFetchTeachers } from "@/hooks/DisplayAllTeachers";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import LoadingSpinner from "../LoadingSpinner";
 
 const OurTeachers = () => {
   const { teachers, fetchTeachers, loading } = useFetchTeachers();
@@ -54,9 +55,9 @@ const OurTeachers = () => {
   };
 
   return (
-    <div className="py-[5rem] w-full flex flex-col justify-center items-center gap-[2rem]">
+    <div className="py-[5rem] w-full flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
       <AboutHeading text="Our Teachers" />
-      {loading && <div>Loading Teachers...</div>}{" "}
+      {loading && <LoadingSpinner text="Loading Teachers" />}
       {/* Display loading message */}
       {!loading && teachers.length === 0 && (
         <div>No teachers found.</div> // In case there are no teachers

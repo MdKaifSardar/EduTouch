@@ -5,6 +5,7 @@ import { useFetchCourses } from "@/hooks/DisplayAllCourses";
 import Image from "next/image";
 import CoursePopup from "./CoursePopup";
 import Link from "next/link";
+import LoadingSpinner from "../LoadingSpinner";
 
 interface Course {
   _id: string;
@@ -35,9 +36,7 @@ const OurCourses = () => {
     <div className="w-full flex flex-col justify-center items-center gap-[2rem]">
       <div className="text-5xl text-center w-full">Our Courses</div>
 
-      {loading && (
-        <div className="text-xl text-blue-500">Loading Courses...</div>
-      )}
+      {loading && <LoadingSpinner text="Loading Courses" />}
 
       {!loading && (
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-[2rem] grid-rows-auto w-full h-fit">

@@ -1,24 +1,31 @@
 import { leftStats, rightStats } from "@/utility/StatsSec";
 import Image from "next/image";
 import React from "react";
+import AnimateComponent from "../AnimateComponent";
 
 const StatsSec = () => {
   return (
     <div className="flex md:flex-row flex-col justify-between items-center w-full gap-5 h-fit">
-      <div className=" w-full gap-[1rem] md:gap-[3rem] flex flex-col justify-center items-start h-fit">
+      <div className="w-full gap-[1rem] md:gap-[3rem] flex flex-col justify-center items-start h-fit">
         <div className="flex flex-col justify-center items-start gap-2">
-          <span className="text-5xl font-sans font-semibold">
-            Empowering Dreams Ensuring Success
-          </span>
-          <span className="leading-tight text-lg font-sans ">
-            Transforming ambitions into achievements with expert guidance,
-            tailored support, and unwavering dedication. Empower your future,
-            achieve unparalleled success today
-          </span>
+          <AnimateComponent delay={0} duration={0.5}>
+            <span className="text-4xl sm:text-5xl font-sans font-semibold">
+              Empowering Dreams Ensuring Success
+            </span>
+          </AnimateComponent>
+          <AnimateComponent delay={0.2} duration={0.5}>
+            <span className="leading-tight text-lg font-sans">
+              Transforming ambitions into achievements with expert guidance,
+              tailored support, and unwavering dedication. Empower your future,
+              achieve unparalleled success today.
+            </span>
+          </AnimateComponent>
         </div>
-        <button className="bg-[#ff9700] text-white px-5 rounded-lg py-2 text-2xl">
-          Get Started
-        </button>
+        <AnimateComponent delay={0.3} duration={0.5}>
+          <button className="bg-[#ff9700] text-white px-5 rounded-lg py-2 text-2xl">
+            Get Started
+          </button>
+        </AnimateComponent>
       </div>
       <div className="w-full h-full flex flex-row justify-center items-center gap-[.5rem]">
         <div className="w-full h-full rounded-l-[2rem] gap-[.5rem] flex flex-col justify-center overflow-hidden items-center">
