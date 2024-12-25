@@ -27,58 +27,60 @@ const StatsSec = () => {
           </button>
         </AnimateComponent>
       </div>
-      <div className="w-full h-full flex flex-row justify-center items-center gap-[.5rem]">
-        <div className="w-full h-full rounded-l-[2rem] gap-[.5rem] flex flex-col justify-center overflow-hidden items-center">
-          {leftStats.map((stat, index) => (
-            <div
-              key={index}
-              className="relative w-full py-[4rem] h-fit bg-[#f0f0f0] flex flex-col justify-center items-center"
-            >
-              <div className="absolute top-[1rem] left-[1rem] flex flex-col justify-center items-start text-left">
-                <span>{stat.title}</span>
-                <span>
-                  {stat.count}{" "}
-                  <span className="text-yellow-500 text-center font-semibold">
-                    +
+      <AnimateComponent delay={0} duration={0.8}>
+        <div className="w-full h-full flex flex-row justify-center items-center gap-[.5rem]">
+          <div className="w-full h-full rounded-l-[2rem] gap-[.5rem] flex flex-col justify-center overflow-hidden items-center">
+            {leftStats.map((stat, index) => (
+              <div
+                key={index}
+                className="relative w-full py-[4rem] h-fit bg-[#f0f0f0] flex flex-col justify-center items-center"
+              >
+                <div className="absolute top-[1rem] left-[1rem] flex flex-col justify-center items-start text-left">
+                  <span>{stat.title}</span>
+                  <span>
+                    {stat.count}{" "}
+                    <span className="text-yellow-500 text-center font-semibold">
+                      +
+                    </span>
                   </span>
-                </span>
+                </div>
+                <Image
+                  src={stat.icon}
+                  alt="Icon"
+                  width={300}
+                  height={300}
+                  className="absolute bottom-0 right-0 w-[3rem] h-[3rem] object-contain"
+                />
               </div>
-              <Image
-                src={stat.icon}
-                alt="Icon"
-                width={300}
-                height={300}
-                className="absolute bottom-0 right-0 w-[3rem] h-[3rem] object-contain"
-              />
-            </div>
-          ))}
-        </div>
-        <div className="w-full h-fit rounded-r-[2rem] overflow-hidden gap-[.5rem] flex flex-col justify-center items-center">
-          {rightStats.map((stat, index) => (
-            <div
-              key={index}
-              className="relative w-full py-[4rem] bg-[#f0f0f0] flex h-fit flex-col justify-center items-center"
-            >
-              <div className="absolute top-[1rem] left-[1rem] flex flex-col justify-center items-start text-left">
-                <span>{stat.title}</span>
-                <span>
-                  {stat.count}{" "}
-                  <span className="text-yellow-500 text-center font-semibold">
-                    +
+            ))}
+          </div>
+          <div className="w-full h-fit rounded-r-[2rem] overflow-hidden gap-[.5rem] flex flex-col justify-center items-center">
+            {rightStats.map((stat, index) => (
+              <div
+                key={index}
+                className="relative w-full py-[4rem] bg-[#f0f0f0] flex h-fit flex-col justify-center items-center"
+              >
+                <div className="absolute top-[1rem] left-[1rem] flex flex-col justify-center items-start text-left">
+                  <span>{stat.title}</span>
+                  <span>
+                    {stat.count}{" "}
+                    <span className="text-yellow-500 text-center font-semibold">
+                      +
+                    </span>
                   </span>
-                </span>
+                </div>
+                <Image
+                  src={stat.icon}
+                  alt="Icon"
+                  width={300}
+                  height={300}
+                  className="absolute bottom-0 right-0 w-[3rem] h-[3rem] object-contain"
+                />
               </div>
-              <Image
-                src={stat.icon}
-                alt="Icon"
-                width={300}
-                height={300}
-                className="absolute bottom-0 right-0 w-[3rem] h-[3rem] object-contain"
-              />
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </AnimateComponent>
     </div>
   );
 };

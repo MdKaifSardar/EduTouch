@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import AboutHeading from "../AboutHeading";
 import { useFetchGallery } from "@/hooks/DisplayAllGallery";
+import LoadingSpinner from "../LoadingSpinner";
 
 const Gallery = () => {
   const { galleryItems, fetchGalleryItems, loading } = useFetchGallery();
@@ -16,7 +17,7 @@ const Gallery = () => {
   return (
     <div className="w-full flex gap-[2rem] flex-col justify-center items-center">
       <AboutHeading text="Gallery" />
-      {loading && <div>Loading...</div>}
+      {loading && <LoadingSpinner text="Loading Gallery" />}
       <div className="w-full h-fit grid gap-[.5rem] md:gap-[1rem] grid-cols-2 lg:grid-cols-4 grid-rows-auto">
         {imagesToShow.map((image, index) => (
           <div

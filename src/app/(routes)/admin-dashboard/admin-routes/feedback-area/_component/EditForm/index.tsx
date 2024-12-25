@@ -58,7 +58,7 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("title", title);
+    formData.append("name", title);
     formData.append("batch", batch);
     if (image) {
       formData.append("image", image);
