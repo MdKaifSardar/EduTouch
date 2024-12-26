@@ -24,10 +24,10 @@ const Footer = () => {
             <Image
               src={NavLogo}
               alt="logo"
-              className="w-[13rem] sm:w-[17rem] h-auto object-contain"
+              className="w-[13rem] md:w-[17rem] h-auto object-contain"
             />
-            <span className="absolute bottom-0 text-black">
-              Coaching Institute
+            <span className="absolute pl-[1rem] text-[.8rem] w-full bottom-[10px] font-semibold text-center text-black">
+              Your Success Is Our Goal
             </span>
           </div>
           <span>Connect with Us</span>
@@ -55,14 +55,14 @@ const Footer = () => {
         </div>
       </div>
       <div className="md:flex hidden gap-[1rem] flex-col justify-center items-center ">
-        <div className="relative rounded-lg  bg-white flex flex-col justify-center items-center">
+        <div className="relative rounded-lg gap-[.3rem] bg-white flex flex-col justify-center items-center">
           <Image
             src={NavLogo}
             alt="logo"
             className="w-[17rem] h-auto object-contain"
           />
-          <span className="absolute bottom-0 text-black">
-            Coaching Institute
+          <span className="absolute w-full pl-[1rem] bottom-[15px] font-semibold text-center text-black">
+            Your Success Is Our Goal
           </span>
         </div>
         <span>Connect with Us</span>

@@ -8,7 +8,7 @@ const NavLinks = [
     url: "/about",
   },
   {
-    title: "Knowledge Update",
+    title: "Daily GK and Current Affair",
     url: "/exams",
   },
   {

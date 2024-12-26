@@ -15,10 +15,10 @@ const NavImageLeft = () => {
             alt="nav logo"
             className="w-full h-auto object-cover"
           />
-          <span className="pl-[1rem] md:font-normal font-semibold w-full h-full text-xs md:text-[.9rem] text-left">
+          {/* <span className="pl-[1rem] md:font-normal font-semibold w-full h-full text-xs md:text-[.9rem] text-left">
             Coaching Institute
-          </span>
-          <span className="pl-[1rem] hidden font-semibold md:block w-full h-full text-xs md:text-[.9rem] text-left">
+          </span> */}
+          <span className="mt-[-15px] md:mt-[-20px] pl-[1rem] font-semibold w-full h-full text-[.7rem] sm:text-[1rem] text-left">
             Your Success Is Our Goal
           </span>
         </div>

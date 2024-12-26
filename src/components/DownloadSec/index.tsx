@@ -7,15 +7,17 @@ import AnimateHorizontal from "../AnimateHorizontal";
 const DownloadSec = () => {
   return (
     <div className="flex flex-row justify-center items-center w-full h-fit">
-      <div className="gap-[1rem] p-4 flex w-full md:w-[60%] flex-col md:flex-row justify-center items-center">
+      <div className="gap-[1rem] sm:gap-[2rem] p-4 flex w-full md:w-[60%] flex-col md:flex-row justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-[1rem]">
           <AnimateComponent delay={0} duration={0.5}>
-            <button className="p-4 rounded-lg hover:bg-[#597af0] bg-[#3554bb] text-white">
-              DOWNLOAD APP
-            </button>
+            <div className="flex flex-col w-full justify-center items-center">
+              <button className="p-4 rounded-lg hover:bg-[#597af0] bg-[#3554bb] text-white">
+                DOWNLOAD APP
+              </button>
+            </div>
           </AnimateComponent>
           <AnimateComponent delay={0.3} duration={0.5}>
-            <span className="text-center">{DownloadText}</span>
+            <span className="font-semibold text-[1rem] text-center">{DownloadText}</span>
           </AnimateComponent>
         </div>
         <AnimateHorizontal delay={0.3} duration={0.8} direction="left">

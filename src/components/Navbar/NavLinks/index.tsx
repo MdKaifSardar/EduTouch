@@ -13,7 +13,7 @@ const NavLinksComponent: React.FC<NavLinksComponentProps> = ({
   return (
     <div className="px-10 py-[.6rem] sm:py-[1.4rem] z-[10] h-fit absolute top-0 right-0 flex gap-[1rem] flex-row justify-end items-center bg-gradient-to-b from-[#ffedc9] to-[#ffffff] w-[90%] rounded-br-[3rem]">
       {/* Hidden on smaller screens */}
-      <div className="hidden lg:flex flex-row justify-center items-center gap-[.2rem]">
+      <div className="hidden lg:flex flex-row justify-center items-center gap-[.45rem]">
         {NavLinks.map((link, index) => (
           <div
             key={index}
