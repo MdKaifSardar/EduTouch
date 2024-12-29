@@ -18,8 +18,8 @@ const NavImageLeft = () => {
           {/* <span className="pl-[1rem] md:font-normal font-semibold w-full h-full text-xs md:text-[.9rem] text-left">
             Coaching Institute
           </span> */}
-          <span className="mt-[-15px] md:mt-[-20px] pl-[1rem] font-semibold w-full h-full text-[.7rem] sm:text-[1rem] text-left">
-            Your Success Is Our Goal
+          <span className="mt-[-18px] sm:mt-[-20px] md:mt-[-28px] pl-[1.5rem] sm:pl-[2rem] md:pl-[2.5rem] font-semibold w-full h-full text-[.6rem] sm:text-[.8rem] text-left">
+            পোড়বো লোরবো জিতবো রে
           </span>
         </div>
         <Image

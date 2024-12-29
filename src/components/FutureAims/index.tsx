@@ -13,15 +13,18 @@ const FutureAims = () => {
   return (
     <div className="w-full flex gap-[2rem] flex-col justify-center items-center">
       <AboutHeading text="Our Future Aims" />
-      <div className="flex flex-col justify-center text-lg items-center gap-[1.3rem] ">
-        <AnimateComponent duration={0.5} delay={0}>
+      <AnimateComponent duration={0.5} delay={0}>
+        <div className="flex flex-col justify-center text-lg items-center gap-[1.3rem] ">
           {FutueAimsPara.map((para, index) => (
-            <div className="leading-tight text-center" key={index}>
+            <div
+              className="leading-tight text-lg lg:text-xl text-center"
+              key={index}
+            >
               {para}
             </div>
           ))}
-        </AnimateComponent>
-      </div>
+        </div>
+      </AnimateComponent>
       <div className="flex flex-col lg:flex-row gap-[2rem] justify-between items-center">
         <Image
           src={FutueAimsImage}
@@ -36,7 +39,7 @@ const FutureAims = () => {
                 className="leading-tight gap-[.5rem] flex flex-row justify-center items-center"
               >
                 <span className="rounded-full w-[.5rem] h-[.5rem] bg-black" />
-                <span className="text-left w-fit h-fit text-lg">{points}</span>
+                <span className="text-left w-fit h-fit text-lg lg:text-xl">{points}</span>
               </div>
             ))}
           </div>

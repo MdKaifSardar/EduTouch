@@ -33,7 +33,7 @@ const FoundersMessage = () => {
             {FoundersMessagePara.map((para, index) => (
               <div
                 key={index}
-                className="leading-tight text-left font-sans text-lg"
+                className="leading-tight text-left font-sans text-lg lg:text-xl"
               >
                 {para}
               </div>

@@ -4,6 +4,7 @@ import img3 from "../assets/images/icons/services/interview 1.png";
 import img4 from "../assets/images/icons/services/job-interview 1.png";
 import img5 from "../assets/images/icons/services/open-book 1.png";
 import img6 from "../assets/images/icons/services/teachers-day 1.png";
+import overlay from "../assets/images/overlay.png"
 const Services = [
   {
     title: "Regular Exams",
@@ -31,4 +32,4 @@ const Services = [
   },
 ];
 
-export { Services };
+export { Services, overlay };

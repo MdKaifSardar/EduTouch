@@ -8,6 +8,7 @@ import StatsSec from "@/components/StatsSec";
 import StudentFeedback from "@/components/StudentFeedback";
 import SuccessStories from "@/components/SuccessStories";
 import VideoLessons from "@/components/VideoLessons";
+import WhyChooseUsComp from "@/components/WhyChooseUs";
 import { SlideImages } from "@/utility/SlideShow";
 
 export default function Home() {
@@ -18,8 +19,9 @@ export default function Home() {
         <DownloadSec />
         <StatsSec />
         <ServicesSec />
+        <WhyChooseUsComp />
         <KeyOfferingsSec />
-        <SuccessStories/>
+        <SuccessStories />
         <StudentFeedback />
         {/* <MoreTestiButton/> */}
         <VideoLessons />

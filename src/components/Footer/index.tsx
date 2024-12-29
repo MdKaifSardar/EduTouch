@@ -26,8 +26,8 @@ const Footer = () => {
               alt="logo"
               className="w-[13rem] md:w-[17rem] h-auto object-contain"
             />
-            <span className="absolute pl-[1rem] text-[.8rem] w-full bottom-[10px] font-semibold text-center text-black">
-              Your Success Is Our Goal
+            <span className="absolute pl-[1.6rem] text-[.7rem] w-full bottom-[10px] font-semibold text-center text-black">
+              পোড়বো লোরবো জিতবো রে
             </span>
           </div>
           <span>Connect with Us</span>
@@ -61,8 +61,8 @@ const Footer = () => {
             alt="logo"
             className="w-[17rem] h-auto object-contain"
           />
-          <span className="absolute w-full pl-[1rem] bottom-[15px] font-semibold text-center text-black">
-            Your Success Is Our Goal
+          <span className="absolute w-full text-[.9rem] pl-[3rem] bottom-[15px] font-semibold text-center text-black">
+            পোড়বো লোরবো জিতবো রে
           </span>
         </div>
         <span>Connect with Us</span>
