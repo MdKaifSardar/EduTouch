@@ -8,7 +8,11 @@ const NavLinks = [
     url: "/about",
   },
   {
-    title: "Daily GK and Current Affair",
+    title: "Daily GK",
+    url: "/exams",
+  },
+  {
+    title: "Current Affairs",
     url: "/exams",
   },
   {

@@ -160,12 +160,14 @@ const RegistrationForm = () => {
             ))}
           </select>
         </div>
-        <button
-          type="submit"
-          className="w-full p-2 bg-blue-500 text-white font-bold rounded-md"
-        >
-          Register
-        </button>
+        <div className="w-full h-fit flex flex-col justify-center items-center">
+          <button
+            type="submit"
+            className="ml-auto mr-auto py-2 px-4 hover:bg-blue-400 w-fit bg-blue-500 text-white font-bold rounded-md"
+          >
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );

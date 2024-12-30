@@ -77,7 +77,7 @@ const OurCourses = () => {
 
                   <Link
                     href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN&pli=1"
-                    className="absolute rounded-xl text-xl text-white bg-[#3554bb] text-center p-2"
+                    className="absolute rounded-xl text-xl text-white hover:bg-blue-600 bg-[#3554bb] text-center p-2"
                     target="_blank"
                     rel="noopener noreferrer" // Adds security when using target="_blank"
                   >

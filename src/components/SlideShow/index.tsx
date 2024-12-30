@@ -3,8 +3,6 @@
 import React, { useRef, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 type ImageCarouselProps = {
   images: StaticImageData[];
@@ -45,7 +43,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
 
       {/* Custom Dots */}
       <div className="absolute bottom-5 w-full flex justify-center">
-        <div className="flex space-x-2">
+        <div className="flex flex-row space-x-2">
           {images.map((_, index) => (
             <button
               key={index}

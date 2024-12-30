@@ -5,7 +5,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="mt-[1rem] rounded-t-[2rem] flex flex-col md:flex-row text-white bg-black justify-evenly items-center w-full h-fit p-[1rem] pt-[3rem] md:pt-[3rem] md:p-[3rem]">
+    <div className="mt-[1rem] rounded-t-[2rem] flex flex-col md:flex-row text-white bg-black justify-evenly gap-[2rem] items-center w-full h-fit p-[1rem] pt-[3rem] md:pt-[3rem] md:p-[3rem]">
       <div className="mb-[1.5rem] w-full flex md:hidden flex-row justify-between items-start">
         <div className="flex flex-col justify-center items-start gap-[1rem]">
           <span className="text-lg sm:text-xl font-sans font-semibold">
@@ -20,15 +20,12 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex gap-[.5rem] sm:gap-[1rem] flex-col justify-center items-center">
-          <div className="relative rounded-lg bg-white flex flex-col justify-center items-center">
+          <div className="overflow-hidden relative rounded-lg bg-white flex flex-col justify-center items-center">
             <Image
               src={NavLogo}
               alt="logo"
               className="w-[13rem] md:w-[17rem] h-auto object-contain"
             />
-            <span className="absolute pl-[1.6rem] text-[.7rem] w-full bottom-[10px] font-semibold text-center text-black">
-              পোড়বো লোরবো জিতবো রে
-            </span>
           </div>
           <span>Connect with Us</span>
           <div className="flex flex-row justify-center items-center gap-2">
@@ -55,15 +52,12 @@ const Footer = () => {
         </div>
       </div>
       <div className="md:flex hidden gap-[1rem] flex-col justify-center items-center ">
-        <div className="relative rounded-lg gap-[.3rem] bg-white flex flex-col justify-center items-center">
+        <div className="overflow-hidden relative rounded-lg gap-[.3rem] bg-white flex flex-col justify-center items-center">
           <Image
             src={NavLogo}
             alt="logo"
             className="w-[17rem] h-auto object-contain"
           />
-          <span className="absolute w-full text-[.9rem] pl-[3rem] bottom-[15px] font-semibold text-center text-black">
-            Your success is our goal
-          </span>
         </div>
         <span>Connect with Us</span>
         <div className="flex flex-row justify-center items-center gap-2">
@@ -83,13 +77,25 @@ const Footer = () => {
           <Image
             src={phone}
             alt="phone"
-            className="w-[1rem] h-[1rem] object-contain"
+            width={300}
+            height={300}
+            className="w-[1.5rem] h-auto object-contain"
           />
           <span> +913482355966 </span>
           <span>/</span>
           <span> 9123648141</span>
         </div>
-        <div className="w-full bg-gray-200 h-[20rem] md:h-[10rem]" />
+        <div className="rounded-lg overflow-hidden shadow-lg h-[20rem] w-full">
+          <iframe
+            src="https://maps.google.com/maps?q=EduTouch+Coaching+Institute,+24.08396110492166, 88.24522003228729&hl=es;z=14&t=m&amp;output=embed&amp;iwloc=A"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="w-full h-full"
+          />
+        </div>
       </div>
     </div>
   );

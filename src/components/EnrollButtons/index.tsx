@@ -3,22 +3,22 @@ import React from "react";
 
 const EnrollButtons = () => {
   return (
-    <div className="w-full gap-[1rem] md:gap-[2rem] h-[30vh] md:h-[10vh] flex flex-col md:flex-row justify-center items-center">
+    <div className="flex flex-col md:flex-row justify-center items-center gap-[1rem] md:gap-[2rem] w-full">
       <Link
-        href="/"
-        className="text-center px-[1rem] flex flex-col justify-center items-center font-sans font-semibold text-white h-full rounded-lg bg-[#ffaa00]"
+        href="/contact"
+        className="hover:bg-[#ffd277] text-center p-3 rounded-lg text-white bg-[#ffaa00]"
       >
         Schedule a Demo Class
       </Link>
       <Link
-        href="/"
-        className="text-center px-[1rem] flex flex-col justify-center items-center font-sans font-semibold text-white h-full rounded-lg bg-[#3554bb]"
+        href="/contact"
+        className="hover:bg-blue-500 text-center p-3 rounded-lg text-white bg-[#3554bb]"
       >
         Enroll Now
       </Link>
       <Link
-        href="/"
-        className="text-center px-[1rem] flex flex-col justify-center items-center font-sans font-semibold text-white h-full rounded-lg bg-[#ffaa00]"
+        href="/contact"
+        className="hover:bg-[#ffd277] text-center p-3 rounded-lg text-white bg-[#ffaa00]"
       >
         Book a Consultation
       </Link>
