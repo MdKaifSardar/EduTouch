@@ -32,8 +32,8 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
           <div key={index} className="w-full h-full relative">
             <Image
               src={image}
-              width={300}
-              height={300}
+              width={1000}
+              height={1000}
               alt={`Slide ${index}`}
               className="w-full h-auto object-contain"
             />
