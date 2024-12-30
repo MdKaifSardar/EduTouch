@@ -28,7 +28,7 @@ const WhyChooseUsComp = () => {
               <div className="font-bold text-blue-400 text-xl md:text-2xl font-sans">
                 {element.title}
               </div>
-              <div className="text-lg lg:text-xl font-sans font-semibold">
+              <div className="text-lg lg:text-xl font-sans">
                 {element.text}
               </div>
             </div>
