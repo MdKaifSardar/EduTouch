@@ -17,7 +17,7 @@ const NavLinksComponent: React.FC<NavLinksComponentProps> = ({
         {NavLinks.map((link, index) => (
           <div
             key={index}
-            className="px-[.5rem] rounded-[1rem] py-[.5rem] font-semibold text-center text-[1.2rem] hover:bg-[#fae1aa]"
+            className="px-[.5rem] rounded-[1rem] py-[.5rem] font-semibold text-center text-[1rem] hover:bg-[#fae1aa]"
           >
             <a href={link.url}>{link.title}</a>
           </div>

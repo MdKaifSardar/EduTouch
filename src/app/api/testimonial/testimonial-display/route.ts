@@ -14,6 +14,9 @@ export const GET = async () => {
     return NextResponse.json({ testimonials: formattedTestimonials });
   } catch (error) {
     console.error("Error fetching testimonials:", error);
-    return NextResponse.json({ error: error }, { status: 500 });
+    return NextResponse.json(
+      { error: error, testimonials: [] },
+      { status: 500 }
+    );
   }
 };

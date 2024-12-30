@@ -14,9 +14,6 @@ export const GET = async () => {
     return NextResponse.json({ teachers: formattedTeacherItems });
   } catch (error) {
     console.error("Error fetching teachers:", error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Unknown error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error, teachers: [] }, { status: 500 });
   }
 };

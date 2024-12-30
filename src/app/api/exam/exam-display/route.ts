@@ -15,6 +15,6 @@ export const GET = async () => {
     return NextResponse.json({ exams: formattedExams });
   } catch (error) {
     console.error("Error fetching exams:", error);
-    return NextResponse.json({ error: error }, { status: 500 });
+    return NextResponse.json({ error: error, exams: [] }, { status: 500 });
   }
 };

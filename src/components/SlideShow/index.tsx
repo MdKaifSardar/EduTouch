@@ -25,7 +25,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   };
 
   return (
-    <div className="pt-[3.4rem] sm:pt-[6rem] relative w-full h-fit overflow-hidden">
+    <div className="relative pt-[3.4rem] sm:pt-[6rem] w-full h-fit overflow-hidden">
       {/* Carousel */}
       <Slider {...settings} ref={sliderRef} className="w-full h-full">
         {images.map((image, index) => (
