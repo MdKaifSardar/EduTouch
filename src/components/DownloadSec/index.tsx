@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import AnimateComponent from "../AnimateComponent";
 import AnimateHorizontal from "../AnimateHorizontal";
+import Link from "next/link";
 
 const DownloadSec = () => {
   return (
@@ -11,13 +12,20 @@ const DownloadSec = () => {
         <div className="flex flex-col justify-center items-center gap-[1rem]">
           <AnimateComponent delay={0} duration={0.5}>
             <div className="flex flex-col w-full justify-center items-center">
-              <button className="p-4 rounded-lg hover:bg-[#597af0] bg-[#3554bb] text-white">
+              <Link
+                href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
+                target="_blank"
+                rel="noopener noreferrer" // Important for security reasons
+                className="p-4 rounded-lg hover:bg-[#597af0] bg-[#3554bb] text-white"
+              >
                 DOWNLOAD APP
-              </button>
+              </Link>
             </div>
           </AnimateComponent>
           <AnimateComponent delay={0.3} duration={0.5}>
-            <span className="font-semibold text-[1rem] text-center">{DownloadText}</span>
+            <span className="font-semibold text-[1rem] text-center">
+              {DownloadText}
+            </span>
           </AnimateComponent>
         </div>
         <AnimateHorizontal delay={0.3} duration={0.8} direction="left">

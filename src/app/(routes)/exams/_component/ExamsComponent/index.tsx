@@ -52,9 +52,14 @@ const ExamsComponent: React.FC = () => {
                 <p className="pt-[.5rem]">{exam.description}</p>
               </div>
               <div className="flex flex-row justify-between items-center w-full h-fit">
-                <button className="bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl">
+                <Link
+                  href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
+                  target="_blank"
+                  rel="noopener noreferrer" // Important for security reasons
+                  className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
+                >
                   Enroll Now
-                </button>
+                </Link>
                 <Image
                   width={300}
                   height={200}
