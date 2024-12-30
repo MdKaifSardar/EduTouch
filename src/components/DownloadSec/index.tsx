@@ -18,7 +18,7 @@ const DownloadSec = () => {
                 rel="noopener noreferrer" // Important for security reasons
                 className="p-4 rounded-lg hover:bg-[#597af0] bg-[#3554bb] text-white"
               >
-                DOWNLOAD APP
+                DOWNLOAD EDUTOUCH APP
               </Link>
             </div>
           </AnimateComponent>

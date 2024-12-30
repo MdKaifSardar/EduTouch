@@ -4,6 +4,10 @@ const dashboardsFields = [
     url: "/admin-dashboard/admin-routes/courses-area",
   },
   {
+    title: "Edit Hero Poster",
+    url: "/admin-dashboard/admin-routes/heroposter-area",
+  },
+  {
     title: "Edit Exams",
     url: "/admin-dashboard/admin-routes/exams-area",
   },

@@ -18,7 +18,7 @@ const GKCAomponent: React.FC = () => {
   return (
     <div className="w-full h-fit flex flex-col justify-center items-center gap-[2rem]">
       {/* General Knowledge Section */}
-      <div className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit">
+      <div id="genk-id" className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit">
         <AboutHeading text="General Knowledge" />
         {loading && <LoadingSpinner text="Loading Content" />}
         {loading ? null : gkcaAllList.length > 0 ? (
@@ -56,7 +56,7 @@ const GKCAomponent: React.FC = () => {
       </div>
 
       {/* Current Affairs Section */}
-      <div className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit">
+      <div id="curra-id" className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit">
         <AboutHeading text="Current Affairs" />
         {loading && <LoadingSpinner text="Loading Content" />}
         {loading ? null : gkcaAllList.length > 0 ? (

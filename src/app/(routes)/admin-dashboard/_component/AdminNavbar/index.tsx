@@ -85,7 +85,7 @@ const AdminNavbar = () => {
             </button>
             <Link
               href="/admin-dashboard"
-              className="text-white px-4 py-2 rounded-lg mb-2 hover:bg-[#3A5B9C]"
+              className="text-white pb-[.5rem] px-4 rounded-lg hover:bg-[#3A5B9C]"
               onClick={toggleSidebar}
             >
               Dashboard
@@ -94,7 +94,7 @@ const AdminNavbar = () => {
               <Link
                 key={index}
                 href={field.url}
-                className="text-white px-4 py-2 rounded-lg mb-2 hover:bg-[#3A5B9C]"
+                className="text-white py-[.5rem] px-4 rounded-lg hover:bg-[#3A5B9C]"
                 onClick={toggleSidebar}
               >
                 {field.title}

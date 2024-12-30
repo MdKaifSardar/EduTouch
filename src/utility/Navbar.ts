@@ -9,11 +9,11 @@ const NavLinks = [
   },
   {
     title: "Daily GK",
-    url: "/exams",
+    url: "/exams#genk-id",
   },
   {
     title: "Current Affairs",
-    url: "/exams",
+    url: "/exams#curra-id",
   },
   {
     title: "Upcoming Exams",
