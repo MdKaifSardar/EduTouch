@@ -62,7 +62,7 @@ const Footer = () => {
             className="w-[17rem] h-auto object-contain"
           />
           <span className="absolute w-full text-[.9rem] pl-[3rem] bottom-[15px] font-semibold text-center text-black">
-            পোড়বো লোরবো জিতবো রে
+            Your success is our goal
           </span>
         </div>
         <span>Connect with Us</span>

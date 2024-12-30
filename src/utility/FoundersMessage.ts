@@ -1,10 +1,17 @@
 import FoundersMessageImage from "../assets/images/FoundersMessage/person 1.png";
 
 const FoundersMessagePara = [
-  "Edutouch began its journey with the mission of empowering students through an interactive and engaging teaching approach. Despite the competitive landscape, we have thrived thanks to the unwavering support of our dedicated back-end team, skilled tutors, competitive exam coaches, and everyone who stood by us during challenging times. Today, we are proud to have firmly established ourselves in the industry.",
-  "At Edutouch, we meticulously recruit educators and competitive exam coaches through a thorough selection process, including extensive background checks and skill assessments. This ensures we bring onboard the best talent, allowing our students to benefit from an exceptional learning experience.",
-  "In addition to our carefully chosen tutors, we enhance the learning journey by offering free demos from subject experts, personalized guidance, prompt responses, seamless communication, 24/7 chat support, and much more. Our fee structure is designed to balance affordability for students and fair compensation for tutors, ranging from ₹500 to ₹5000, depending on experience and subject expertise.",
-  "Since our inception, we have consistently strived for growth and innovation. Our commitment to implementing fresh ideas has been a cornerstone of our enduring success.",
+  "Welcome to EDUTOUCH, where we're dedicated to empowering students to achieve their dreams. As the founder, I'm passionate about creating a transformative learning experience that fosters academic excellence, creativity, and personal growth.",
+
+  "My own journey as a student and educator has taught me the importance of personalized guidance and support. That's why we've created a unique approach that combines experienced faculty, innovative teaching methods, and tailored learning plans.",
+  ,
+  "At EDUTOUCH, we're committed to helping students achieve improved test scores, increased confidence, and a stronger foundation for future success. Our community is built on the principles of excellence, innovation, and integrity.",
+
+  "I invite you to join our community and experience the EDUTOUCH difference. Take the first step towards unlocking your potential – enroll with us today!",
+
+  "Sincerely,",
+  "S N MANDAL",
+  "Founder & Director, EDUTOUCH",
 ];
 
 const founder = {

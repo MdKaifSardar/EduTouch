@@ -1,17 +1,14 @@
-import {
-  FutueAimsImage,
-  FutueAimsPara,
-  FutueAimsPoints,
-} from "@/utility/FutureAims";
+import { FutueAimsPara, FutueAimsPoints } from "@/utility/FutureAims";
 import Image from "next/image";
 import React from "react";
 import AboutHeading from "../AboutHeading";
 import AnimateComponent from "../AnimateComponent";
 import AnimateHorizontal from "../AnimateHorizontal";
+import { HumanWithTele } from "@/utility/WhyChooseUs";
 
 const FutureAims = () => {
   return (
-    <div className="w-full flex gap-[2rem] flex-col justify-center items-center">
+    <div className="relative w-full flex gap-[2rem] flex-col justify-center items-center">
       <AboutHeading text="Our Future Aims" />
       <AnimateComponent duration={0.5} delay={0}>
         <div className="flex flex-col justify-center text-lg items-center gap-[1.3rem] ">
@@ -25,11 +22,13 @@ const FutureAims = () => {
           ))}
         </div>
       </AnimateComponent>
-      <div className="flex flex-col lg:flex-row gap-[2rem] justify-between items-center">
+      <div className="flex flex-col lg:flex-row gap-[2rem] justify-center lg:justify-start items-center lg:items-start">
         <Image
-          src={FutueAimsImage}
+          src={HumanWithTele}
+          width={300}
+          height={300}
           alt="image future"
-          className="w-[100%] lg:w-[40%] h-auto object-cover"
+          className="w-[40%] md:w-[20%] h-auto object-cover"
         />
         <AnimateHorizontal delay={0} duration={0.5} direction="right">
           <div className="flex flex-col gap[.3rem] justify-center items-start">
@@ -39,7 +38,9 @@ const FutureAims = () => {
                 className="leading-tight gap-[.5rem] flex flex-row justify-center items-center"
               >
                 <span className="rounded-full w-[.5rem] h-[.5rem] bg-black" />
-                <span className="text-left w-fit h-fit text-lg lg:text-xl">{points}</span>
+                <span className="text-left w-fit h-fit text-lg lg:text-xl">
+                  {points}
+                </span>
               </div>
             ))}
           </div>

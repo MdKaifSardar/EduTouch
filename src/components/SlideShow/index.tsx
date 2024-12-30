@@ -1,72 +1,66 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useRef, useState } from "react";
 import Image, { StaticImageData } from "next/image";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 type ImageCarouselProps = {
   images: StaticImageData[];
 };
 
-export default function ImageCarousel({ images }: ImageCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
+  const sliderRef = useRef<Slider | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? "100%" : "-100%",
-    }),
-    center: {
-      x: 0,
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? "-100%" : "100%",
-    }),
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: false,
+    arrows: false, // Disable default arrows
+    beforeChange: (current: number, next: number) => setActiveIndex(next), // Track active slide
   };
 
   return (
-    <div className="pt-[7.4rem] sm:pt-[10.6rem] lg:pt-[11rem] bg-black relative flex flex-col justify-center items-center md:items-start Image-carousel z-[-1] h-[60vh] md:h-screen overflow-hidden w-full">
-      {/* Carousel Slides */}
-      <AnimatePresence initial={false} custom={1}>
-        <motion.div
-          key={currentIndex}
-          custom={1}
-          variants={slideVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            x: { type: "tween", duration: 0.5 },
-          }}
-          style={{ position: "absolute", width: "100%", height: "100%" }}
-        >
-          <Image
-            src={images[currentIndex]}
-            alt={`Slide ${currentIndex + 1}`}
-            layout="fill"
-            objectFit="cover"
-            priority
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Dots Navigation */}
-      <div className="absolute bottom-8 w-full flex justify-center items-center space-x-2">
-        {images.map((_, index) => (
-          <div
-            key={index}
-            className={`w-3 h-3 rounded-full ${
-              index === currentIndex ? "bg-white" : "bg-gray-500"
-            } transition-colors duration-300`}
-          />
+    <div className="pt-[3.4rem] sm:pt-[6rem] relative w-full h-fit overflow-hidden">
+      {/* Carousel */}
+      <Slider {...settings} ref={sliderRef} className="w-full h-full">
+        {images.map((image, index) => (
+          <div key={index} className="w-full h-full relative">
+            <Image
+              src={image}
+              width={300}
+              height={300}
+              alt={`Slide ${index}`}
+              className="w-full h-auto object-contain"
+            />
+          </div>
         ))}
+      </Slider>
+
+      {/* Custom Dots */}
+      <div className="absolute bottom-5 w-full flex justify-center">
+        <div className="flex space-x-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => sliderRef.current?.slickGoTo(index)}
+              className={`w-3 h-3 rounded-full ${
+                index === activeIndex
+                  ? "bg-white"
+                  : "bg-gray-400 hover:bg-gray-300"
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default ImageCarousel;

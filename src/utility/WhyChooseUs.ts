@@ -2,6 +2,7 @@ import icon1 from "../assets/images/WhyChooseUs/ico1.png";
 import icon2 from "../assets/images/WhyChooseUs/ico2.png";
 import icon3 from "../assets/images/WhyChooseUs/ico3.png";
 import icon4 from "../assets/images/WhyChooseUs/ico4.png";
+import HumanWithTele from "../assets/images/WhyChooseUs/planGraphic.png"
 const WhyChooseUsTextArray = [
   {
     title: "AFFORDABLE COST",
@@ -35,4 +36,4 @@ const WhyChooseUsContent = {
   FirstText,
 };
 
-export { WhyChooseUsContent };
+export { WhyChooseUsContent, HumanWithTele };

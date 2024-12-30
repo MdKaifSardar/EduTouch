@@ -1,4 +1,4 @@
-import AboutImage from "../assets/images/AboutUs/aboutImage.jpg";
+import AboutImage from "../assets/images/AboutUs/AboutUsImage.webp";
 
 const paraFirst =
   "Lorem ipsum dolor sit amet consectetur. Arcu orci facilisis iaculis lectus lorem suspendisse egestas. Nec ac neque eget nullam egestas arcu facilisi. Purus pharetra ultrices sit facilisis. Lacus odio quis urna mauris nullam ut a. Ut laoreet quisque magna sociis gravida nulla. Duis volutpat est aliquet quam pellentesque magna semper. Diam leo dictumst sed tristique urna imperdiet non etiam. Molestie nulla ";

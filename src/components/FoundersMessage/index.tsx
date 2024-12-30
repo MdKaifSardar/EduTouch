@@ -27,7 +27,7 @@ const FoundersMessage = () => {
           </span>
         </div>
       </div>
-      <div className="flex w-full flex-col lg:flex-row justify-between items-center">
+      <div className="flex w-full flex-col lg:flex-row justify-between items-start">
         <div className="flex flex-col justify-center items-center gap-[2rem] w-[100%] lg:w-[60%]">
           <AnimateHorizontal direction="right" duration={0.5} delay={0}>
             {FoundersMessagePara.map((para, index) => (
