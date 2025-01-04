@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import React, { useRef, useEffect } from "react";
+import Image from "next/image";
 import Slider from "react-slick";
+import { useFetchHeroPosters } from "@/hooks/DisplayAllPosters";
 
-type ImageCarouselProps = {
-  images: StaticImageData[];
-};
-
-const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
+const ImageCarousel: React.FC = () => {
   const sliderRef = useRef<Slider | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { heroPosters, fetchHeroPosters, loading } = useFetchHeroPosters();
+  const [activeIndex, setActiveIndex] = React.useState(0);
+
+  useEffect(() => {
+    fetchHeroPosters();
+  }, [fetchHeroPosters]);
 
   const settings = {
     infinite: true,
@@ -21,20 +23,24 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
     autoplaySpeed: 2000,
     pauseOnHover: false,
     arrows: false, // Disable default arrows
-    beforeChange: (current: number, next: number) => setActiveIndex(next), // Track active slide
+    beforeChange: (_: number, next: number) => setActiveIndex(next), // Track active slide
   };
+
+  if (loading) {
+    return <div className="text-center py-10">Loading...</div>;
+  }
 
   return (
     <div className="relative pt-[3.4rem] sm:pt-[6rem] w-full h-fit overflow-hidden">
       {/* Carousel */}
       <Slider {...settings} ref={sliderRef} className="w-full h-full">
-        {images.map((image, index) => (
+        {heroPosters.map((poster, index) => (
           <div key={index} className="w-full h-full relative">
             <Image
-              src={image}
+              src={poster.image}
               width={1000}
               height={1000}
-              alt={`Slide ${index}`}
+              alt={poster.title}
               className="w-full h-auto object-contain"
             />
           </div>
@@ -44,7 +50,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
       {/* Custom Dots */}
       <div className="absolute bottom-5 w-full flex justify-center">
         <div className="flex flex-row space-x-2">
-          {images.map((_, index) => (
+          {heroPosters.map((_, index) => (
             <button
               key={index}
               onClick={() => sliderRef.current?.slickGoTo(index)}

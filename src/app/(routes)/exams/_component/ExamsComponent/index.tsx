@@ -5,14 +5,19 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { useFetchExams } from "@/hooks/DisplayAllExams";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const ExamsComponent: React.FC = () => {
   const { exams, fetchExams, loading } = useFetchExams();
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     fetchExams();
   }, [fetchExams]);
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
 
   return (
     <div className="flex flex-col justify-center items-center w-full gap-[2rem]">
@@ -52,14 +57,12 @@ const ExamsComponent: React.FC = () => {
                 <p className="pt-[.5rem]">{exam.description}</p>
               </div>
               <div className="flex flex-row justify-between items-center w-full h-fit">
-                <Link
-                  href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
-                  target="_blank"
-                  rel="noopener noreferrer" // Important for security reasons
+                <button
+                  onClick={() => setShowPopup(true)}
                   className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
                 >
                   Enroll Now
-                </Link>
+                </button>
                 <Image
                   width={300}
                   height={200}
@@ -73,6 +76,37 @@ const ExamsComponent: React.FC = () => {
         </div>
       ) : (
         <p>No exams available.</p>
+      )}
+
+      {/* Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-lg p-6 w-[90%] md:w-[30%] shadow-lg flex flex-col gap-4 relative">
+            <button
+              onClick={closePopup}
+              className="absolute top-2 right-2 text-2xl font-bold"
+            >
+              &times;
+            </button>
+            <p className="text-center">Choose your mode of enrollment:</p>
+            <div className="flex justify-around mt-4">
+              <Link
+                href="/contact"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded"
+              >
+                Offline
+              </Link>
+              <a
+                href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded"
+              >
+                Online
+              </a>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
