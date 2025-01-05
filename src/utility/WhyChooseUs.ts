@@ -28,8 +28,9 @@ const WhyChooseUsTextArray = [
 
 const mainTitle = "WHY CHOOSE US";
 const FirstText =
-  "Edutouch is a renowned name in the education industry dedicated to offer personalized guidance and quality tutoring. Our career advancement programs can highly benefit students.";
+  "Edutouch is the top-rated and trusted name in Berhampore, Murshidabad, renowned for providing personalized coaching guidance to help students achieve their dreams. With a commitment to excellence and a student-centric approach, we are dedicated to nurturing talent and unlocking potential.";
 
+Edutouch – Where Dreams Turn Into Reality!
 const WhyChooseUsContent = {
   WhyChooseUsTextArray,
   mainTitle,
