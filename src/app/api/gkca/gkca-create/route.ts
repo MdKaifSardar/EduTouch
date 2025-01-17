@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import GKCurrAffModel from "@/models/gkCurrAffModel";
+import GKCurrAffModel from "@/models/gkCurrAffModel"; // Import your GK and Current Affairs model
 import { connectToDB } from "@/lib/database";
+import { uploadImageToCloudinary } from "@/hooks/CloudinaryImageUpload"; // Import the custom Cloudinary hook
 
 export const POST = async (req: Request) => {
   try {
@@ -29,17 +30,25 @@ export const POST = async (req: Request) => {
       );
     }
 
+    // Upload GK image to Cloudinary in "gk-images" folder
+    const gkImageUrl = gkImage
+      ? await uploadImageToCloudinary(gkImage, "gk-images")
+      : undefined;
+
+    // Upload CA image to Cloudinary in "ca-images" folder
+    const caImageUrl = caImage
+      ? await uploadImageToCloudinary(caImage, "ca-images")
+      : undefined;
+
     const gkPDFBuffer = await gkPDF.arrayBuffer();
     const currentAffairsPDFBuffer = await currentAffairsPDF.arrayBuffer();
-    const gkImageBuffer = await gkImage.arrayBuffer();
-    const caImageBuffer = await caImage.arrayBuffer();
 
     const newDocument = new GKCurrAffModel({
       title,
       gkPDF: Buffer.from(gkPDFBuffer),
       currentAffairsPDF: Buffer.from(currentAffairsPDFBuffer),
-      gkImage: Buffer.from(gkImageBuffer),
-      caImage: Buffer.from(caImageBuffer),
+      gkImage: gkImageUrl,
+      caImage: caImageUrl,
     });
 
     await newDocument.save();

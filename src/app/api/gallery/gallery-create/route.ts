@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import GalleryModel from "@/models/galleryModel";
 import { connectToDB } from "@/lib/database";
+import { uploadImageToCloudinary } from "@/hooks/CloudinaryImageUpload";
 
 export const POST = async (req: Request) => {
   try {
@@ -17,12 +18,13 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Read the file as a buffer
-    const imageBuffer = await imageFile.arrayBuffer();
+    // Upload the image to Cloudinary using the utility function
+    const imageUrl = await uploadImageToCloudinary(imageFile, "gallery");
 
+    // Create a new gallery item
     const newGalleryItem = new GalleryModel({
       title,
-      imageNew: Buffer.from(imageBuffer),
+      imageNew: imageUrl,
     });
 
     await newGalleryItem.save();

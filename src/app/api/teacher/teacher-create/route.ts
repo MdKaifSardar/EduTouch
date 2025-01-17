@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import TeacherModel from "@/models/teacherModel";
 import { connectToDB } from "@/lib/database";
+import { v2 as cloudinary } from "cloudinary";
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const POST = async (req: Request) => {
   try {
@@ -18,13 +26,24 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Read the file as a buffer using the arrayBuffer method
+    // Convert the uploaded file to a buffer
     const imageBuffer = await image.arrayBuffer();
+    const imageBase64 = Buffer.from(imageBuffer).toString("base64");
 
+    // Upload the file to Cloudinary
+    const cloudinaryResponse = await cloudinary.uploader.upload(
+      `data:${image.type};base64,${imageBase64}`,
+      {
+        folder: "teachers", // Folder named "teachers"
+        resource_type: "image",
+      }
+    );
+
+    // Save the Cloudinary URL to the database
     const newTeacher = new TeacherModel({
       teacherName,
       subject,
-      image: Buffer.from(imageBuffer),
+      image: cloudinaryResponse.secure_url, // URL returned by Cloudinary
     });
 
     await newTeacher.save();

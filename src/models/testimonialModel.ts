@@ -6,7 +6,7 @@ export interface ITestimonial extends Document {
   rank: string;
   examName: string;
   testimonial: string;
-  image: Buffer; // URL or path for student image
+  image: string; // URL or path for student image
 }
 
 // Define the schema using the ITestimonial interface
@@ -16,7 +16,7 @@ const testimonialSchema = new mongoose.Schema<ITestimonial>(
     rank: { type: String, required: true },
     examName: { type: String, required: true },
     testimonial: { type: String, required: true },
-    image: { type: Buffer, required: true }, // URL or path of the student image (jpeg, jpg, png)
+    image: { type: String, required: true }, // URL or path of the student image (jpeg, jpg, png)
   },
   { timestamps: true }
 );

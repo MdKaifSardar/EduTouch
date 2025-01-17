@@ -4,13 +4,13 @@ import mongoose, { Document, Model } from "mongoose";
 export interface ITeacher extends Document {
   teacherName: string;
   subject: string;
-  image: Buffer; // Store the image as a binary buffer
+  image: string; // Store the image as a binary buffer
 }
 
 const TeacherSchema = new mongoose.Schema<ITeacher>({
   teacherName: { type: String, required: true },
   subject: { type: String, required: true },
-  image: { type: Buffer, required: true }, // Image stored as binary data
+  image: { type: String, required: true }, // Image stored as binary data
 });
 
 // Ensure the Teacher model has proper types with mongoose.Model

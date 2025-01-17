@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import FeedbackModel from "@/models/feedbackModel";  // Adjust path as needed
+import FeedbackModel from "@/models/feedbackModel"; // Adjust path as needed
 import { connectToDB } from "@/lib/database";
+import { uploadImageToCloudinary } from "@/hooks/CloudinaryImageUpload";
 
 export const POST = async (req: Request) => {
   try {
@@ -23,14 +24,17 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Read the file as a buffer
-    const imageBuffer = await imageFile.arrayBuffer();
+    // Upload the image to Cloudinary using the utility function
+    const imageUrl = await uploadImageToCloudinary(
+      imageFile,
+      "feedback_images"
+    );
 
-    // Create a new feedback entry
+    // Create a new feedback entry with Cloudinary image URL
     const newFeedback = new FeedbackModel({
       name,
       batch,
-      imageNew: Buffer.from(imageBuffer),  // Store image as binary data
+      imageNew: imageUrl, // Store image URL
     });
 
     // Save the feedback item to the database
@@ -43,6 +47,9 @@ export const POST = async (req: Request) => {
     });
   } catch (error) {
     console.error("Error creating feedback:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 }
+    );
   }
 };

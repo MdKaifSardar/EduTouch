@@ -6,12 +6,8 @@ export const GET = async () => {
   try {
     await connectToDB();
     const galleryItems = await GalleryModel.find();
-    const formattedGalleryItems = galleryItems.map((item) => ({
-      ...item.toObject(), // Convert Mongoose document to plain JavaScript object
-      imageNew: `data:image/png;base64,${item.imageNew.toString("base64")}`, // Correctly encode the image
-    }));
 
-    return NextResponse.json({ galleryItems: formattedGalleryItems });
+    return NextResponse.json({ galleryItems: galleryItems });
   } catch (error) {
     console.error("Error fetching gallery items:", error);
     return NextResponse.json(
