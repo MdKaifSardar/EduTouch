@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import HeroPosterModel from "@/models/heroPosterModel";
 import { connectToDB } from "@/lib/database";
+import { uploadImageToCloudinary } from "@/hooks/CloudinaryImageUpload"; // Import the upload hook
 
 export const POST = async (req: Request) => {
   try {
@@ -17,12 +18,13 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Read the file as a buffer
-    const heroPosterBuffer = await heroPosterFile.arrayBuffer();
+    // Use the uploadImageToCloudinary hook to upload the image
+    const imageUrl = await uploadImageToCloudinary(heroPosterFile, "hero_posters");
 
+    // Save the Cloudinary URL to the database
     const newHeroPosterItem = new HeroPosterModel({
       title,
-      image: Buffer.from(heroPosterBuffer),
+      image: imageUrl, // URL returned by Cloudinary
     });
 
     await newHeroPosterItem.save();

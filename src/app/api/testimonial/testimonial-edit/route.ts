@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server";
 import TestimonialModel from "@/models/testimonialModel";
 import { connectToDB } from "@/lib/database";
+import { v2 as cloudinary } from "cloudinary";
+import { deleteImageFromCloudinary } from "@/hooks/CloudinaryImageDelete"; // Ensure the correct import path
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const PATCH = async (req: Request) => {
   try {
@@ -29,10 +38,34 @@ export const PATCH = async (req: Request) => {
       );
     }
 
+    let studentImageUrl = undefined;
     let studentImageBuffer = undefined;
+
     if (image) {
-      // Convert uploaded file to a buffer
       studentImageBuffer = await image.arrayBuffer();
+
+      // If there's an existing image, delete it
+      const existingTestimonial = await TestimonialModel.findById(id);
+      if (existingTestimonial?.image) {
+        try {
+          await deleteImageFromCloudinary(existingTestimonial.image);
+        } catch (error) {
+          console.error("Failed to delete previous image:", error);
+        }
+      }
+
+      // Upload the new image to Cloudinary
+      const studentImageBase64 =
+        Buffer.from(studentImageBuffer).toString("base64");
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        `data:${image.type};base64,${studentImageBase64}`,
+        {
+          folder: "testimonials",
+          resource_type: "image",
+        }
+      );
+
+      studentImageUrl = cloudinaryResponse.secure_url;
     }
 
     // Dynamically build the update object
@@ -41,7 +74,7 @@ export const PATCH = async (req: Request) => {
       rank?: string;
       examName?: string;
       testimonial?: string;
-      image?: Buffer;
+      image?: string;
     }
 
     const updateFields: UpdateFields = {};
@@ -50,8 +83,7 @@ export const PATCH = async (req: Request) => {
     if (rank) updateFields.rank = rank;
     if (examName) updateFields.examName = examName;
     if (testimonial) updateFields.testimonial = testimonial;
-    if (studentImageBuffer)
-      updateFields.image = Buffer.from(studentImageBuffer);
+    if (studentImageUrl) updateFields.image = studentImageUrl;
 
     // Update the testimonial entry in the database by ID
     const updatedTestimonial = await TestimonialModel.findByIdAndUpdate(

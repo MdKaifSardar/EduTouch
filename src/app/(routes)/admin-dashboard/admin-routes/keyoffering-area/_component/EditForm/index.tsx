@@ -31,7 +31,7 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 100000) {
+    if (file.size > 500000) {
       toast.error("Image size must be less than 100KB.");
       e.target.value = "";
       return;

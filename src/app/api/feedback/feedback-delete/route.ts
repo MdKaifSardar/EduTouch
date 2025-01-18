@@ -1,6 +1,15 @@
 import { connectToDB } from "@/lib/database";
 import FeedbackModel from "@/models/feedbackModel"; // Adjust path as needed
 import { NextResponse } from "next/server";
+import { v2 as cloudinary } from "cloudinary";
+import { deleteImageFromCloudinary } from "@/hooks/CloudinaryImageDelete";
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const DELETE = async (req: Request) => {
   try {
@@ -19,14 +28,31 @@ export const DELETE = async (req: Request) => {
       );
     }
 
-    // Find and delete the feedback item by ID
-    const deletedFeedback = await FeedbackModel.findByIdAndDelete(id);
-
-    // If no feedback item is found, return an error
-    if (!deletedFeedback) {
+    // Fetch the current feedback item
+    const existingFeedback = await FeedbackModel.findById(id);
+    if (!existingFeedback) {
       return NextResponse.json(
         { error: "Feedback item not found" },
         { status: 404 }
+      );
+    }
+
+    // Delete the image from Cloudinary only if the image exists
+    if (existingFeedback.imageNew) {
+      try {
+        await deleteImageFromCloudinary(existingFeedback.imageNew.toString());
+      } catch (error) {
+        console.error("Failed to delete image from Cloudinary:", error);
+      }
+    }
+
+    // Find and delete the feedback item by ID
+    const deletedFeedback = await FeedbackModel.findByIdAndDelete(id);
+
+    if (!deletedFeedback) {
+      return NextResponse.json(
+        { error: "Failed to delete feedback item." },
+        { status: 500 }
       );
     }
 

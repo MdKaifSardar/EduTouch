@@ -6,12 +6,7 @@ export const GET = async () => {
   try {
     await connectToDB();
     const heroPosterItems = await HeroPosterModel.find();
-    const formattedHeroPosterItems = heroPosterItems.map((item) => ({
-      ...item.toObject(), // Convert Mongoose document to plain JavaScript object
-      image: `data:image/png;base64,${item.image.toString("base64")}`, // Correctly encode the image
-    }));
-
-    return NextResponse.json({ heroPosters: formattedHeroPosterItems });
+    return NextResponse.json({ heroPosters: heroPosterItems });
   } catch (error) {
     console.error("Error fetching hero posters:", error);
     return NextResponse.json(

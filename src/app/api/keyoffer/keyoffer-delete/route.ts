@@ -1,13 +1,14 @@
 import { connectToDB } from "@/lib/database";
 import KeyOfferingModel from "@/models/keyOfferingsModel";
 import { NextResponse } from "next/server";
+import { deleteImageFromCloudinary } from "@/hooks/CloudinaryImageDelete"; // Importing image deletion function
 
 export const DELETE = async (req: Request) => {
   try {
     await connectToDB();
 
     const formData = await req.formData();
-    const id = formData.get("id") as string | null; // Extract `id` from FormData
+    const id = formData.get("id") as string | null;
 
     if (!id) {
       return NextResponse.json(
@@ -16,6 +17,25 @@ export const DELETE = async (req: Request) => {
       );
     }
 
+    // Fetch the current key offering
+    const existingKeyOffering = await KeyOfferingModel.findById(id);
+    if (!existingKeyOffering) {
+      return NextResponse.json(
+        { error: "Key offering not found" },
+        { status: 404 }
+      );
+    }
+
+    // Delete the image from Cloudinary
+    if (existingKeyOffering.image) {
+      try {
+        await deleteImageFromCloudinary(existingKeyOffering.image);
+      } catch (error) {
+        console.error("Failed to delete the image from Cloudinary:", error);
+      }
+    }
+
+    // Delete the key offering
     const deletedKeyOffering = await KeyOfferingModel.findByIdAndDelete(id);
 
     if (!deletedKeyOffering) {

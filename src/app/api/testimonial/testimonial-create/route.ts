@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server";
 import TestimonialModel from "@/models/testimonialModel";
 import { connectToDB } from "@/lib/database";
+import { v2 as cloudinary } from "cloudinary";
+import { uploadImageToCloudinary } from "@/hooks/CloudinaryImageUpload"; // Import your Cloudinary hook
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const POST = async (req: Request) => {
   try {
@@ -20,15 +29,15 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Read the file as a buffer using the arrayBuffer method
-    const imageBuffer = await image.arrayBuffer();
+    // Upload the image to Cloudinary
+    const imageUrl = await uploadImageToCloudinary(image, "testimonials");
 
     const newTestimonial = new TestimonialModel({
       studentName,
       rank,
       examName,
       testimonial,
-      image: Buffer.from(imageBuffer),
+      image: imageUrl, // Using Cloudinary image URL
     });
 
     await newTestimonial.save();

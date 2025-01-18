@@ -35,7 +35,7 @@ const ImageCarousel: React.FC = () => {
       {/* Carousel */}
       <Slider {...settings} ref={sliderRef} className="w-full h-full">
         {heroPosters.map((poster, index) => (
-          <div key={index} className="w-full h-full relative">
+          <div key={index} className="w-full h-fit relative">
             <Image
               src={poster.image}
               width={1000}

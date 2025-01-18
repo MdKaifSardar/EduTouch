@@ -7,7 +7,7 @@ export interface IExam extends Document {
   courseSyllabus: string;
   description: string;
   examDate: string;
-  image: Buffer; // URL or path of the logo
+  image: string; // URL or path of the logo
 }
 
 // Define the schema using the IExam interface
@@ -18,7 +18,7 @@ const examSchema = new mongoose.Schema<IExam>(
     courseSyllabus: { type: String, required: true },
     description: { type: String, required: true },
     examDate: { type: String, required: true }, // Add the examDate field
-    image: { type: Buffer, required: true }, // URL or path of the logo
+    image: { type: String, required: true }, // URL or path of the logo
   },
   { timestamps: true }
 );

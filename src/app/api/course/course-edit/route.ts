@@ -1,12 +1,21 @@
 import { NextResponse } from "next/server";
 import CourseModel from "@/models/courseModel";
 import { connectToDB } from "@/lib/database";
+import { v2 as cloudinary } from "cloudinary";
+import { deleteImageFromCloudinary } from "@/hooks/CloudinaryImageDelete";
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const PATCH = async (req: Request) => {
   try {
     await connectToDB();
     const formData = await req.formData();
-    const id = formData.get("id") as string | null; // Extract the `id` from the FormData
+    const id = formData.get("id") as string | null;
 
     if (!id) {
       return NextResponse.json(
@@ -15,44 +24,59 @@ export const PATCH = async (req: Request) => {
       );
     }
 
-    // Extract other fields from form data
+    // Fetch the current course
+    const existingCourse = await CourseModel.findById(id);
+    if (!existingCourse) {
+      return NextResponse.json({ error: "Course not found." }, { status: 404 });
+    }
+
+    // Extract fields from form data
     const courseName = formData.get("courseName") as string | null;
-    const courseHighlights = formData.get("courseHighlights") as string | null; // Assuming it's a JSON-encoded string
+    const courseHighlights = formData.get("courseHighlights") as string | null;
     const courseSyllabus = formData.get("courseSyllabus") as string | null;
     const courseDuration = formData.get("courseDuration") as string | null;
     const courseDescription = formData.get("courseDescription") as
       | string
       | null;
-    const image = formData.get("image") as File | null; // Handle file uploads if necessary
-
-    if (
-      !courseName &&
-      !courseHighlights &&
-      !courseSyllabus &&
-      !courseDescription &&
-      !courseDuration &&
-      !image
-    ) {
-      return NextResponse.json(
-        { error: "No fields to update provided." },
-        { status: 400 }
-      );
-    }
+    const image = formData.get("image") as File;
 
     let bannerBuffer = undefined;
     if (image) {
-      // Convert file to buffer
       bannerBuffer = await image.arrayBuffer();
     }
 
-    // Dynamically build the update object to only include provided fields
+    let updatedImageUrl = undefined;
+    if (bannerBuffer) {
+      // Delete the previous image only if a new image is being uploaded
+      if (existingCourse.image) {
+        try {
+          await deleteImageFromCloudinary(existingCourse.image);
+        } catch (error) {
+          console.error("Failed to delete previous image:", error);
+        }
+      }
+
+      // Upload the new image to Cloudinary
+      const bannerBase64 = Buffer.from(bannerBuffer).toString("base64");
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        `data:${image.type};base64,${bannerBase64}`,
+        {
+          folder: "courses",
+          resource_type: "image",
+        }
+      );
+
+      updatedImageUrl = cloudinaryResponse.secure_url;
+    }
+
+    // Build the update object dynamically
     interface UpdateFields {
       courseName?: string;
       courseHighlights?: string;
       courseSyllabus?: string;
       courseDescription?: string;
       courseDuration?: string;
-      image?: Buffer;
+      image?: string;
     }
 
     const updateFields: UpdateFields = {};
@@ -61,19 +85,19 @@ export const PATCH = async (req: Request) => {
     if (courseSyllabus) updateFields.courseSyllabus = courseSyllabus;
     if (courseDescription) updateFields.courseDescription = courseDescription;
     if (courseDuration) updateFields.courseDuration = courseDuration;
-    if (bannerBuffer) updateFields.image = Buffer.from(bannerBuffer);
+    if (updatedImageUrl) updateFields.image = updatedImageUrl;
 
-    // Fetch and partially update the course by ID
+    // Update the course
     const updatedCourse = await CourseModel.findByIdAndUpdate(
       id,
       updateFields,
-      { new: true } // Return the updated document
+      { new: true }
     );
 
     if (!updatedCourse) {
       return NextResponse.json(
-        { error: "Course not found or failed to update." },
-        { status: 404 }
+        { error: "Failed to update the course." },
+        { status: 500 }
       );
     }
 

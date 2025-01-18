@@ -1,12 +1,21 @@
 import { NextResponse } from "next/server";
 import ExamModel from "@/models/examModel";
 import { connectToDB } from "@/lib/database";
+import { v2 as cloudinary } from "cloudinary";
+import { deleteImageFromCloudinary } from "@/hooks/CloudinaryImageDelete";
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export const PATCH = async (req: Request) => {
   try {
     await connectToDB();
     const formData = await req.formData();
-    const id = formData.get("id") as string | null; // Extract the `id` from FormData
+    const id = formData.get("id") as string | null;
 
     if (!id) {
       return NextResponse.json(
@@ -37,10 +46,41 @@ export const PATCH = async (req: Request) => {
       );
     }
 
-    let imageBuffer = undefined;
+    // Fetch the existing exam
+    const existingExam = await ExamModel.findById(id);
+    if (!existingExam) {
+      return NextResponse.json({ error: "Exam not found." }, { status: 404 });
+    }
+
+    let imageUrl = undefined;
     if (imageFile) {
-      // Convert file to buffer if uploaded
-      imageBuffer = await imageFile.arrayBuffer();
+      // Use the hook to delete the existing image
+      if (existingExam.image) {
+        try {
+          const isDeleted = await deleteImageFromCloudinary(existingExam.image);
+          if (!isDeleted) {
+            console.warn(
+              "Failed to delete the existing image from Cloudinary."
+            );
+          }
+        } catch (error) {
+          console.error("Error deleting the existing image:", error);
+        }
+      }
+
+      // Convert file to buffer and upload the new image to Cloudinary
+      const imageBuffer = await imageFile.arrayBuffer();
+      const imageBase64 = Buffer.from(imageBuffer).toString("base64");
+
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        `data:${imageFile.type};base64,${imageBase64}`,
+        {
+          folder: "exams", // Optional: Folder in Cloudinary for organization
+          resource_type: "image",
+        }
+      );
+
+      imageUrl = cloudinaryResponse.secure_url;
     }
 
     // Dynamically build the update object to only include provided fields
@@ -50,7 +90,7 @@ export const PATCH = async (req: Request) => {
       courseSyllabus?: string;
       description?: string;
       examDate?: string | Date; // Assuming examDate is a string or Date
-      image?: Buffer;
+      image?: string; // Image URL from Cloudinary
     }
 
     const updateFields: UpdateFields = {};
@@ -60,19 +100,17 @@ export const PATCH = async (req: Request) => {
     if (courseSyllabus) updateFields.courseSyllabus = courseSyllabus;
     if (description) updateFields.description = description;
     if (examDate) updateFields.examDate = examDate;
-    if (imageBuffer) updateFields.image = Buffer.from(imageBuffer);
+    if (imageUrl) updateFields.image = imageUrl;
 
-    // Fetch and partially update the exam by ID
-    const updatedExam = await ExamModel.findByIdAndUpdate(
-      id,
-      updateFields,
-      { new: true } // Return the updated document
-    );
+    // Partially update the exam by ID
+    const updatedExam = await ExamModel.findByIdAndUpdate(id, updateFields, {
+      new: true, // Return the updated document
+    });
 
     if (!updatedExam) {
       return NextResponse.json(
-        { error: "Exam not found or failed to update." },
-        { status: 404 }
+        { error: "Failed to update the exam." },
+        { status: 500 }
       );
     }
 

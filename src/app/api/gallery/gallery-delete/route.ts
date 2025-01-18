@@ -1,3 +1,4 @@
+import { deleteImageFromCloudinary } from "@/hooks/CloudinaryImageDelete";
 import { connectToDB } from "@/lib/database";
 import GalleryModel from "@/models/galleryModel";
 import { NextResponse } from "next/server";
@@ -16,12 +17,33 @@ export const DELETE = async (req: Request) => {
       );
     }
 
+    // Fetch the gallery item to get the image URL before deleting
+    const galleryItem = await GalleryModel.findById(id);
+
+    if (!galleryItem) {
+      return NextResponse.json(
+        { error: "Gallery item not found" },
+        { status: 404 }
+      );
+    }
+
+    // Delete the image from Cloudinary if it exists
+    if (galleryItem.imageNew) {
+      try {
+        await deleteImageFromCloudinary(galleryItem.imageNew);
+      } catch (error) {
+        console.error("Failed to delete gallery image from Cloudinary:", error);
+        // You might want to return an error here or proceed with deleting the gallery item
+      }
+    }
+
+    // Delete the gallery item from the database
     const deletedGalleryItem = await GalleryModel.findByIdAndDelete(id);
 
     if (!deletedGalleryItem) {
       return NextResponse.json(
-        { error: "Gallery item not found" },
-        { status: 404 }
+        { error: "Failed to delete the gallery item" },
+        { status: 500 }
       );
     }
 

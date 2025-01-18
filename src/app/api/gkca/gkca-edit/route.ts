@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import GKCurrAffModel from "@/models/gkCurrAffModel"; // Import your GK and Current Affairs model
 import { connectToDB } from "@/lib/database";
+import { uploadImageToCloudinary } from "@/hooks/CloudinaryImageUpload"; // Import the hook with folder parameter
+import { deleteImageFromCloudinary } from "@/hooks/CloudinaryImageDelete"; // Import the hook for deleting images
 
 export const PATCH = async (req: Request) => {
   try {
@@ -37,30 +39,43 @@ export const PATCH = async (req: Request) => {
       );
     }
 
-    // Initialize buffers for the PDF files and images
-    let gkPDFBuffer = undefined;
-    let currentAffairsPDFBuffer = undefined;
-    let gkImageBuffer = undefined;
-    let caImageBuffer = undefined;
+    let gkImageUrl: string | undefined;
+    let caImageUrl: string | undefined;
 
-    if (gkPDFFile) {
-      // Convert the GK PDF file to a buffer if uploaded
-      gkPDFBuffer = await gkPDFFile.arrayBuffer();
-    }
-
-    if (currentAffairsPDFFile) {
-      // Convert the Current Affairs PDF file to a buffer if uploaded
-      currentAffairsPDFBuffer = await currentAffairsPDFFile.arrayBuffer();
-    }
-
+    // Check and upload new images if provided
     if (gkImage) {
-      // Convert the GK Image file to a buffer if uploaded
-      gkImageBuffer = await gkImage.arrayBuffer();
+      gkImageUrl = await uploadImageToCloudinary(gkImage, "gk-images"); // Specify the folder
     }
 
     if (caImage) {
-      // Convert the Current Affairs Image file to a buffer if uploaded
-      caImageBuffer = await caImage.arrayBuffer();
+      caImageUrl = await uploadImageToCloudinary(caImage, "ca-images"); // Specify the folder
+    }
+
+    // Fetch the existing document
+    const existingDocument = await GKCurrAffModel.findById(id);
+
+    if (!existingDocument) {
+      return NextResponse.json(
+        { error: "GK and Current Affairs not found." },
+        { status: 404 }
+      );
+    }
+
+    // Delete existing images from Cloudinary only if new images are uploaded
+    if (gkImage && existingDocument.gkImage) {
+      try {
+        await deleteImageFromCloudinary(existingDocument.gkImage); // Delete the existing GK image
+      } catch (error) {
+        console.error("Failed to delete GK image from Cloudinary:", error);
+      }
+    }
+
+    if (caImage && existingDocument.caImage) {
+      try {
+        await deleteImageFromCloudinary(existingDocument.caImage); // Delete the existing CA image
+      } catch (error) {
+        console.error("Failed to delete CA image from Cloudinary:", error);
+      }
     }
 
     // Dynamically build the update object to only include provided fields
@@ -68,20 +83,17 @@ export const PATCH = async (req: Request) => {
       title?: string;
       gkPDF?: Buffer;
       currentAffairsPDF?: Buffer;
-      gkImage?: Buffer;
-      caImage?: Buffer;
+      gkImage?: string;
+      caImage?: string;
     }
 
     const updateFields: UpdateFields = {};
 
     if (title) updateFields.title = title;
-    if (gkPDFBuffer) updateFields.gkPDF = Buffer.from(gkPDFBuffer);
-    if (currentAffairsPDFBuffer)
-      updateFields.currentAffairsPDF = Buffer.from(currentAffairsPDFBuffer);
-    if (gkImageBuffer) updateFields.gkImage = Buffer.from(gkImageBuffer);
-    if (caImageBuffer) updateFields.caImage = Buffer.from(caImageBuffer);
+    if (gkImageUrl) updateFields.gkImage = gkImageUrl;
+    if (caImageUrl) updateFields.caImage = caImageUrl;
 
-    // Fetch and partially update the GK and Current Affairs document by ID
+    // Partially update the GK and Current Affairs document by ID
     const updatedGKCA = await GKCurrAffModel.findByIdAndUpdate(
       id,
       updateFields,
@@ -90,8 +102,8 @@ export const PATCH = async (req: Request) => {
 
     if (!updatedGKCA) {
       return NextResponse.json(
-        { error: "GK and Current Affairs not found or failed to update." },
-        { status: 404 }
+        { error: "Failed to update GK and Current Affairs." },
+        { status: 500 }
       );
     }
 

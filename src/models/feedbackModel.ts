@@ -4,13 +4,13 @@ import mongoose, { Document, Model } from "mongoose";
 export interface IFeedback extends Document {
   name: string;
   batch: string;
-  imageNew: Buffer; // Store the image as a binary buffer
+  imageNew: string; // Store the image as a binary buffer
 }
 
 const FeedbackSchema = new mongoose.Schema<IFeedback>({
   name: { type: String, required: true },
   batch: { type: String, required: true },
-  imageNew: { type: Buffer, required: true }, // Image stored as binary data
+  imageNew: { type: String, required: true }, // Image stored as binary data
 });
 
 // Ensure the Gallery model has proper types with mongoose.Model
