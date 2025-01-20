@@ -85,7 +85,7 @@ const Footer = () => {
           <span>/</span>
           <span> 9123648141</span>
         </div>
-        <div className="rounded-lg overflow-hidden shadow-lg h-[20rem] w-full">
+        <div className="flex flex-col justify-center items-center overflow-hidden shadow-lg h-[20rem] w-full">
           <iframe
             src="https://maps.google.com/maps?q=EduTouch+Coaching+Institute,+24.08396110492166, 88.24522003228729&hl=es;z=14&t=m&amp;output=embed&amp;iwloc=A"
             width="100%"
@@ -93,7 +93,7 @@ const Footer = () => {
             style={{ border: 0 }}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="w-full h-full"
+            className="rounded-lg lg:w-[95%] w-[80%] h-[80%] lg:h-[95%]"
           />
         </div>
       </div>
