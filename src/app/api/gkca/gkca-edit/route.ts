@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import GKCurrAffModel from "@/models/gkCurrAffModel"; // Import your GK and Current Affairs model
+import GKCurrAffModel, { IGKCurrAff } from "@/models/gkCurrAffModel"; // Import your GK and Current Affairs model
 import { connectToDB } from "@/lib/database";
 import { uploadImageToCloudinary } from "@/hooks/CloudinaryImageUpload"; // Import the hook with folder parameter
 import { deleteImageFromCloudinary } from "@/hooks/CloudinaryImageDelete"; // Import the hook for deleting images
@@ -8,7 +8,7 @@ export const PATCH = async (req: Request) => {
   try {
     await connectToDB();
     const formData = await req.formData();
-    const id = formData.get("id") as string | null; // Extract the `id` from FormData
+    const id = formData.get("id") as string | null;
 
     if (!id) {
       return NextResponse.json(
@@ -17,21 +17,23 @@ export const PATCH = async (req: Request) => {
       );
     }
 
-    // Extract other fields from form data
+    // Extract fields from form data
     const title = formData.get("title") as string | null;
-    const gkPDFFile = formData.get("gkPDF") as File | null;
-    const currentAffairsPDFFile = formData.get(
-      "currentAffairsPDF"
-    ) as File | null;
+    const gkTitle = formData.get("gkTitle") as string | null;
+    const caTitle = formData.get("caTitle") as string | null;
+    const gkLink = formData.get("gkLink") as string | null;
+    const caLink = formData.get("caLink") as string | null;
     const gkImage = formData.get("gkImage") as File | null;
     const caImage = formData.get("caImage") as File | null;
 
     if (
       !title &&
-      !gkPDFFile &&
-      !currentAffairsPDFFile &&
-      !caImage &&
-      !gkImage
+      !gkTitle &&
+      !caTitle &&
+      !gkLink &&
+      !caLink &&
+      !gkImage &&
+      !caImage
     ) {
       return NextResponse.json(
         { error: "No fields to update provided." },
@@ -39,16 +41,16 @@ export const PATCH = async (req: Request) => {
       );
     }
 
+    // Upload images to Cloudinary if provided
     let gkImageUrl: string | undefined;
     let caImageUrl: string | undefined;
 
-    // Check and upload new images if provided
     if (gkImage) {
-      gkImageUrl = await uploadImageToCloudinary(gkImage, "gk-images"); // Specify the folder
+      gkImageUrl = await uploadImageToCloudinary(gkImage, "gk-images");
     }
 
     if (caImage) {
-      caImageUrl = await uploadImageToCloudinary(caImage, "ca-images"); // Specify the folder
+      caImageUrl = await uploadImageToCloudinary(caImage, "ca-images");
     }
 
     // Fetch the existing document
@@ -61,10 +63,10 @@ export const PATCH = async (req: Request) => {
       );
     }
 
-    // Delete existing images from Cloudinary only if new images are uploaded
+    // Delete existing images from Cloudinary if new images are uploaded
     if (gkImage && existingDocument.gkImage) {
       try {
-        await deleteImageFromCloudinary(existingDocument.gkImage); // Delete the existing GK image
+        await deleteImageFromCloudinary(existingDocument.gkImage);
       } catch (error) {
         console.error("Failed to delete GK image from Cloudinary:", error);
       }
@@ -72,32 +74,30 @@ export const PATCH = async (req: Request) => {
 
     if (caImage && existingDocument.caImage) {
       try {
-        await deleteImageFromCloudinary(existingDocument.caImage); // Delete the existing CA image
+        await deleteImageFromCloudinary(existingDocument.caImage);
       } catch (error) {
         console.error("Failed to delete CA image from Cloudinary:", error);
       }
     }
 
-    // Dynamically build the update object to only include provided fields
-    interface UpdateFields {
-      title?: string;
-      gkPDF?: Buffer;
-      currentAffairsPDF?: Buffer;
-      gkImage?: string;
-      caImage?: string;
-    }
-
-    const updateFields: UpdateFields = {};
+    // Build the update object dynamically
+    const updateFields: Partial<IGKCurrAff> = {};
 
     if (title) updateFields.title = title;
+    if (gkTitle) updateFields.gkTitle = gkTitle;
+    if (caTitle) updateFields.caTitle = caTitle;
+    if (gkLink) updateFields.gkLink = gkLink;
+    if (caLink) updateFields.caLink = caLink;
     if (gkImageUrl) updateFields.gkImage = gkImageUrl;
     if (caImageUrl) updateFields.caImage = caImageUrl;
 
-    // Partially update the GK and Current Affairs document by ID
+    // Update the document
     const updatedGKCA = await GKCurrAffModel.findByIdAndUpdate(
       id,
       updateFields,
-      { new: true } // Return the updated document
+      {
+        new: true,
+      }
     );
 
     if (!updatedGKCA) {

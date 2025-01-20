@@ -12,40 +12,14 @@ const GKCAUploadForm: React.FC<GKCAUploadFormProps> = ({
   onDocumentsUploaded,
 }) => {
   const [title, setTitle] = useState("");
-  const [gkPDF, setGkPDF] = useState<File | null>(null);
-  const [currentAffairsPDF, setCurrentAffairsPDF] = useState<File | null>(null);
+  const [gkTitle, setGkTitle] = useState("");
+  const [caTitle, setCaTitle] = useState("");
+  const [gkLink, setGkLink] = useState("");
+  const [caLink, setCaLink] = useState("");
   const [gkImage, setGkImage] = useState<File | null>(null);
   const [caImage, setCaImage] = useState<File | null>(null);
   const [gkImagePreview, setGkImagePreview] = useState<string | null>(null);
   const [caImagePreview, setCaImagePreview] = useState<string | null>(null);
-
-  const handlePDFChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: "gkPDF" | "currentAffairsPDF"
-  ) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > 1000000) {
-      // Check if file size is less than 1MB
-      toast.error("PDF size must be less than 1MB.");
-      e.target.value = "";
-      return;
-    }
-
-    if (file.type !== "application/pdf") {
-      // Ensure only PDF files are uploaded
-      toast.error("Only PDF files are allowed.");
-      e.target.value = "";
-      return;
-    }
-
-    if (type === "gkPDF") {
-      setGkPDF(file);
-    } else {
-      setCurrentAffairsPDF(file);
-    }
-  };
 
   const handleImageChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -86,15 +60,25 @@ const GKCAUploadForm: React.FC<GKCAUploadFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!gkPDF || !currentAffairsPDF || !gkImage || !caImage) {
-      toast.error("Please upload valid PDFs and images.");
+    if (
+      !title ||
+      !gkTitle ||
+      !caTitle ||
+      !gkLink ||
+      !caLink ||
+      !gkImage ||
+      !caImage
+    ) {
+      toast.error("Please fill all fields and upload valid images.");
       return;
     }
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("gkPDF", gkPDF);
-    formData.append("currentAffairsPDF", currentAffairsPDF);
+    formData.append("gkTitle", gkTitle);
+    formData.append("caTitle", caTitle);
+    formData.append("gkLink", gkLink);
+    formData.append("caLink", caLink);
     formData.append("gkImage", gkImage);
     formData.append("caImage", caImage);
 
@@ -106,11 +90,13 @@ const GKCAUploadForm: React.FC<GKCAUploadFormProps> = ({
 
       const result = await response.json();
       if (response.ok) {
-        toast.success("Documents and images uploaded successfully.");
+        toast.success("Data uploaded successfully.");
         onDocumentsUploaded();
         setTitle("");
-        setGkPDF(null);
-        setCurrentAffairsPDF(null);
+        setGkTitle("");
+        setCaTitle("");
+        setGkLink("");
+        setCaLink("");
         setGkImage(null);
         setCaImage(null);
         setGkImagePreview(null);
@@ -119,7 +105,7 @@ const GKCAUploadForm: React.FC<GKCAUploadFormProps> = ({
         toast.error(result?.error || "An unexpected error occurred.");
       }
     } catch (error) {
-      console.error("Error details:", error); // Logs the error details
+      console.error("Error details:", error);
       toast.error("Network error, please try again later.");
     }
   };
@@ -141,38 +127,66 @@ const GKCAUploadForm: React.FC<GKCAUploadFormProps> = ({
         />
       </div>
 
-      {/* GK PDF Upload */}
+      {/* GK Title */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          GK PDF (must be less than 1MB & in PDF format)
+          GK Title
         </label>
         <input
-          type="file"
-          accept="application/pdf"
-          onChange={(e) => handlePDFChange(e, "gkPDF")}
-          className="mt-1"
+          type="text"
+          value={gkTitle}
+          onChange={(e) => setGkTitle(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
           required
         />
       </div>
 
-      {/* Current Affairs PDF Upload */}
+      {/* CA Title */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Current Affairs PDF (must be less than 1MB & in PDF format)
+          Current Affairs Title
         </label>
         <input
-          type="file"
-          accept="application/pdf"
-          onChange={(e) => handlePDFChange(e, "currentAffairsPDF")}
-          className="mt-1"
+          type="text"
+          value={caTitle}
+          onChange={(e) => setCaTitle(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
           required
         />
       </div>
 
-      {/* GK Image Upload */}
+      {/* GK Link */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          GK Image (must be less than 100KB & in JPG, JPEG, PNG format)
+          GK Link
+        </label>
+        <input
+          type="url"
+          value={gkLink}
+          onChange={(e) => setGkLink(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          required
+        />
+      </div>
+
+      {/* CA Link */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Current Affairs Link
+        </label>
+        <input
+          type="url"
+          value={caLink}
+          onChange={(e) => setCaLink(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          required
+        />
+      </div>
+
+      {/* GK Image */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          GK Image (less than 100KB)
         </label>
         <input
           type="file"
@@ -182,21 +196,18 @@ const GKCAUploadForm: React.FC<GKCAUploadFormProps> = ({
           required
         />
         {gkImagePreview && (
-          <div className="mt-2">
-            <img
-              src={gkImagePreview}
-              alt="GK Image Preview"
-              className="w-full h-auto object-contain"
-            />
-          </div>
+          <img
+            src={gkImagePreview}
+            alt="GK Preview"
+            className="w-full h-auto mt-2 object-contain"
+          />
         )}
       </div>
 
-      {/* CA Image Upload */}
+      {/* CA Image */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Current Affairs Image (must be less than 100KB & in JPG, JPEG, PNG
-          format)
+          Current Affairs Image (less than 100KB)
         </label>
         <input
           type="file"
@@ -206,13 +217,11 @@ const GKCAUploadForm: React.FC<GKCAUploadFormProps> = ({
           required
         />
         {caImagePreview && (
-          <div className="mt-2">
-            <img
-              src={caImagePreview}
-              alt="CA Image Preview"
-              className="w-full h-auto object-contain"
-            />
-          </div>
+          <img
+            src={caImagePreview}
+            alt="CA Preview"
+            className="w-full h-auto mt-2 object-contain"
+          />
         )}
       </div>
 
@@ -220,9 +229,9 @@ const GKCAUploadForm: React.FC<GKCAUploadFormProps> = ({
       <div className="text-center">
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none"
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
         >
-          Upload Documents & Images
+          Upload Data
         </button>
       </div>
     </form>

@@ -18,7 +18,10 @@ const GKCAomponent: React.FC = () => {
   return (
     <div className="w-full h-fit flex flex-col justify-center items-center gap-[2rem]">
       {/* General Knowledge Section */}
-      <div id="genk-id" className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit">
+      <div
+        id="genk-id"
+        className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit"
+      >
         <AboutHeading text="General Knowledge" />
         {loading && <LoadingSpinner text="Loading Content" />}
         {loading ? null : gkcaAllList.length > 0 ? (
@@ -29,7 +32,7 @@ const GKCAomponent: React.FC = () => {
                 duration={0.5}
                 delay={index * 0.1}
               >
-                <div className="flex w-full h-full flex-col justify-center items-center gap-[3rem] rounded-md">
+                <div className="flex w-full h-full flex-col justify-center items-center gap-[1rem] rounded-md">
                   {/* Image Display */}
                   <Image
                     width={300}
@@ -38,13 +41,18 @@ const GKCAomponent: React.FC = () => {
                     alt={`General Knowledge ${index + 1}`}
                     className="w-full h-[30rem] object-cover rounded-xl"
                   />
-                  {/* Download Button for GK PDF */}
+                  {/* Title */}
+                  <p className="text-xl text-center font-semibold">
+                    {item.gkTitle}
+                  </p>
+                  {/* Link */}
                   <Link
-                    href={`/api/gkca/ca-download?id=${item._id}`}
-                    className="px-5 py-2 text-xl bg-blue-500 text-white rounded hover:bg-blue-600"
-                    download="current-affairs.pdf"
+                    href={item.gkLink}
+                    className="text-xl text-blue-500 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Download
+                    Read More
                   </Link>
                 </div>
               </AnimateComponent>
@@ -56,7 +64,10 @@ const GKCAomponent: React.FC = () => {
       </div>
 
       {/* Current Affairs Section */}
-      <div id="curra-id" className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit">
+      <div
+        id="curra-id"
+        className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit"
+      >
         <AboutHeading text="Current Affairs" />
         {loading && <LoadingSpinner text="Loading Content" />}
         {loading ? null : gkcaAllList.length > 0 ? (
@@ -67,7 +78,7 @@ const GKCAomponent: React.FC = () => {
                 delay={index * 0.1}
                 duration={0.5}
               >
-                <div className="flex w-full h-full flex-col justify-center items-center gap-[3rem] rounded-md">
+                <div className="flex w-full h-full flex-col justify-center items-center gap-[1rem] rounded-md">
                   {/* Image Display for Current Affairs */}
                   <Image
                     width={300}
@@ -76,13 +87,18 @@ const GKCAomponent: React.FC = () => {
                     alt={`Current Affairs ${index + 1}`}
                     className="w-full h-[30rem] object-cover rounded-xl"
                   />
-                  {/* Download Button for Current Affairs PDF */}
+                  {/* Title */}
+                  <p className="text-xl text-center font-semibold">
+                    {item.caTitle}
+                  </p>
+                  {/* Link */}
                   <Link
-                    href={`/api/gkca/ca-download?id=${item._id}`}
-                    className="px-5 py-2 text-xl bg-blue-500 text-white rounded hover:bg-blue-600"
-                    download="current-affairs.pdf"
+                    href={item.caLink}
+                    className="text-xl text-blue-500 hover:underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Download
+                    Read More
                   </Link>
                 </div>
               </AnimateComponent>

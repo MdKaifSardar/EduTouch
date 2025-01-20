@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface IGKCurrAff {
   _id: string;
   title: string;
-  gkPDF: string; // URL for the General Knowledge PDF
-  currentAffairsPDF: string;
-  gkImage: string; // URL for the General Knowledge image
-  caImage: string; // URL for the Current Affairs image
+  gkImage: string;
+  caImage: string;
+  gkTitle: string;
+  caTitle: string;
+  gkLink: string;
+  caLink: string;
 }
 
 interface EditFormProps {
@@ -21,51 +23,14 @@ interface EditFormProps {
 
 const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
   const [title, setTitle] = useState(item.title);
-  const [gkPDF, setGkPDF] = useState<File | null>(null);
-  const [currentAffairsPDF, setCurrentAffairsPDF] = useState<File | null>(null);
+  const [gkTitle, setGkTitle] = useState(item.gkTitle);
+  const [caTitle, setCaTitle] = useState(item.caTitle);
+  const [gkLink, setGkLink] = useState(item.gkLink);
+  const [caLink, setCaLink] = useState(item.caLink);
   const [gkImage, setGkImage] = useState<File | null>(null);
   const [caImage, setCaImage] = useState<File | null>(null);
-  const [gkImagePreview, setGkImagePreview] = useState<string | null>(
-    item.gkImage || null
-  );
-  const [caImagePreview, setCaImagePreview] = useState<string | null>(
-    item.caImage || null
-  );
-
-  useEffect(() => {
-    // Initialize form fields with `item` data
-    setTitle(item.title);
-    setGkImagePreview(item.gkImage);
-    setCaImagePreview(item.caImage);
-  }, [item]);
-
-  const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: "gkPDF" | "currentAffairsPDF"
-  ) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > 1000000) {
-      // Check if file size is less than 1MB
-      toast.error("PDF size must be less than 1MB.");
-      e.target.value = "";
-      return;
-    }
-
-    if (file.type !== "application/pdf") {
-      // Ensure only PDF files are uploaded
-      toast.error("Only PDF files are allowed.");
-      e.target.value = "";
-      return;
-    }
-
-    if (type === "gkPDF") {
-      setGkPDF(file);
-    } else {
-      setCurrentAffairsPDF(file);
-    }
-  };
+  const [gkImagePreview, setGkImagePreview] = useState<string>(item.gkImage);
+  const [caImagePreview, setCaImagePreview] = useState<string>(item.caImage);
 
   const handleImageChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -108,12 +73,10 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
 
     const formData = new FormData();
     formData.append("title", title);
-    if (gkPDF) {
-      formData.append("gkPDF", gkPDF);
-    }
-    if (currentAffairsPDF) {
-      formData.append("currentAffairsPDF", currentAffairsPDF);
-    }
+    formData.append("gkTitle", gkTitle);
+    formData.append("caTitle", caTitle);
+    formData.append("gkLink", gkLink);
+    formData.append("caLink", caLink);
     if (gkImage) {
       formData.append("gkImage", gkImage);
     }
@@ -130,11 +93,11 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
 
       const result = await response.json();
       if (response.ok) {
-        toast.success("Course updated successfully.");
+        toast.success("Details updated successfully.");
         onSuccess();
         onClose();
       } else {
-        toast.error(result?.error || "Failed to update course.");
+        toast.error(result?.error || "Failed to update details.");
       }
     } catch (error) {
       console.error("Error during update:", error);
@@ -147,6 +110,7 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
       onSubmit={handleSubmit}
       className="w-full mx-auto bg-white shadow-md p-6 rounded-lg space-y-4"
     >
+      {/* Title */}
       <div>
         <label className="block text-sm font-medium text-gray-700">Title</label>
         <input
@@ -157,36 +121,62 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
         />
       </div>
 
-      {/* GK PDF Upload */}
+      {/* GK Title */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          GK PDF (must be less than 1MB & in PDF format)
+          GK Title
         </label>
         <input
-          type="file"
-          accept="application/pdf"
-          onChange={(e) => handleFileChange(e, "gkPDF")}
-          className="mt-1"
+          type="text"
+          value={gkTitle}
+          onChange={(e) => setGkTitle(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
         />
       </div>
 
-      {/* Current Affairs PDF Upload */}
+      {/* CA Title */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Current Affairs PDF (must be less than 1MB & in PDF format)
+          CA Title
         </label>
         <input
-          type="file"
-          accept="application/pdf"
-          onChange={(e) => handleFileChange(e, "currentAffairsPDF")}
-          className="mt-1"
+          type="text"
+          value={caTitle}
+          onChange={(e) => setCaTitle(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
         />
       </div>
 
-      {/* GK Image Upload */}
+      {/* GK Link */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          GK Image (must be less than 100KB & in JPG, JPEG, PNG format)
+          GK Link
+        </label>
+        <input
+          type="text"
+          value={gkLink}
+          onChange={(e) => setGkLink(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+
+      {/* CA Link */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          CA Link
+        </label>
+        <input
+          type="text"
+          value={caLink}
+          onChange={(e) => setCaLink(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+
+      {/* GK Image */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          GK Image (less than 100KB, JPG/PNG)
         </label>
         <input
           type="file"
@@ -195,21 +185,14 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           className="mt-1"
         />
         {gkImagePreview && (
-          <div className="mt-2">
-            <img
-              src={gkImagePreview}
-              alt="GK Image Preview"
-              className="w-full h-auto object-contain"
-            />
-          </div>
+          <img src={gkImagePreview} alt="GK Preview" className="mt-2 w-full" />
         )}
       </div>
 
-      {/* CA Image Upload */}
+      {/* CA Image */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Current Affairs Image (must be less than 100KB & in JPG, JPEG, PNG
-          format)
+          CA Image (less than 100KB, JPG/PNG)
         </label>
         <input
           type="file"
@@ -218,20 +201,14 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           className="mt-1"
         />
         {caImagePreview && (
-          <div className="mt-2">
-            <img
-              src={caImagePreview}
-              alt="CA Image Preview"
-              className="w-full h-auto object-contain"
-            />
-          </div>
+          <img src={caImagePreview} alt="CA Preview" className="mt-2 w-full" />
         )}
       </div>
 
       <div className="text-center">
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none"
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
         >
           Save Changes
         </button>
