@@ -31,24 +31,27 @@ const ImageCarousel: React.FC = () => {
   }
 
   return (
-    <div className="relative pt-[3.4rem] sm:pt-[6rem] w-full h-fit overflow-hidden">
-      {/* Carousel */}
-      <Slider {...settings} ref={sliderRef} className="w-full h-full">
-        {heroPosters.map((poster, index) => (
-          <div key={index} className="w-full h-fit relative">
-            <Image
-              src={poster.image}
-              width={1000}
-              height={1000}
-              alt={poster.title}
-              className="w-full h-auto object-contain"
-            />
-          </div>
-        ))}
-      </Slider>
+    <div className="relative pt-[3.4rem] sm:pt-[6rem] w-full overflow-hidden">
+      {/* Carousel with Aspect Ratio */}
+      <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+        <Slider {...settings} ref={sliderRef} className="w-full h-full">
+          {heroPosters.map((poster, index) => (
+            <div key={index} className="w-full h-full relative">
+              <Image
+                src={poster.image}
+                width={1920}
+                height={1080}
+                alt={poster.title}
+                className="w-full h-full object-cover"
+                priority // Ensures images are loaded quickly
+              />
+            </div>
+          ))}
+        </Slider>
+      </div>
 
       {/* Custom Dots */}
-      <div className="absolute bottom-5 w-full flex justify-center">
+      <div className="absolute bottom-[1.5rem] sm:bottom-[3rem] md:bottom-[5rem] z-[10] w-full flex justify-center">
         <div className="flex flex-row space-x-2">
           {heroPosters.map((_, index) => (
             <button

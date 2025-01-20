@@ -18,7 +18,11 @@ const MobileNavMenu: React.FC<MobileNavMenuProps> = ({ toggleMenu }) => {
         </button>
 
         <div className="flex flex-col gap-4 mt-4">
-          <Link href="/courses" className="w-fit text-center hover:bg-[#597af0] bg-[#243674] rounded-lg px-[1.4rem] text-lg text-white font-sans font-semibold py-[.5rem]">
+          <Link
+            onClick={toggleMenu}
+            href="/courses"
+            className="w-fit text-center hover:bg-[#597af0] bg-[#243674] rounded-lg px-[1.4rem] text-lg text-white font-sans font-semibold py-[.5rem]"
+          >
             Courses
           </Link>
           {NavLinks.map((link, index) => (
