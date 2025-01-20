@@ -105,18 +105,16 @@ const DisplayGKCAComponent = ({ reload }: GKCAListProps) => {
             </div>
             <div className="flex space-x-2 mb-2">
               <a
-                href={`/api/gkca/gk-download?id=${item._id}`}
+                href={item.gkLink}
                 className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                download="gk.pdf"
               >
-                Download General Knowledge PDF
+                View GK
               </a>
               <a
-                href={`/api/gkca/ca-download?id=${item._id}`}
+                href={item.caLink}
                 className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                download="current-affairs.pdf"
               >
-                Download Current Affairs PDF
+                View CA
               </a>
             </div>
             {showEditForm && editingGKCAId === item._id && (
