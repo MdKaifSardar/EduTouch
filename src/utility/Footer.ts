@@ -10,15 +10,15 @@ const footerText = [
   },
   {
     text: "Why choose Us",
-    link: "/",
+    link: "/about",
   },
   {
     text: "Book Consultation",
-    link: "/",
+    link: "/contact",
   },
   {
     text: "Contact Us",
-    link: "/",
+    link: "/contact",
   },
 ];
 
@@ -33,7 +33,7 @@ const sociaLinks = [
   },
   {
     icon: Gplay,
-    url: "/",
+    url: "https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN",
   },
   {
     icon: ytube,
