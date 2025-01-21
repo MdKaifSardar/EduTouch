@@ -17,7 +17,7 @@ const ContactInformation = [
   {
     name: "WhatsApp No",
     icon: whatsApp,
-    text: " 7586049871",
+    text: "9123648141",
   },
   {
     name: "Gmail",

@@ -51,7 +51,7 @@ const ImageCarousel: React.FC = () => {
       </div>
 
       {/* Custom Dots */}
-      <div className="absolute bottom-[1.5rem] sm:bottom-[3rem] md:bottom-[5rem] z-[10] w-full flex justify-center">
+      {/* <div className="absolute bottom-[1.5rem] sm:bottom-[3rem] md:bottom-[5rem] z-[10] w-full flex justify-center">
         <div className="flex flex-row space-x-2">
           {heroPosters.map((_, index) => (
             <button
@@ -65,7 +65,7 @@ const ImageCarousel: React.FC = () => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

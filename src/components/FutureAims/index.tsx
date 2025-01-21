@@ -28,7 +28,7 @@ const FutureAims = () => {
           width={300}
           height={300}
           alt="image future"
-          className="w-[40%] md:w-[20%] h-auto object-cover"
+          className="w-[50%] md:w-[20%] h-auto object-cover"
         />
         <AnimateHorizontal delay={0} duration={0.5} direction="right">
           <div className="flex flex-col gap[.3rem] justify-center items-start">
