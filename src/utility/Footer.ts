@@ -25,11 +25,11 @@ const footerText = [
 const sociaLinks = [
   {
     icon: insta,
-    url: "/",
+    url: "https://www.instagram.com/edu_touch?igsh=MmdyaHE1MTZnb2Qx",
   },
   {
     icon: facebook,
-    url: "/",
+    url: "https://www.facebook.com/share/1CUnomgEGG/?mibextid=qi2Omg",
   },
   {
     icon: Gplay,
