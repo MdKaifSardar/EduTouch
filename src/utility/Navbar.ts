@@ -1,6 +1,7 @@
 import NavImage from "../assets/images/NavbarDiv.png";
 import NavPerson from "../assets/images/NavPerson.png";
 import NavLogo from "../assets/images/NavLogo.png";
+import FooterLogo from "../assets/images/FooterLogo.png";
 
 const NavLinks = [
   {
@@ -25,4 +26,4 @@ const NavLinks = [
   },
 ];
 
-export { NavLinks, NavImage, NavPerson, NavLogo };
+export { NavLinks, NavImage, NavPerson, NavLogo, FooterLogo };
