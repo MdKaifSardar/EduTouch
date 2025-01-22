@@ -8,7 +8,7 @@ import { useFetchHeroPosters } from "@/hooks/DisplayAllPosters";
 const ImageCarousel: React.FC = () => {
   const sliderRef = useRef<Slider | null>(null);
   const { heroPosters, fetchHeroPosters, loading } = useFetchHeroPosters();
-  const [activeIndex, setActiveIndex] = React.useState(0);
+  // const [activeIndex, setActiveIndex] = React.useState(0);
 
   useEffect(() => {
     fetchHeroPosters();
@@ -23,7 +23,7 @@ const ImageCarousel: React.FC = () => {
     autoplaySpeed: 2000,
     pauseOnHover: false,
     arrows: false, // Disable default arrows
-    beforeChange: (_: number, next: number) => setActiveIndex(next), // Track active slide
+    // beforeChange: (_: number, next: number) => setActiveIndex(next), // Track active slide
   };
 
   if (loading) {

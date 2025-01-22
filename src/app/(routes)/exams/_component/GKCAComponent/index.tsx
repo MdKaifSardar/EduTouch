@@ -20,12 +20,12 @@ const GKCAomponent: React.FC = () => {
       {/* General Knowledge Section */}
       <div
         id="genk-id"
-        className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit"
+        className="flex flex-col justify-center items-center gap-[2rem] w-full md:w-full h-fit"
       >
         <AboutHeading text="General Knowledge" />
         {loading && <LoadingSpinner text="Loading Content" />}
         {loading ? null : gkcaAllList.length > 0 ? (
-          <div className="w-full h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[4rem]">
+          <div className="place-items-center w-[85%] md:w-[90%] h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[2rem]">
             {gkcaAllList.map((item, index) => (
               <AnimateComponent
                 key={item._id}
@@ -39,7 +39,7 @@ const GKCAomponent: React.FC = () => {
                     height={200}
                     src={item.gkImage}
                     alt={`General Knowledge ${index + 1}`}
-                    className="w-full h-[30rem] object-cover rounded-xl"
+                    className="w-full lg:w-full h-[25rem] object-cover rounded-xl"
                   />
                   {/* Title */}
                   <p className="text-xl text-center font-semibold">
@@ -66,12 +66,12 @@ const GKCAomponent: React.FC = () => {
       {/* Current Affairs Section */}
       <div
         id="curra-id"
-        className="flex flex-col justify-center items-center gap-[2rem] w-[90%] md:w-full h-fit"
+        className="flex flex-col justify-center items-center gap-[2rem] w-full md:w-full h-fit"
       >
         <AboutHeading text="Current Affairs" />
         {loading && <LoadingSpinner text="Loading Content" />}
         {loading ? null : gkcaAllList.length > 0 ? (
-          <div className="w-full h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[4rem]">
+          <div className="place-items-center w-[85%] md:w-[90%] h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[2rem]">
             {gkcaAllList.map((item, index) => (
               <AnimateComponent
                 key={item._id}
@@ -85,7 +85,7 @@ const GKCAomponent: React.FC = () => {
                     height={200}
                     src={item.caImage}
                     alt={`Current Affairs ${index + 1}`}
-                    className="w-full h-[30rem] object-cover rounded-xl"
+                    className="w-full lg:w-full h-[25rem] object-cover rounded-xl"
                   />
                   {/* Title */}
                   <p className="text-xl text-center font-semibold">
