@@ -1,5 +1,5 @@
 import { footerText, phone, sociaLinks } from "@/utility/Footer";
-import { NavLogo } from "@/utility/Navbar";
+import { FooterLogo } from "@/utility/Navbar";
 import Image from "next/image";
 import React from "react";
 
@@ -20,14 +20,13 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex gap-[.5rem] sm:gap-[1rem] flex-col justify-center items-center">
-          <div className="overflow-hidden relative rounded-lg bg-white flex flex-col justify-center items-center">
+          <div className="rounded-lg bg-white flex flex-col justify-center items-center">
             <Image
-              src={NavLogo}
+              src={FooterLogo}
               alt="logo"
-              className="w-[13rem] md:w-[17rem] h-auto object-contain"
+              className="w-[12rem] h-auto object-contain"
             />
           </div>
-          <span>Connect with Us</span>
           <div className="flex flex-row justify-center items-center gap-2">
             {sociaLinks.map((social, index) => (
               <a href={social.url} key={index} className="text-center">
@@ -52,14 +51,13 @@ const Footer = () => {
         </div>
       </div>
       <div className="md:flex hidden gap-[1rem] flex-col justify-center items-center ">
-        <div className="overflow-hidden relative rounded-lg gap-[.3rem] bg-white flex flex-col justify-center items-center">
+        <div className="rounded-lg bg-white flex flex-col justify-center items-center">
           <Image
-            src={NavLogo}
+            src={FooterLogo}
             alt="logo"
-            className="w-[17rem] h-auto object-contain"
+            className="w-[20rem] h-auto object-contain"
           />
         </div>
-        <span>Connect with Us</span>
         <div className="flex flex-row justify-center items-center gap-2">
           {sociaLinks.map((social, index) => (
             <a href={social.url} key={index} className="text-center">
@@ -81,9 +79,9 @@ const Footer = () => {
             height={300}
             className="w-[1.5rem] h-auto object-contain"
           />
-          <span> +913482355966 </span>
+          <span> 7586049871</span>
           <span>/</span>
-          <span> 9123648141</span>
+          <span>9123648141</span>
         </div>
         <div className="flex flex-col justify-center items-center overflow-hidden shadow-lg h-[20rem] w-full">
           <iframe

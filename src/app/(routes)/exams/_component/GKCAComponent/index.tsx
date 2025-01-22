@@ -25,7 +25,7 @@ const GKCAomponent: React.FC = () => {
         <AboutHeading text="General Knowledge" />
         {loading && <LoadingSpinner text="Loading Content" />}
         {loading ? null : gkcaAllList.length > 0 ? (
-          <div className="place-items-center w-[85%] md:w-[90%] h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[2rem]">
+          <div className="place-items-center w-[85%] md:w-[70%] h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[2rem]">
             {gkcaAllList.map((item, index) => (
               <AnimateComponent
                 key={item._id}
@@ -71,7 +71,7 @@ const GKCAomponent: React.FC = () => {
         <AboutHeading text="Current Affairs" />
         {loading && <LoadingSpinner text="Loading Content" />}
         {loading ? null : gkcaAllList.length > 0 ? (
-          <div className="place-items-center w-[85%] md:w-[90%] h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[2rem]">
+          <div className="place-items-center w-[85%] md:w-[70%] h-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto gap-[2rem] xl:gap-[2rem]">
             {gkcaAllList.map((item, index) => (
               <AnimateComponent
                 key={item._id}

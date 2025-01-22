@@ -77,9 +77,9 @@ const StudentFeedback = () => {
                     <span className="font-semibold text-xl">
                       Name: {feedback.name}
                     </span>
-                    <span className="text-gray-600 text-xl">
+                    {/* <span className="text-gray-600 text-xl">
                       Batch: {feedback.batch}
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               </div>

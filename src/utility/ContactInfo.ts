@@ -12,7 +12,7 @@ const ContactInformation = [
   {
     name: "Phone No",
     icon: phone,
-    text: " +913482355966 / 9123648141",
+    text: " 7586049871/9123648141",
   },
   {
     name: "WhatsApp No",

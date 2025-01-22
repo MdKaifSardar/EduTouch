@@ -39,12 +39,12 @@ const OurCourses = () => {
       {loading && <LoadingSpinner text="Loading Courses" />}
 
       {!loading && (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-[2rem] grid-rows-auto w-full h-fit">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-[2rem] grid-rows-auto w-[90%] md:w-[75%] h-fit">
           {courses &&
             courses.map((course) => (
               <div
                 key={course._id}
-                className="pl-[1rem] md:pl-[2rem] relative bg-[#ffe8ba] gap-0 sm:gap-[1rem] lg:gap-[2rem] rounded-lg w-full flex flex-row justify-between items-center"
+                className="pl-[1rem] md:pl-[1rem] relative bg-[#ffe8ba] gap-[.3rem] sm:gap-[1rem] lg:gap-[2rem] rounded-lg w-full flex flex-row justify-between items-center"
               >
                 <div className="py-[1rem] w-full flex flex-col gap-[1rem] justify-center items-start">
                   <div className="flex flex-col justify-start items-start">
