@@ -23,6 +23,7 @@ const ExamsComponent: React.FC = () => {
     <div className="flex flex-col justify-center items-center w-full gap-[2rem]">
       <AboutHeading text="Upcoming Exams" />
       {loading ? (
+        //message new
         <LoadingSpinner text="Loading Exams" />
       ) : exams.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto w-[85%] md:w-[90%] h-fit gap-y-[2rem] gap-x-[2rem]">
