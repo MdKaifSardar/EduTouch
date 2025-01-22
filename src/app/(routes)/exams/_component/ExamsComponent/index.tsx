@@ -23,13 +23,14 @@ const ExamsComponent: React.FC = () => {
     <div className="flex flex-col justify-center items-center w-full gap-[2rem]">
       <AboutHeading text="Upcoming Exams" />
       {loading ? (
+        //message new
         <LoadingSpinner text="Loading Exams" />
       ) : exams.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto w-[85%] md:w-[90%] h-fit gap-y-[2rem] gap-x-[2rem]">
           {exams.map((exam) => (
             <div
               key={exam._id}
-              className="rounded-xl gap-[1rem] md:gap-[1rem] p-[1.5rem] flex flex-col justify-start items-start w-[85%] md:w-full h-full bg-[#D9D9D9FF]"
+              className="rounded-xl gap-[1rem] md:gap-[1rem] p-[1.5rem] flex flex-col justify-start items-start w-full h-full bg-[#D9D9D9FF]"
             >
               <span className="w-full text-4xl font-semibold font-sans text-center">
                 {exam.examName}
