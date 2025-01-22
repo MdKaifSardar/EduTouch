@@ -70,6 +70,7 @@ const StudentFeedback = () => {
                     alt={`Feedback Banner for ${feedback.name}`}
                     width={500}
                     height={300}
+                    layout="intrinsic" // Ensure dimensions are correctly calculated
                     className="w-full h-auto object-cover"
                   />
                   <div className="p-4 w-full flex flex-col md:flex-row justify-center items-center gap-2">

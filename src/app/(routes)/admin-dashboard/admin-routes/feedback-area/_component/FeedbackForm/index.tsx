@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -113,7 +114,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onFeedbackSubmitted }) => {
         />
         {imagePreview && (
           <div className="mt-2">
-            <img
+            <Image
               src={imagePreview}
               alt="Image Preview"
               className="w-full h-auto object-contain"
