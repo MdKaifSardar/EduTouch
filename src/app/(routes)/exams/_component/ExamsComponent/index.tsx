@@ -29,7 +29,7 @@ const ExamsComponent: React.FC = () => {
           {exams.map((exam) => (
             <div
               key={exam._id}
-              className="rounded-xl gap-[1rem] md:gap-[1rem] p-[1.5rem] flex flex-col justify-start items-start w-[85%] md:w-full h-full bg-[#D9D9D9FF]"
+              className="rounded-xl gap-[1rem] md:gap-[1rem] p-[1.5rem] flex flex-col justify-start items-start w-full h-full bg-[#D9D9D9FF]"
             >
               <span className="w-full text-4xl font-semibold font-sans text-center">
                 {exam.examName}
