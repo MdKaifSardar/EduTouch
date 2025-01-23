@@ -4,8 +4,10 @@ import React from "react";
 
 const ContactInfo = () => {
   return (
-    <div className="mt-[10rem] flex flex-col justify-center gap-[2rem] items-center w-full h-fit">
-      <div className="text-center text-4xl font-sans font-bold">Reach Us</div>
+    <div className="flex flex-col justify-center gap-[2rem] items-center w-full h-fit">
+      <div className="text-[2.5rem] sm:text-5xl font-bold text-center uppercase w-full">
+        Reach Us
+      </div>
       <div className="w-full flex flex-col md:flex-row justify-between items-center gap-[4rem] ">
         <div className="w-full gap-[1rem] flex flex-col justify-center items-start">
           <div className="text-left text-2xl font-sans font-semibold">

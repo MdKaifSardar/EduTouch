@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 
 const page = () => {
   return (
-    <div className="gap-[2rem] md:gap-[3rem] w-[90%] md:w-[85%] h-fit flex flex-col justify-center items-center">
+    <div className="mt-[4.5rem] sm:mt-[5rem] lg:mt-[6rem] gap-[2rem] md:gap-[3rem] w-[90%] md:w-[85%] h-fit flex flex-col justify-center items-center">
       <ToastContainer />
       <ContactInfo />
       <RegistrationForm />
