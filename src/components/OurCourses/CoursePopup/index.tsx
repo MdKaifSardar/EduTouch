@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 interface CoursePopupProps {
@@ -53,9 +54,14 @@ const CoursePopup: React.FC<CoursePopupProps> = ({
             </ul>
           </div>
         </div>
-        <button className="mt-2 self-center px-12 py-3 text-md text-white bg-[rgba(255,151,0,1)] rounded-lg hover:bg-orange-600">
+        <Link
+          href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2 self-center px-12 py-3 text-md text-white bg-[rgba(255,151,0,1)] rounded-lg hover:bg-orange-600"
+        >
           Enroll Now
-        </button>
+        </Link>
       </div>
     </div>
   );
