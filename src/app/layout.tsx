@@ -16,7 +16,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "EduTouch",
-  description: "",
+  description: "Edutouch is the top-rated and trusted name in Berhampore, Murshidabad, renowned for providing personalized coaching guidance to help students achieve their dreams. With a commitment to excellence and a student-centric approach, we are dedicated to nurturing talent and unlocking potential. Edutouch – Where Dreams Turn Into Reality!",
 };
 
 export default function RootLayout({
