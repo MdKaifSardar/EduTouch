@@ -16,7 +16,7 @@ const WhyChooseUsComp = () => {
           <div className="text-xl">{WhyChooseUsContent.FirstText}</div>
         </AnimateComponent>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-auto gap-[1rem] w-full h-fit">
+      <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-auto gap-[.5rem] w-full h-fit">
         {WhyChooseUsContent.WhyChooseUsTextArray.map((element, index) => (
           <AnimateComponent key={index} delay={0.05*index} duration={0.3}>
             <div className="p-[1rem] w-full h-full flex flex-col justify-center items-start gap-[.3rem] ">

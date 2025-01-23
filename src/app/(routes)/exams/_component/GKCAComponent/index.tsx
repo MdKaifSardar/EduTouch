@@ -66,7 +66,7 @@ const GKCAomponent: React.FC = () => {
       {/* Current Affairs Section */}
       <div
         id="curra-id"
-        className="flex flex-col justify-center items-center gap-[2rem] w-full md:w-full h-fit"
+        className="flex flex-col justify-center items-center gap-[1rem] w-full md:w-full h-fit"
       >
         <AboutHeading text="Current Affairs" />
         {loading && <LoadingSpinner text="Loading Content" />}

@@ -12,9 +12,9 @@ import WhyChooseUsComp from "@/components/WhyChooseUs";
 
 export default function Home() {
   return (
-    <div className="flex gap-[2rem] md:gap-[3rem] flex-col justify-center items-center w-full h-fit">
+    <div className="flex gap-[1rem] md:gap-[2rem] flex-col justify-center items-center w-full h-fit">
       <ImageCarousel />
-      <div className="w-[95%] md:w-[85%] h-fit flex flex-col gap-[2rem] md:gap-[3rem] justify-center items-center">
+      <div className="w-[95%] md:w-[85%] h-fit flex flex-col gap-[1rem] md:gap-[2rem] justify-center items-center">
         <DownloadSec />
         <StatsSec />
         <ServicesSec />

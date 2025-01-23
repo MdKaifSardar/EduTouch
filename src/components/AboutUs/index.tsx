@@ -5,9 +5,9 @@ import AnimateHorizontal from "../AnimateHorizontal";
 
 const AboutUs = () => {
   return (
-    <div className="mt-[10rem] lg:mt-[13rem] flex flex-col lg:flex-row justify-center lg:justify-between items-center lg:items-start gap-[2rem] lg:gap-[4rem] w-full py-[2rem]">
+    <div className="flex flex-col lg:flex-row justify-center lg:justify-between items-center lg:items-start gap-[1rem] w-full">
       <AnimateHorizontal delay={0} duration={0.5} direction="right">
-        <div className="lg:hidden block text-[2.5rem] sm:text-5xl text-left w-full">
+        <div className="lg:hidden block text-[2.5rem] sm:text-5xl font-bold text-left uppercase w-full">
           About Us
         </div>
       </AnimateHorizontal>
@@ -16,18 +16,18 @@ const AboutUs = () => {
         alt="about image"
         className="lg:hidden block w-full h-auto object-cover"
       />
-      <div className="flex flex-col justify-center items-start gap-[1rem] w-full">
+      <div className="flex flex-col justify-center items-center lg:items-start gap-[1rem] w-full">
         <AnimateHorizontal delay={0} duration={0.5} direction="right">
-          <div className="lg:block hidden text-5xl text-left w-full">
+          <div className="font-bold uppercase lg:block hidden text-5xl text-left w-full">
             About Us
           </div>
         </AnimateHorizontal>
         <AnimateHorizontal duration={0.8} delay={0.3} direction="right">
-          <div className="text-lg leading-tight flex flex-col justify-center items-start gap-[2rem]">
+          <div className="text-lg leading-tight flex flex-col justify-center items-center lg:items-start gap-[2rem]">
             {para.map((para, index) => (
               <div
                 key={index}
-                className="flex flex-col justify-center items-start text-lg lg:text-xl"
+                className="text-center lg:text-left flex flex-col justify-center items-start text-lg lg:text-xl"
               >
                 {para}
               </div>

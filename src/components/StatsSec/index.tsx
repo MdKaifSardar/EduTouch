@@ -2,6 +2,7 @@ import { leftStats, rightStats } from "@/utility/StatsSec";
 import Image from "next/image";
 import React from "react";
 import AnimateComponent from "../AnimateComponent";
+import Link from "next/link";
 
 const StatsSec = () => {
   return (
@@ -9,7 +10,7 @@ const StatsSec = () => {
       <div className="w-full gap-[1rem] md:gap-[3rem] flex flex-col justify-center items-start h-fit">
         <div className="flex flex-col justify-center items-start gap-2">
           <AnimateComponent delay={0} duration={0.5}>
-            <span className="text-4xl sm:text-5xl font-sans font-semibold">
+            <span className="text-[2.5rem] sm:text-5xl leading-[2rem] text-left w-full font-bold">
               Empowering Dreams Ensuring Success
             </span>
           </AnimateComponent>
@@ -22,9 +23,12 @@ const StatsSec = () => {
           </AnimateComponent>
         </div>
         <AnimateComponent delay={0.3} duration={0.5}>
-          <button className="bg-[#ff9700] text-white px-5 rounded-lg py-2 text-2xl">
+          <Link
+            href="/courses"
+            className="hover:bg-yellow-400 focus:bg-yellow-400/50 bg-[#ff9700] text-white px-5 rounded-lg py-2 text-2xl"
+          >
             Get Started
-          </button>
+          </Link>
         </AnimateComponent>
       </div>
       <AnimateComponent delay={0} duration={0.8}>

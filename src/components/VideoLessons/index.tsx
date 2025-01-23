@@ -74,7 +74,7 @@ const VideoCarousel: React.FC = () => {
   };
 
   return (
-    <div className="w-full py-12 flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
+    <div className="w-full py-[1rem] flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
       {/* Show loading state */}
       <AboutHeading text="Video Lessons" />
       {loading &&  <LoadingSpinner text="Loading Videos"/>}

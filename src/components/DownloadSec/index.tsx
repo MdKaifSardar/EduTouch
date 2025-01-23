@@ -23,7 +23,7 @@ const DownloadSec = () => {
             </div>
           </AnimateComponent>
           <AnimateComponent delay={0.3} duration={0.5}>
-            <span className="font-semibold text-[1rem] text-center">
+            <span className="font-semibold text-[1.3rem] text-center">
               {DownloadText}
             </span>
           </AnimateComponent>

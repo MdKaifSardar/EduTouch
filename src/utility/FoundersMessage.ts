@@ -8,7 +8,9 @@ const FoundersMessagePara = [
   "At EDUTOUCH, we're committed to helping students achieve improved test scores, increased confidence, and a stronger foundation for future success. Our community is built on the principles of excellence, innovation, and integrity.",
 
   "I invite you to join our community and experience the EDUTOUCH difference. Take the first step towards unlocking your potential – enroll with us today!",
+];
 
+const FoundersMessageLastPara = [
   "Sincerely,",
   "S N MANDAL",
   "Founder & Director, EDUTOUCH",
@@ -20,4 +22,4 @@ const founder = {
   status: "(Founder & Director- EDUTOUCH) ",
 };
 
-export { FoundersMessagePara, FoundersMessageImage, founder };
+export { FoundersMessageLastPara, FoundersMessagePara, FoundersMessageImage, founder };

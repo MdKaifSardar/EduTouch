@@ -8,7 +8,7 @@ import { HumanWithTele } from "@/utility/WhyChooseUs";
 
 const FutureAims = () => {
   return (
-    <div className="relative w-full flex gap-[2rem] flex-col justify-center items-center">
+    <div className="relative w-full flex gap-[1rem] flex-col justify-center items-center">
       <AboutHeading text="Our Future Aims" />
       <AnimateComponent duration={0.5} delay={0}>
         <div className="flex flex-col justify-center text-lg items-center gap-[1.3rem] ">

@@ -55,7 +55,7 @@ const OurTeachers = () => {
   };
 
   return (
-    <div className="py-[5rem] w-full flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
+    <div className="py-[1rem] w-full flex flex-col justify-center items-center gap-[1rem] overflow-hidden">
       <AboutHeading text="Our Teachers" />
       {loading && <LoadingSpinner text="Loading Teachers" />}
       {/* Display loading message */}

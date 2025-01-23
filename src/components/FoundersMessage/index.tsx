@@ -1,4 +1,8 @@
-import { founder, FoundersMessagePara } from "@/utility/FoundersMessage";
+import {
+  founder,
+  FoundersMessageLastPara,
+  FoundersMessagePara,
+} from "@/utility/FoundersMessage";
 import Image from "next/image";
 import React from "react";
 import AnimateComponent from "../AnimateComponent";
@@ -6,9 +10,9 @@ import AnimateHorizontal from "../AnimateHorizontal";
 
 const FoundersMessage = () => {
   return (
-    <div className="w-full flex flex-col gap-[2rem] justify-center py-[5rem] items-center">
+    <div className="w-full flex flex-col gap-[1rem] justify-center py-[1rem] items-center">
       <AnimateComponent duration={0.5} delay={0}>
-        <div className="bg-[#182c6f] py-3 px-6 rounded-full text-center  text-white ml-auto mr-auto w-fit text-4xl">
+        <div className="uppercase font-semibold bg-[#182c6f] py-3 px-6 rounded-full text-center  text-white ml-auto mr-auto w-fit text-4xl">
           Founder’s Message
         </div>
       </AnimateComponent>
@@ -28,12 +32,21 @@ const FoundersMessage = () => {
         </div>
       </div>
       <div className="flex w-full flex-col lg:flex-row justify-between items-start">
-        <div className="flex flex-col justify-center items-center gap-[2rem] w-[100%] lg:w-[60%]">
+        <div className="flex flex-col justify-center items-center gap-[.5rem] w-[100%] lg:w-[60%]">
           <AnimateHorizontal direction="right" duration={0.5} delay={0}>
             {FoundersMessagePara.map((para, index) => (
               <div
                 key={index}
-                className="leading-tight text-left font-sans text-lg lg:text-xl"
+                className="leading-tight text-center lg:text-left font-sans text-lg lg:text-xl"
+              >
+                {para}
+              </div>
+            ))}
+            <div className="h-[1rem] w-0" />
+            {FoundersMessageLastPara.map((para, index) => (
+              <div
+                key={index}
+                className="leading-tight text-center lg:text-left font-sans text-lg lg:text-xl"
               >
                 {para}
               </div>

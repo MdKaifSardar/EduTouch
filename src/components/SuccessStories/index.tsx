@@ -55,7 +55,7 @@ const SuccessStories = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
+    <div className="w-full flex flex-col justify-center items-center gap-[1rem] overflow-hidden">
       <AboutHeading text="Success Stories" />
 
       {loading &&  <LoadingSpinner text="Loading Success Stories"/>}

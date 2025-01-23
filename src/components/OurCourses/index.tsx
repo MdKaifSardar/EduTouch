@@ -33,8 +33,8 @@ const OurCourses = () => {
   }, [fetchCourses]);
 
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-[2rem]">
-      <div className="text-5xl text-center w-full">Our Courses</div>
+    <div className="w-full flex flex-col justify-center items-center gap-[1rem]">
+      <div className="text-5xl font-semibold text-center w-full">Our Courses</div>
 
       {loading && <LoadingSpinner text="Loading Courses" />}
 

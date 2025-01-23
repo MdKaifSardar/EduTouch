@@ -68,7 +68,7 @@ const Carousel: React.FC = () => {
   return (
     <div className="w-full flex flex-col justify-center items-center gap-[2rem] overflow-hidden">
       {/* Show loading state */}
-      <AboutHeading text="Key Offerings" />
+      <AboutHeading text="Admission Open" />
       {loading && <LoadingSpinner text="Loading Key Offerings"/>}
 
       {/* Carousel */}

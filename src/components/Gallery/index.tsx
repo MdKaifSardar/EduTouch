@@ -15,7 +15,7 @@ const Gallery = () => {
   }, [fetchGalleryItems]);
 
   return (
-    <div className="w-full flex gap-[2rem] flex-col justify-center items-center">
+    <div className="w-full flex gap-[1rem] flex-col justify-center items-center">
       <AboutHeading text="Gallery" />
       {loading && <LoadingSpinner text="Loading Gallery" />}
       <div className="w-full h-fit grid gap-[.5rem] md:gap-[1rem] grid-cols-2 lg:grid-cols-4 grid-rows-auto">
