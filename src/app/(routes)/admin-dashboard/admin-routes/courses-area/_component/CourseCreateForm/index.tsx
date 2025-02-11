@@ -19,6 +19,27 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
   const [courseDuration, setCourseDuration] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [pdf, setPdf] = useState<File | null>(null);
+
+  const handlePDFChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 1000000) {
+      // Check if file size is less than 1MB
+      toast.error("PDF size must be less than 1MB.");
+      e.target.value = "";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      // Ensure only PDF files are uploaded
+      toast.error("Only PDF files are allowed.");
+      e.target.value = "";
+      return;
+    }
+    setPdf(file);
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -61,6 +82,10 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
     formData.append("courseDuration", courseDuration);
     formData.append("image", image);
 
+    if (pdf) {
+      formData.append("pdf", pdf);
+    }
+
     try {
       const response = await fetch("/api/course/course-create", {
         method: "POST",
@@ -78,6 +103,7 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
         setCourseDuration("");
         setImage(null);
         setImagePreview(null);
+        setPdf(null);
       } else {
         toast.error(result?.error || "An unexpected error occurred.");
       }
@@ -173,6 +199,18 @@ const CourseCreateForm: React.FC<CourseCreateFormProps> = ({
             />
           </div>
         )}
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Course PDF (must be less than 1MB & in PDF format)
+        </label>
+        <input
+          type="file"
+          accept="application/pdf"
+          onChange={(e) => handlePDFChange(e)}
+          className="mt-1"
+          required
+        />
       </div>
       <div className="text-center">
         <button

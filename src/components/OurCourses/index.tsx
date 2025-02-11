@@ -1,25 +1,25 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useFetchCourses } from "@/hooks/DisplayAllCourses";
 import Image from "next/image";
-import CoursePopup from "./CoursePopup";
+// import CoursePopup from "./CoursePopup";
 import Link from "next/link";
 import LoadingSpinner from "../LoadingSpinner";
 
-interface Course {
-  _id: string;
-  courseName: string;
-  courseHighlights: string;
-  courseSyllabus: string;
-  courseDescription: string;
-  courseDuration: string;
-  image: string;
-}
+// interface Course {
+//   _id: string;
+//   courseName: string;
+//   courseHighlights: string;
+//   courseSyllabus: string;
+//   courseDescription: string;
+//   courseDuration: string;
+//   image: string;
+// }
 
 const OurCourses = () => {
   const { courses, fetchCourses, loading } = useFetchCourses();
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  // const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   const truncateText = (text: string, wordLimit: number): string => {
     const words = text.split(" ");
@@ -34,7 +34,9 @@ const OurCourses = () => {
 
   return (
     <div className="w-full flex flex-col justify-center items-center gap-[1rem]">
-      <div className="text-5xl font-semibold text-center w-full">Our Courses</div>
+      <div className="text-5xl font-semibold text-center w-full">
+        Our Courses
+      </div>
 
       {loading && <LoadingSpinner text="Loading Courses" />}
 
@@ -51,15 +53,22 @@ const OurCourses = () => {
                     <span className="text-left text-xl md:text-3xl font-semibold">
                       {course.courseName}
                     </span>
-                    <button
+                    <a
+                      href={`/api/course/course-download?id=${course._id}`}
+                      className="underline text-left text-lg font-normal text-blue-600 hover:text-blue-800"
+                      download="gk.pdf"
+                    >
+                      View Course Curriculum
+                    </a>
+                    {/* <button
                       onClick={() => setSelectedCourse(course)}
                       className="underline text-left text-lg font-normal text-blue-600 hover:text-blue-800"
                     >
                       View Course Curriculum
-                    </button>
-                    <span className="text-left text-lg font-semibold">
-                      <span className="underline">Course Time:</span>{" "}
-                      {course.courseDuration}
+                    </button> */}
+                    <span className="w-full flex flex-row justify-start gap-[.3rem] items-center">
+                      <span className="text-left text-md font-semibold underline">Course Duration:</span>
+                      <span className="text-md">{course.courseDuration}</span>
                     </span>
                   </div>
                   <p className="leading-none text-lg text-left">
@@ -81,7 +90,7 @@ const OurCourses = () => {
                     target="_blank"
                     rel="noopener noreferrer" // Adds security when using target="_blank"
                   >
-                    Learn More
+                    Join Now
                   </Link>
                 </div>
               </div>
@@ -90,7 +99,7 @@ const OurCourses = () => {
       )}
 
       {/* Render the popup if a course is selected */}
-      {selectedCourse && (
+      {/* {selectedCourse && (
         <CoursePopup
           courseName={selectedCourse.courseName}
           courseDescription={selectedCourse.courseDescription}
@@ -98,7 +107,7 @@ const OurCourses = () => {
           courseSyllabus={selectedCourse.courseSyllabus}
           onClose={() => setSelectedCourse(null)}
         />
-      )}
+      )} */}
     </div>
   );
 };

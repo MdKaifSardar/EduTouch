@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 interface ITestimonial {
   _id: string;
   studentName: string;
-  rank: string;
+  // rank: string;
   examName: string;
   testimonial: string;
   image: string; // URL or path of the student image
@@ -22,7 +22,7 @@ interface EditFormProps {
 
 const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
   const [studentName, setStudentName] = useState(item.studentName);
-  const [rank, setRank] = useState(item.rank);
+  // const [rank, setRank] = useState(item.rank);
   const [examName, setExamName] = useState(item.examName);
   const [testimonial, setTestimonial] = useState(item.testimonial);
   const [image, setImage] = useState<File | null>(null);
@@ -59,7 +59,7 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
     const formData = new FormData();
     formData.append("id", item._id);
     if (studentName) formData.append("studentName", studentName);
-    if (rank) formData.append("rank", rank);
+    // if (rank) formData.append("rank", rank);
     if (examName) formData.append("examName", examName);
     if (testimonial) formData.append("testimonial", testimonial);
     if (image) formData.append("image", image);
@@ -100,7 +100,7 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           className="mt-1 p-2 border rounded-md w-full"
         />
       </div>
-      <div>
+      {/* <div>
         <label className="block text-sm font-medium text-gray-700">Rank</label>
         <input
           type="text"
@@ -108,7 +108,7 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           onChange={(e) => setRank(e.target.value)}
           className="mt-1 p-2 border rounded-md w-full"
         />
-      </div>
+      </div> */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Exam Name

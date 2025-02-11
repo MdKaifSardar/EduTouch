@@ -8,6 +8,7 @@ export interface ICourse extends Document {
   courseDescription: string;
   courseDuration: string;
   image: string; // Store the image as a binary buffer
+  pdf: Buffer;
 }
 
 const CourseSchema = new mongoose.Schema<ICourse>({
@@ -17,6 +18,7 @@ const CourseSchema = new mongoose.Schema<ICourse>({
   courseDescription: { type: String, required: true },
   courseDuration: { type: String, required: true },
   image: { type: String, required: true }, // Image stored as binary data
+  pdf: { type: Buffer, required: true },
 });
 
 // Ensure the Course model has proper types with mongoose.Model

@@ -17,6 +17,10 @@ const CreateExam: React.FC<CreateExamProps> = ({ onExamCreated }) => {
   const [examDate, setExamDate] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [pdf, setPdf] = useState<File | null>(null);
+  const [qualifications, setQualifications] = useState("");
+  const [selectionProcess, setSelectionProcess] = useState("");
+  const [formFillUpDate, setFormFillUpDate] = useState("");
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -43,6 +47,26 @@ const CreateExam: React.FC<CreateExamProps> = ({ onExamCreated }) => {
     setImage(file);
   };
 
+  const handlePDFChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 1000000) {
+      // Check if file size is less than 1MB
+      toast.error("PDF size must be less than 1MB.");
+      e.target.value = "";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      // Ensure only PDF files are uploaded
+      toast.error("Only PDF files are allowed.");
+      e.target.value = "";
+      return;
+    }
+    setPdf(file);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -58,6 +82,12 @@ const CreateExam: React.FC<CreateExamProps> = ({ onExamCreated }) => {
     formData.append("description", description);
     formData.append("examDate", examDate);
     formData.append("image", image);
+    if (pdf) {
+      formData.append("pdf", pdf);
+    }
+    formData.append("qualifications", qualifications);
+    formData.append("selectionProcess", selectionProcess);
+    formData.append("formFillUpDate", formFillUpDate);
 
     try {
       const response = await fetch("/api/exam/exam-create", {
@@ -76,6 +106,10 @@ const CreateExam: React.FC<CreateExamProps> = ({ onExamCreated }) => {
         setExamDate("");
         setImage(null);
         setImagePreview(null);
+        setPdf(null);
+        setQualifications("");
+        setSelectionProcess("");
+        setFormFillUpDate("");
       } else {
         toast.error(result?.error || "An unexpected error occurred.");
       }
@@ -104,6 +138,45 @@ const CreateExam: React.FC<CreateExamProps> = ({ onExamCreated }) => {
       </div>
       <div>
         <label className="block text-sm font-medium text-gray-700">
+          Qualifications
+        </label>
+        <input
+          type="text"
+          value={qualifications}
+          onChange={(e) => setQualifications(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Form Fill-Up Date
+        </label>
+        <input
+          type="date"
+          value={formFillUpDate}
+          onChange={(e) => setFormFillUpDate(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Selection Process
+        </label>
+        <textarea
+          value={selectionProcess}
+          onChange={(e) => setSelectionProcess(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          rows={3}
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
           Official Site Link
         </label>
         <input
@@ -114,44 +187,23 @@ const CreateExam: React.FC<CreateExamProps> = ({ onExamCreated }) => {
           required
         />
       </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Course Syllabus
-        </label>
-        <textarea
-          value={courseSyllabus}
-          onChange={(e) => setCourseSyllabus(e.target.value)}
-          className="mt-1 p-2 border rounded-md w-full"
-          rows={3}
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Description
-        </label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="mt-1 p-2 border rounded-md w-full"
-          rows={3}
-          required
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Exam Date
+          Exam PDF (must be less than 1MB & in PDF format)
         </label>
         <input
-          type="date"
-          value={examDate}
-          onChange={(e) => setExamDate(e.target.value)}
-          className="mt-1 p-2 border rounded-md w-full"
+          type="file"
+          accept="application/pdf"
+          onChange={(e) => handlePDFChange(e)}
+          className="mt-1"
+          required
         />
       </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Upload Logo Image (JPG, JPEG, PNG only, max 100KB)
+          Upload Exam Logo Image (JPG, JPEG, PNG only, max 100KB)
         </label>
         <input
           type="file"
@@ -171,6 +223,44 @@ const CreateExam: React.FC<CreateExamProps> = ({ onExamCreated }) => {
           </div>
         )}
       </div>
+
+      {/* <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Course Syllabus
+        </label>
+        <textarea
+          value={courseSyllabus}
+          onChange={(e) => setCourseSyllabus(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          rows={3}
+          required
+        />
+      </div> */}
+
+      {/* <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Description
+        </label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          rows={3}
+          required
+        />
+      </div> */}
+
+      {/* <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Exam Date
+        </label>
+        <input
+          type="date"
+          value={examDate}
+          onChange={(e) => setExamDate(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+        />
+      </div> */}
       <div className="text-center">
         <button
           type="submit"

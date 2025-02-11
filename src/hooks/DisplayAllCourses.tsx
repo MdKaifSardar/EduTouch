@@ -8,8 +8,10 @@ interface Course {
   courseSyllabus: string;
   courseDescription: string;
   courseDuration: string;
-  image: string; // Store the image as a binary buffer
+  image: string; // Assuming the backend sends a URL or base64 string
+  // pdf: string; // Assuming PDF is sent as a base64 string or URL
 }
+
 export const useFetchCourses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -21,7 +23,6 @@ export const useFetchCourses = () => {
       const { courses } = await response.json();
       setCourses(courses);
     } catch (error) {
-      setLoading(false);
       console.error("Failed to fetch courses:", error);
       toast.error("Failed to fetch courses.");
     } finally {

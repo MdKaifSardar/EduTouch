@@ -13,7 +13,7 @@ const TestimonialCreateForm: React.FC<TestimonialCreateFormProps> = ({
   onTestimonialCreated,
 }) => {
   const [studentName, setStudentName] = useState("");
-  const [rank, setRank] = useState("");
+  // const [rank, setRank] = useState("");
   const [examName, setExamName] = useState("");
   const [testimonial, setTestimonial] = useState("");
   const [image, setImage] = useState<File | null>(null);
@@ -54,7 +54,7 @@ const TestimonialCreateForm: React.FC<TestimonialCreateFormProps> = ({
 
     const formData = new FormData();
     formData.append("studentName", studentName);
-    formData.append("rank", rank);
+    // formData.append("rank", rank);
     formData.append("examName", examName);
     formData.append("testimonial", testimonial);
     formData.append("image", image);
@@ -70,7 +70,7 @@ const TestimonialCreateForm: React.FC<TestimonialCreateFormProps> = ({
         toast.success("Testimonial created successfully.");
         onTestimonialCreated(); // Notify parent component
         setStudentName("");
-        setRank("");
+        // setRank("");
         setExamName("");
         setTestimonial("");
         setImage(null);
@@ -101,7 +101,7 @@ const TestimonialCreateForm: React.FC<TestimonialCreateFormProps> = ({
           required
         />
       </div>
-      <div>
+      {/* <div>
         <label className="block text-sm font-medium text-gray-700">Rank</label>
         <input
           type="text"
@@ -110,7 +110,7 @@ const TestimonialCreateForm: React.FC<TestimonialCreateFormProps> = ({
           className="mt-1 p-2 border rounded-md w-full"
           required
         />
-      </div>
+      </div> */}
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Exam Name

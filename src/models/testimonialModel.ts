@@ -3,7 +3,7 @@ import mongoose, { Document, Model } from "mongoose";
 // Define the Testimonial schema interface
 export interface ITestimonial extends Document {
   studentName: string;
-  rank: string;
+  // rank: string;
   examName: string;
   testimonial: string;
   image: string; // URL or path for student image
@@ -13,7 +13,7 @@ export interface ITestimonial extends Document {
 const testimonialSchema = new mongoose.Schema<ITestimonial>(
   {
     studentName: { type: String, required: true },
-    rank: { type: String, required: true },
+    // rank: { type: String, required: true },
     examName: { type: String, required: true },
     testimonial: { type: String, required: true },
     image: { type: String, required: true }, // URL or path of the student image (jpeg, jpg, png)

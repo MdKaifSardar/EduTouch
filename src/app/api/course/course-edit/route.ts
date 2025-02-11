@@ -38,7 +38,8 @@ export const PATCH = async (req: Request) => {
     const courseDescription = formData.get("courseDescription") as
       | string
       | null;
-    const image = formData.get("image") as File;
+    const image = formData.get("image") as File | null;
+    const pdfFile = formData.get("pdf") as File | null;
 
     let bannerBuffer = undefined;
     if (image) {
@@ -58,6 +59,7 @@ export const PATCH = async (req: Request) => {
 
       // Upload the new image to Cloudinary
       const bannerBase64 = Buffer.from(bannerBuffer).toString("base64");
+      if (!image) throw new Error("Image is required at this point");
       const cloudinaryResponse = await cloudinary.uploader.upload(
         `data:${image.type};base64,${bannerBase64}`,
         {
@@ -69,6 +71,11 @@ export const PATCH = async (req: Request) => {
       updatedImageUrl = cloudinaryResponse.secure_url;
     }
 
+    let pdfBuffer = undefined;
+    if (pdfFile) {
+      pdfBuffer = await pdfFile.arrayBuffer();
+    }
+
     // Build the update object dynamically
     interface UpdateFields {
       courseName?: string;
@@ -77,6 +84,7 @@ export const PATCH = async (req: Request) => {
       courseDescription?: string;
       courseDuration?: string;
       image?: string;
+      pdf?: Buffer; // Store PDF as a buffer in MongoDB
     }
 
     const updateFields: UpdateFields = {};
@@ -86,12 +94,15 @@ export const PATCH = async (req: Request) => {
     if (courseDescription) updateFields.courseDescription = courseDescription;
     if (courseDuration) updateFields.courseDuration = courseDuration;
     if (updatedImageUrl) updateFields.image = updatedImageUrl;
+    if (pdfBuffer) updateFields.pdf = Buffer.from(pdfBuffer);
 
     // Update the course
     const updatedCourse = await CourseModel.findByIdAndUpdate(
       id,
       updateFields,
-      { new: true }
+      {
+        new: true,
+      }
     );
 
     if (!updatedCourse) {

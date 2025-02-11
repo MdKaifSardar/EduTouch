@@ -61,7 +61,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="w-full lg:w-[50%] mx-auto p-6 bg-white shadow-md rounded-md">
+    <div id="contactForm" className="w-full lg:w-[50%] mx-auto p-6 bg-white shadow-md rounded-md">
       <h2 className="text-xl font-bold mb-4">Contact Form</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

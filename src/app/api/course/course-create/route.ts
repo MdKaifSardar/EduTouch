@@ -23,6 +23,7 @@ export const POST = async (req: Request) => {
       | string
       | null;
     const image = formData.get("image") as File | null;
+    const pdfFile = formData.get("pdf") as File | null;
 
     if (
       !courseName ||
@@ -30,7 +31,8 @@ export const POST = async (req: Request) => {
       !courseSyllabus ||
       !courseDescription ||
       !courseDuration ||
-      !image
+      !image ||
+      !pdfFile
     ) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -38,30 +40,35 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Convert the uploaded file to a buffer
-    const bannerBuffer = await image.arrayBuffer();
-    const bannerBase64 = Buffer.from(bannerBuffer).toString("base64");
+    // Convert image to base64
+    const imageBuffer = await image.arrayBuffer();
+    const imageBase64 = Buffer.from(imageBuffer).toString("base64");
 
-    // Upload the file to Cloudinary
+    // Upload image to Cloudinary
     const cloudinaryResponse = await cloudinary.uploader.upload(
-      `data:${image.type};base64,${bannerBase64}`,
+      `data:${image.type};base64,${imageBase64}`,
       {
-        folder: "courses", // Optional: Folder in Cloudinary for organization
+        folder: "courses",
         resource_type: "image",
       }
     );
 
-    // Save the Cloudinary URL to the database
+    // Convert PDF to Buffer
+    const pdfBuffer = await pdfFile.arrayBuffer();
+
+    // Save to the database
     const newCourse = new CourseModel({
       courseName,
       courseHighlights,
       courseSyllabus,
       courseDescription,
       courseDuration,
-      image: cloudinaryResponse.secure_url, // URL returned by Cloudinary
+      image: cloudinaryResponse.secure_url, // Image URL from Cloudinary
+      pdf: Buffer.from(pdfBuffer), // Store PDF as a buffer
     });
 
     await newCourse.save();
+
     return NextResponse.json({
       message: "Course added successfully",
       course: newCourse,

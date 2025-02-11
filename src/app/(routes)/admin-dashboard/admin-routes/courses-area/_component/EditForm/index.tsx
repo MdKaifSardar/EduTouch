@@ -33,6 +33,7 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
   const [courseDuration, setCourseDuration] = useState(item.courseDuration);
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [pdf, setPdf] = useState<File | null>(null);
 
   useEffect(() => {
     setCourseName(item.courseName);
@@ -82,6 +83,10 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
       formData.append("image", image);
     }
 
+    if (pdf) {
+      formData.append("pdf", pdf);
+    }
+
     try {
       const response = await fetch(`/api/course/course-edit`, {
         method: "PATCH",
@@ -100,6 +105,26 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
       console.error("Error during update:", error);
       toast.error("Network error, please try again later.");
     }
+  };
+
+  const handlePDFChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 1000000) {
+      // Check if file size is less than 1MB
+      toast.error("PDF size must be less than 1MB.");
+      e.target.value = "";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      // Ensure only PDF files are uploaded
+      toast.error("Only PDF files are allowed.");
+      e.target.value = "";
+      return;
+    }
+    setPdf(file);
   };
 
   return (
@@ -189,6 +214,26 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
             src={item.image}
           />
         )}
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Course PDF (must be less than 1MB & in PDF format)
+        </label>
+        <input
+          type="file"
+          accept="application/pdf"
+          onChange={(e) => handlePDFChange(e)}
+          className="mt-1"
+        />
+      </div>
+      <div className="mt-2">
+        <a
+          href={`/api/course/course-download?id=${item._id}`}
+          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          download="gk.pdf"
+        >
+          Download Course PDF
+        </a>
       </div>
       <div className="text-center">
         <button

@@ -17,12 +17,10 @@ const EnrollButtons = () => {
   return (
     <div className="flex flex-col md:flex-row justify-center items-center gap-[1rem] md:gap-[2rem] w-full">
       <Link
-        href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/#videoLessons"
         className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
       >
-        Schedule a Demo Class
+        Demo Class
       </Link>
       <button
         onClick={handleEnrollNowClick}
@@ -31,9 +29,7 @@ const EnrollButtons = () => {
         Enroll Now
       </button>
       <Link
-        href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
-        target="_blank"
-        rel="noopener noreferrer"
+        href="/contact#contactForm"
         className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
       >
         Book a Consultation

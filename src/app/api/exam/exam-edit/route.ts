@@ -24,21 +24,23 @@ export const PATCH = async (req: Request) => {
       );
     }
 
-    // Extract other fields from form data
+    // Extract allowed fields from form data
     const examName = formData.get("examName") as string | null;
     const officialSiteLink = formData.get("officialSiteLink") as string | null;
-    const courseSyllabus = formData.get("courseSyllabus") as string | null;
-    const description = formData.get("description") as string | null;
-    const examDate = formData.get("examDate") as string | null;
+    const qualifications = formData.get("qualifications") as string | null;
+    const selectionProcess = formData.get("selectionProcess") as string | null;
+    const formFillUpDate = formData.get("formFillUpDate") as string | null;
     const imageFile = formData.get("image") as File | null;
+    const pdfFile = formData.get("pdf") as File | null;
 
     if (
       !examName &&
       !officialSiteLink &&
-      !courseSyllabus &&
-      !description &&
-      !examDate &&
-      !imageFile
+      !qualifications &&
+      !selectionProcess &&
+      !formFillUpDate &&
+      !imageFile &&
+      !pdfFile
     ) {
       return NextResponse.json(
         { error: "No fields to update provided." },
@@ -54,7 +56,7 @@ export const PATCH = async (req: Request) => {
 
     let imageUrl = undefined;
     if (imageFile) {
-      // Use the hook to delete the existing image
+      // Delete the existing image from Cloudinary
       if (existingExam.image) {
         try {
           const isDeleted = await deleteImageFromCloudinary(existingExam.image);
@@ -75,7 +77,7 @@ export const PATCH = async (req: Request) => {
       const cloudinaryResponse = await cloudinary.uploader.upload(
         `data:${imageFile.type};base64,${imageBase64}`,
         {
-          folder: "exams", // Optional: Folder in Cloudinary for organization
+          folder: "exams",
           resource_type: "image",
         }
       );
@@ -83,24 +85,32 @@ export const PATCH = async (req: Request) => {
       imageUrl = cloudinaryResponse.secure_url;
     }
 
+    let pdfBuffer = undefined;
+    if (pdfFile) {
+      // Convert the PDF file to a buffer and store it in MongoDB
+      pdfBuffer = await pdfFile.arrayBuffer();
+    }
+
     // Dynamically build the update object to only include provided fields
     interface UpdateFields {
       examName?: string;
       officialSiteLink?: string;
-      courseSyllabus?: string;
-      description?: string;
-      examDate?: string | Date; // Assuming examDate is a string or Date
-      image?: string; // Image URL from Cloudinary
+      image?: string;
+      pdf?: Buffer; // Store PDF as a buffer in MongoDB
+      qualifications?: string;
+      selectionProcess?: string;
+      formFillUpDate?: Date;
     }
 
     const updateFields: UpdateFields = {};
 
     if (examName) updateFields.examName = examName;
     if (officialSiteLink) updateFields.officialSiteLink = officialSiteLink;
-    if (courseSyllabus) updateFields.courseSyllabus = courseSyllabus;
-    if (description) updateFields.description = description;
-    if (examDate) updateFields.examDate = examDate;
     if (imageUrl) updateFields.image = imageUrl;
+    if (pdfBuffer) updateFields.pdf = Buffer.from(pdfBuffer);
+    if (qualifications) updateFields.qualifications = qualifications;
+    if (selectionProcess) updateFields.selectionProcess = selectionProcess;
+    if (formFillUpDate) updateFields.formFillUpDate = new Date(formFillUpDate);
 
     // Partially update the exam by ID
     const updatedExam = await ExamModel.findByIdAndUpdate(id, updateFields, {

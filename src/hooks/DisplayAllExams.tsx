@@ -9,6 +9,10 @@ interface Exam {
   description: string;
   examDate: string;
   image: string; // URL or path of the logo
+  qualifications: string;
+  selectionProcess: string;
+  formFillUpDate: string; // Converted Date to string for JSON compatibility
+  // pdf: string; // Assuming PDF is sent as a base64 string or URL
 }
 
 export const useFetchExams = () => {

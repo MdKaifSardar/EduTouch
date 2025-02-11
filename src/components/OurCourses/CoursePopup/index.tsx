@@ -22,7 +22,7 @@ const CoursePopup: React.FC<CoursePopupProps> = ({
     text.split(",").map((item) => item.trim());
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex w-full justify-center items-end z-50 lg:items-center">
+    <div className="inset-0 fixed bg-black bg-opacity-50 flex w-full justify-center items-end z-50 lg:items-center">
       <div className="relative bg-gradient-to-b bg-opacity-100 from-[rgba(255,198,116,1)] via-[rgba(255,198,116,1)] to-white md:rounded-lg px-[1rem] md:px-[4rem] py-[1rem] md:py-[2rem] flex flex-col gap-2 h-auto w-full lg:w-[70%] 2xl:w-[50%] rounded-t-2xl overflow-y-auto">
         <button
           className="absolute top-[1rem] right-[1rem] z-[10] text-md font-bold flex items-center justify-center w-6 h-6 bg-gray-200 rounded-full hover:bg-gray-300"

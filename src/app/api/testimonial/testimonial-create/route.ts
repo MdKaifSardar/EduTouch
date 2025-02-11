@@ -17,12 +17,12 @@ export const POST = async (req: Request) => {
     const formData = await req.formData();
 
     const studentName = formData.get("studentName") as string | null;
-    const rank = formData.get("rank") as string | null;
+    // const rank = formData.get("rank") as string | null;
     const examName = formData.get("examName") as string | null;
     const testimonial = formData.get("testimonial") as string | null;
     const image = formData.get("image") as File | null;
 
-    if (!studentName || !rank || !examName || !testimonial || !image) {
+    if (!studentName || !examName || !testimonial || !image) {
       return NextResponse.json(
         { error: "All fields are required" },
         { status: 400 }
@@ -34,7 +34,7 @@ export const POST = async (req: Request) => {
 
     const newTestimonial = new TestimonialModel({
       studentName,
-      rank,
+      // rank,
       examName,
       testimonial,
       image: imageUrl, // Using Cloudinary image URL

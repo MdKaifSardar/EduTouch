@@ -26,12 +26,12 @@ export const PATCH = async (req: Request) => {
 
     // Extract fields from form data
     const studentName = formData.get("studentName") as string | null;
-    const rank = formData.get("rank") as string | null;
+    // const rank = formData.get("rank") as string | null;
     const examName = formData.get("examName") as string | null;
     const testimonial = formData.get("testimonial") as string | null;
     const image = formData.get("image") as File | null; // Handle file uploads
 
-    if (!studentName && !rank && !examName && !testimonial && !image) {
+    if (!studentName && !examName && !testimonial && !image) {
       return NextResponse.json(
         { error: "No fields to update provided." },
         { status: 400 }
@@ -71,7 +71,7 @@ export const PATCH = async (req: Request) => {
     // Dynamically build the update object
     interface UpdateFields {
       studentName?: string;
-      rank?: string;
+      // rank?: string;
       examName?: string;
       testimonial?: string;
       image?: string;
@@ -80,7 +80,7 @@ export const PATCH = async (req: Request) => {
     const updateFields: UpdateFields = {};
 
     if (studentName) updateFields.studentName = studentName;
-    if (rank) updateFields.rank = rank;
+    // if (rank) updateFields.rank = rank;
     if (examName) updateFields.examName = examName;
     if (testimonial) updateFields.testimonial = testimonial;
     if (studentImageUrl) updateFields.image = studentImageUrl;

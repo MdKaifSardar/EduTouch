@@ -17,18 +17,20 @@ export const POST = async (req: Request) => {
 
     const examName = formData.get("examName") as string | null;
     const officialSiteLink = formData.get("officialSiteLink") as string | null;
-    const courseSyllabus = formData.get("courseSyllabus") as string | null;
-    const description = formData.get("description") as string | null;
-    const examDate = formData.get("examDate") as string | null;
+    const qualifications = formData.get("qualifications") as string | null;
+    const selectionProcess = formData.get("selectionProcess") as string | null;
+    const formFillUpDate = formData.get("formFillUpDate") as string | null;
     const imageFile = formData.get("image") as File | null;
+    const pdfFile = formData.get("pdf") as File | null;
 
     if (
       !examName ||
       !officialSiteLink ||
-      !courseSyllabus ||
-      !description ||
-      !examDate ||
-      !imageFile
+      !qualifications ||
+      !selectionProcess ||
+      !formFillUpDate ||
+      !imageFile ||
+      !pdfFile
     ) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -36,30 +38,33 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // Convert the uploaded file to a buffer
+    // Convert image to base64 and upload to Cloudinary
     const imageBuffer = await imageFile.arrayBuffer();
     const imageBase64 = Buffer.from(imageBuffer).toString("base64");
-
-    // Upload the file to Cloudinary
-    const cloudinaryResponse = await cloudinary.uploader.upload(
+    const imageUploadResponse = await cloudinary.uploader.upload(
       `data:${imageFile.type};base64,${imageBase64}`,
       {
-        folder: "exams", // Optional: Folder in Cloudinary for organization
+        folder: "exams",
         resource_type: "image",
       }
     );
 
-    // Save the Cloudinary URL to the database
+    // Convert PDF to Buffer
+    const pdfBuffer = await pdfFile.arrayBuffer();
+
+    // Save to the database
     const newExam = new ExamModel({
       examName,
       officialSiteLink,
-      courseSyllabus,
-      description,
-      examDate,
-      image: cloudinaryResponse.secure_url, // URL returned by Cloudinary
+      image: imageUploadResponse.secure_url,
+      qualifications,
+      selectionProcess,
+      formFillUpDate: new Date(formFillUpDate),
+      pdf: Buffer.from(pdfBuffer),
     });
 
     await newExam.save();
+
     return NextResponse.json({
       message: "Exam created successfully",
       exam: newExam,

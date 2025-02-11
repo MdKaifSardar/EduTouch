@@ -26,37 +26,55 @@ const ExamsComponent: React.FC = () => {
         //message new
         <LoadingSpinner text="Loading Exams" />
       ) : exams.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-auto w-[85%] md:w-[90%] h-fit gap-y-[2rem] gap-x-[2rem]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 grid-rows-auto w-[85%] md:w-[90%] lg:w-[75%] h-fit gap-y-[2rem] gap-x-[2rem]">
           {exams.map((exam) => (
             <div
               key={exam._id}
-              className="rounded-xl gap-[1rem] md:gap-[1rem] p-[1.5rem] flex flex-col justify-start items-start w-full h-full bg-[#D9D9D9FF]"
+              className="rounded-xl gap-[1rem] md:gap-[2rem] p-[1.5rem] flex flex-col justify-start items-start w-full h-full bg-[#D9D9D9FF]"
             >
-              <span className="w-full text-4xl font-semibold font-sans text-center">
-                {exam.examName}
+              <span className="w-full text-3xl font-semibold font-sans text-center">
+                Exam Name: {exam.examName}
               </span>
+
               <div className="w-full h-fit flex flex-col justify-center items-start">
-                <span className="text-xl">
-                  Date: <strong>{exam.examDate}</strong>
-                </span>
-                <Link
-                  href={exam.officialSiteLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 text-xl font-normal font-sans underline"
-                >
-                  Official Website
-                </Link>
-                <div className="pt-[.5rem] gap-[.5rem] flex flex-col justify-center items-start">
-                  <span className="text-xl font-semibold font-sans">
-                    Syllabus Covered:
-                  </span>
-                  <span className="font-normal pl-[.3rem]">
-                    {exam.courseSyllabus}
-                  </span>
+                <p className="text-lg font-bold">
+                  Qualification:{" "}
+                  <span className="font-normal">{exam.qualifications}</span>
+                </p>
+                <p className="text-lg font-bold">
+                  Form Fill Up Date:{" "}
+                  <span className="font-normal">{exam.formFillUpDate}</span>
+                </p>
+                <p className="text-lg font-bold">
+                  Selection Process:{" "}
+                  <span className="font-normal">{exam.selectionProcess}</span>
+                </p>
+                <p className="text-lg font-bold">
+                  Official Website Link:{" "}
+                  <Link
+                    href={exam.officialSiteLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-400 text-xl font-bold font-sans underline hover:text-blue-600 transition"
+                  >
+                    Visit
+                  </Link>
+                </p>
+
+                <div className="flex flex-row w-full justify-between items-center text-lg mt-3">
+                  <span className="font-bold">View Detailed Syllabus:</span>
+                  <a
+                    href={`/api/exam/exam-download?id=${exam._id}`}
+                    className="px-3 py-1 bg-blue-600 text-white border border-blue-500 rounded hover:bg-blue-500 hover:text-white transition"
+                    download="gk.pdf"
+                  >
+                    Download PDF
+                  </a>
                 </div>
-                <p className="pt-[.5rem]">{exam.description}</p>
+
+                {/* <p className="pt-2 text-gray-700">{exam.description}</p> */}
               </div>
+
               <div className="flex flex-row justify-between items-center w-full h-fit">
                 <button
                   onClick={() => setShowPopup(true)}

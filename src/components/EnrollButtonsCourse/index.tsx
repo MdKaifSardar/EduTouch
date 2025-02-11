@@ -4,18 +4,15 @@ import React from "react";
 const EnrollButtonsCourse = () => {
   return (
     <div className="flex flex-col md:flex-row justify-center items-center gap-[1rem] md:gap-[5rem] w-full">
+      {/* import Link from "next/link"; */}
       <Link
-        href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
-        target="_blank"
-        rel="noopener noreferrer" // Important for security reasons
+        href="/#videoLessons"
         className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
       >
-        Schedule a Demo Class
+        Demo Class
       </Link>
       <Link
-        href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
-        target="_blank"
-        rel="noopener noreferrer" // Important for security reasons
+        href="/contact#contactForm"
         className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
       >
         Book a Consultation

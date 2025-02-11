@@ -13,6 +13,11 @@ interface IExam {
   description: string;
   examDate: string;
   image: string; // URL or path of the logo
+  pdf?: string; // URL or path of the PDF
+  qualifications?: string;
+  selectionProcess?: string;
+  formFillUpDate?: string;
+  pdfDownloadLink?: { url: string }; // Add this line
 }
 
 interface EditFormProps {
@@ -31,6 +36,36 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
   const [examDate, setExamDate] = useState(item.examDate);
   const [image, setImage] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [pdf, setPdf] = useState<File | null>(null);
+  const [qualifications, setQualifications] = useState(
+    item.qualifications || ""
+  );
+  const [selectionProcess, setSelectionProcess] = useState(
+    item.selectionProcess || ""
+  );
+  const [formFillUpDate, setFormFillUpDate] = useState(
+    item.formFillUpDate || ""
+  );
+
+  const handlePDFChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 1000000) {
+      // Check if file size is less than 1MB
+      toast.error("PDF size must be less than 1MB.");
+      e.target.value = "";
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      // Ensure only PDF files are uploaded
+      toast.error("Only PDF files are allowed.");
+      e.target.value = "";
+      return;
+    }
+    setPdf(file);
+  };
 
   useEffect(() => {
     // Initialize form fields with `item` data
@@ -81,6 +116,13 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
       formData.append("image", image);
     }
 
+    if (pdf) {
+      formData.append("pdf", pdf);
+    }
+    formData.append("qualifications", qualifications);
+    formData.append("selectionProcess", selectionProcess);
+    formData.append("formFillUpDate", formFillUpDate);
+
     try {
       const response = await fetch(`/api/exam/exam-edit`, {
         method: "PATCH",
@@ -117,6 +159,43 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           className="mt-1 p-2 border rounded-md w-full"
         />
       </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Qualifications
+        </label>
+        <input
+          type="text"
+          value={qualifications}
+          onChange={(e) => setQualifications(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Form Fill-Up Date
+        </label>
+        <input
+          type="date"
+          value={formFillUpDate ? formFillUpDate.split("T")[0] : ""}
+          onChange={(e) => setFormFillUpDate(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Selection Process
+        </label>
+        <textarea
+          value={selectionProcess}
+          onChange={(e) => setSelectionProcess(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          rows={3}
+        />
+      </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Official Site Link
@@ -128,39 +207,29 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           className="mt-1 p-2 border rounded-md w-full"
         />
       </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">
-          Course Syllabus
+          Exam PDF (must be less than 1MB & in PDF format)
         </label>
         <input
-          type="text"
-          value={courseSyllabus}
-          onChange={(e) => setCourseSyllabus(e.target.value)}
-          className="mt-1 p-2 border rounded-md w-full"
+          type="file"
+          accept="application/pdf"
+          onChange={(e) => handlePDFChange(e)}
+          className="mt-1"
         />
       </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Description
-        </label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="mt-1 p-2 border rounded-md w-full"
-          rows={3}
-        />
+
+      <div className="mt-2">
+        <a
+          href={`/api/exam/exam-download?id=${item._id}`}
+          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          download="gk.pdf"
+        >
+          Download Exam Pdf
+        </a>
       </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Current Exam Date: {examDate ? examDate.split("T")[0] : ""}
-        </label>
-        <input
-          type="date"
-          value={examDate ? examDate.split("T")[0] : ""}
-          onChange={(e) => setExamDate(e.target.value)}
-          className="mt-1 p-2 border rounded-md w-full"
-        />
-      </div>
+
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Logo (JPEG, JPG, PNG only, max 100KB)
@@ -191,6 +260,43 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           />
         )}
       </div>
+
+      {/* <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Course Syllabus
+        </label>
+        <input
+          type="text"
+          value={courseSyllabus}
+          onChange={(e) => setCourseSyllabus(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+        />
+      </div> */}
+
+      {/* <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Description
+        </label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+          rows={3}
+        />
+      </div> */}
+
+      {/* <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Exam Date: {examDate ? examDate.split("T")[0] : ""}
+        </label>
+        <input
+          type="date"
+          value={examDate ? examDate.split("T")[0] : ""}
+          onChange={(e) => setExamDate(e.target.value)}
+          className="mt-1 p-2 border rounded-md w-full"
+        />
+      </div> */}
+
       <div className="text-center">
         <button
           type="submit"

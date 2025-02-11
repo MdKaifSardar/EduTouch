@@ -93,8 +93,8 @@ const SuccessStories = () => {
                     <span className="text-center">{stories.testimonial}</span>
                   </div>
                   <div className="underline flex justify-center items-center gap-2">
-                    <span className="text-center">Rank: {stories.rank}</span>
-                    <span>|</span>
+                    {/* <span className="text-center">Rank: {stories.rank}</span> */}
+                    {/* <span>|</span> */}
                     <span className="text-center">{stories.examName}</span>
                   </div>
                 </div>
