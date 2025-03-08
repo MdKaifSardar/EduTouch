@@ -18,19 +18,19 @@ const EnrollButtons = () => {
     <div className="flex flex-col md:flex-row justify-center items-center gap-[1rem] md:gap-[2rem] w-full">
       <Link
         href="/#videoLessons"
-        className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
+        className="shadow-lg hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
       >
         Demo Class
       </Link>
       <button
         onClick={handleEnrollNowClick}
-        className="hover:bg-blue-500 text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl bg-[#3554bb]"
+        className="shadow-lg hover:bg-blue-500 text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl bg-[#3554bb]"
       >
         Enroll Now
       </button>
       <Link
         href="/contact#contactForm"
-        className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
+        className="shadow-lg hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
       >
         Book a Consultation
       </Link>

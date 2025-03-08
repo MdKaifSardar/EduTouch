@@ -7,13 +7,13 @@ const EnrollButtonsCourse = () => {
       {/* import Link from "next/link"; */}
       <Link
         href="/#videoLessons"
-        className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
+        className="shadow-lg hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
       >
         Demo Class
       </Link>
       <Link
         href="/contact#contactForm"
-        className="hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
+        className="shadow-lg hover:bg-[#ffba52] bg-[#FF9700] text-white p-[1rem] rounded-lg text-center font-semibold font-sans text-xl"
       >
         Book a Consultation
       </Link>

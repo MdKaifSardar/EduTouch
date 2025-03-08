@@ -1,25 +1,14 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFetchCourses } from "@/hooks/DisplayAllCourses";
 import Image from "next/image";
-// import CoursePopup from "./CoursePopup";
 import Link from "next/link";
 import LoadingSpinner from "../LoadingSpinner";
 
-// interface Course {
-//   _id: string;
-//   courseName: string;
-//   courseHighlights: string;
-//   courseSyllabus: string;
-//   courseDescription: string;
-//   courseDuration: string;
-//   image: string;
-// }
-
 const OurCourses = () => {
   const { courses, fetchCourses, loading } = useFetchCourses();
-  // const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const truncateText = (text: string, wordLimit: number): string => {
     const words = text.split(" ");
@@ -32,6 +21,10 @@ const OurCourses = () => {
     fetchCourses();
   }, [fetchCourses]);
 
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <div className="w-full flex flex-col justify-center items-center gap-[1rem]">
       <div className="text-5xl font-semibold text-center w-full">
@@ -41,12 +34,12 @@ const OurCourses = () => {
       {loading && <LoadingSpinner text="Loading Courses" />}
 
       {!loading && (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-[2rem] grid-rows-auto w-[90%] md:w-[75%] h-fit">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-[3rem] grid-rows-auto w-[90%] md:w-[75%] h-fit">
           {courses &&
             courses.map((course) => (
               <div
                 key={course._id}
-                className="pl-[1rem] md:pl-[1rem] relative bg-[#ffe8ba] gap-[.3rem] sm:gap-[1rem] lg:gap-[2rem] rounded-lg w-full flex flex-row justify-between items-center"
+                className="shadow-lg pl-[1rem] md:pl-[1rem] relative bg-[#ffe8ba] gap-[.3rem] sm:gap-[1rem] lg:gap-[2rem] rounded-lg w-full flex flex-row justify-between items-center"
               >
                 <div className="py-[1rem] w-full flex flex-col gap-[1rem] justify-center items-start">
                   <div className="flex flex-col justify-start items-start">
@@ -60,15 +53,10 @@ const OurCourses = () => {
                     >
                       View Course Curriculum
                     </a>
-                    {/* <button
-                      onClick={() => setSelectedCourse(course)}
-                      className="underline text-left text-lg font-normal text-blue-600 hover:text-blue-800"
-                    >
-                      View Course Curriculum
-                    </button> */}
                     <span className="w-full flex flex-row justify-start gap-[.3rem] items-center">
-                      <span className="text-left text-md font-semibold underline">Course Duration:</span>
-                      <span className="text-md">{course.courseDuration}</span>
+                      <span className="text-left text-sm font-semibold">
+                        Course Duration: {course.courseDuration}
+                      </span>
                     </span>
                   </div>
                   <p className="leading-none text-lg text-left">
@@ -81,33 +69,51 @@ const OurCourses = () => {
                     alt={course.courseName}
                     width={300}
                     height={200}
-                    className="object-cover w-full h-[25rem] md:h-[20rem]"
+                    className="object-cover w-full h-[25rem] md:h-[30rem]"
                   />
 
-                  <Link
-                    href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN&pli=1"
+                  <button
+                    onClick={() => setShowPopup(true)}
                     className="absolute rounded-xl text-xl text-white hover:bg-blue-600 bg-[#3554bb] text-center p-2"
-                    target="_blank"
-                    rel="noopener noreferrer" // Adds security when using target="_blank"
                   >
                     Join Now
-                  </Link>
+                  </button>
                 </div>
               </div>
             ))}
         </div>
       )}
 
-      {/* Render the popup if a course is selected */}
-      {/* {selectedCourse && (
-        <CoursePopup
-          courseName={selectedCourse.courseName}
-          courseDescription={selectedCourse.courseDescription}
-          courseHighlights={selectedCourse.courseHighlights}
-          courseSyllabus={selectedCourse.courseSyllabus}
-          onClose={() => setSelectedCourse(null)}
-        />
-      )} */}
+      {/* Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-lg p-6 w-[90%] md:w-[30%] shadow-lg flex flex-col gap-4 relative">
+            <button
+              onClick={closePopup}
+              className="absolute top-2 right-2 text-2xl font-bold"
+            >
+              &times;
+            </button>
+            <p className="text-center">Choose your mode of enrollment:</p>
+            <div className="flex justify-around mt-4">
+              <Link
+                href="/contact"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded"
+              >
+                Offline
+              </Link>
+              <a
+                href="https://play.google.com/store/apps/details?id=co.thanos.arsgp&hl=en_IN"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded"
+              >
+                Online
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

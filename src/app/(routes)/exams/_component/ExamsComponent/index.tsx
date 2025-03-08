@@ -43,7 +43,9 @@ const ExamsComponent: React.FC = () => {
                 </p>
                 <p className="text-lg font-bold">
                   Form Fill Up Date:{" "}
-                  <span className="font-normal">{exam.formFillUpDate}</span>
+                  <span className="font-normal">
+                    {new Date(exam.formFillUpDate).toLocaleDateString()}
+                  </span>
                 </p>
                 <p className="text-lg font-bold">
                   Selection Process:{" "}
