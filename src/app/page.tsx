@@ -1,3 +1,4 @@
+import DisplayAllNotice from "@/components/DisplayAllNotice";
 import DownloadSec from "@/components/DownloadSec";
 import EnrollButtons from "@/components/EnrollButtons";
 import KeyOfferingsSec from "@/components/KeyOfferingsSec";
@@ -16,6 +17,7 @@ export default function Home() {
       <ImageCarousel />
       <div className="w-[95%] md:w-[85%] h-fit flex flex-col gap-[1rem] md:gap-[2rem] justify-center items-center">
         <DownloadSec />
+        <DisplayAllNotice />
         <StatsSec />
         <ServicesSec />
         <WhyChooseUsComp />
