@@ -16,7 +16,7 @@ interface IExam {
   pdf?: string; // URL or path of the PDF
   qualifications?: string;
   selectionProcess?: string;
-  formFillUpDate?: string;
+  formFillUpDate?: string; // Store as string
   pdfDownloadLink?: { url: string }; // Add this line
 }
 
@@ -177,8 +177,8 @@ const EditForm: React.FC<EditFormProps> = ({ item, onSuccess, onClose }) => {
           Form Fill-Up Date
         </label>
         <input
-          type="date"
-          value={formFillUpDate ? formFillUpDate.split("T")[0] : ""}
+          type="text"
+          value={formFillUpDate}
           onChange={(e) => setFormFillUpDate(e.target.value)}
           className="mt-1 p-2 border rounded-md w-full"
         />

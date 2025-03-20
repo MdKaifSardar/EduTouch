@@ -99,7 +99,7 @@ export const PATCH = async (req: Request) => {
       pdf?: Buffer; // Store PDF as a buffer in MongoDB
       qualifications?: string;
       selectionProcess?: string;
-      formFillUpDate?: Date;
+      formFillUpDate?: string; // Store as string
     }
 
     const updateFields: UpdateFields = {};
@@ -110,7 +110,7 @@ export const PATCH = async (req: Request) => {
     if (pdfBuffer) updateFields.pdf = Buffer.from(pdfBuffer);
     if (qualifications) updateFields.qualifications = qualifications;
     if (selectionProcess) updateFields.selectionProcess = selectionProcess;
-    if (formFillUpDate) updateFields.formFillUpDate = new Date(formFillUpDate);
+    if (formFillUpDate) updateFields.formFillUpDate = formFillUpDate;
 
     // Partially update the exam by ID
     const updatedExam = await ExamModel.findByIdAndUpdate(id, updateFields, {

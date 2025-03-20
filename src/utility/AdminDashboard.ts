@@ -40,6 +40,10 @@ const dashboardsFields = [
     url: "/admin-dashboard/admin-routes/feedback-area",
   },
   {
+    title: "Edit Notices",
+    url: "/admin-dashboard/admin-routes/notice-area",
+  },
+  {
     title: "Edit Login Credentials",
     url: "/admin-dashboard/admin-routes/accounts-area",
   },

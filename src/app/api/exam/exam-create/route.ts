@@ -59,7 +59,7 @@ export const POST = async (req: Request) => {
       image: imageUploadResponse.secure_url,
       qualifications,
       selectionProcess,
-      formFillUpDate: new Date(formFillUpDate),
+      formFillUpDate, // Store as string
       pdf: Buffer.from(pdfBuffer),
     });
 

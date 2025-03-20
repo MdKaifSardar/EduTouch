@@ -80,6 +80,7 @@ const DisplayExams = ({ reload }: DispPropTypes) => {
           >
             <div className="w-full flex flex-row justify-between items-center">
               <span>{item.examName}</span>
+              {/* <span>{item.formFillUpDate.toString()}</span> */}
               <div>
                 <button
                   onClick={() => handleEditClick(item._id)}

@@ -154,7 +154,7 @@ const CreateExam: React.FC<CreateExamProps> = ({ onExamCreated }) => {
           Form Fill-Up Date
         </label>
         <input
-          type="date"
+          type="text"
           value={formFillUpDate}
           onChange={(e) => setFormFillUpDate(e.target.value)}
           className="mt-1 p-2 border rounded-md w-full"
